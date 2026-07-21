@@ -850,6 +850,11 @@ if (Q.month_actions >= 1) {
     }
     if ((Q.socialism/100) < (1-Q.bourgeois_power)) {
         Q.socialism += Q.socialism/120;
+        console.log(
+        "Socialism growth condition fired.",
+        "socialism =", Q.socialism,
+        "bourgeois_power =", Q.bourgeois_power
+        );
     }
     if (Q.socialism <= (Q.spd_votes+Q.kpd_votes)) {
         if (!Q.sapd_formed || (Q.sapd_formed && (Q.socialism <= ((Q.left_strength/100)*Q.spd_votes)+Q.sapd_votes+Q.kpd_votes))) {
