@@ -2333,10 +2333,10 @@ if (Q.month_actions >= 1) {
     }
     if (Q.kpd_votes >= (25-(Q.socialism/10)-(Q.unemployed/10))) {
         Q.rfb_strength += (Q.unemployed_kpd_normalized*(Q.unemployed/100))/24;
-        Q.rfb_militancy += (Q.workers_kpd_normalized/100)/24;
+        Q.rfb_militancy += (Q.workers_kpd_normalized/250)/24;
         if (!Q.rfb_banned) {
             Q.rfb_strength += (Q.unemployed_kpd_normalized*(Q.unemployed/100))/24;
-            Q.rfb_militancy += (Q.workers_kpd_normalized/100)/24;
+            Q.rfb_militancy += (Q.workers_kpd_normalized/250)/24;
         }
     }
     if (Q.victory_republic && Q.kpd_relation >= 60 && Q.kpd_influence) {

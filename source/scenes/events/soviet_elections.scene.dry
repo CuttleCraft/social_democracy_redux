@@ -14,6 +14,11 @@ Q.kpd_soviets = 0;
 Q.sapd_soviets = 0;
 Q.independent_soviets = 0;
 Q.bourgeois_soviets = 0;
+Q.left_soviets = 0;
+Q.center_soviets = 0;
+Q.reformist_soviets = 0;
+Q.labor_soviets = 0;
+Q.neorevisionist_soviets = 0;
 
 Q.spd_backs_kpd = 0;
 Q.spd_backs_sapd = 0;

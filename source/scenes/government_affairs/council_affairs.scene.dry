@@ -10,11 +10,48 @@ tags: govt_affairs
 
 = Council Policy
 
-Wow. How did you find me?
+In Germany there exist parallel state institutions in the form of the workers' councils, or soviets, which currently exist across Germany.
 
-- @nothing: There is nothing to do here, right now.
-- @easy_discard
+- @kpd_administration: The KPD administration makes its moves.
+- @bourgeois_administration: The bourgeois administration makes its moves.
+- @spd_administration: We can make moves.
+- @independent_administration: The councils do nothing.
+- @expand_reichstag: Expand cooperation with the Reichstag and avoid conflict.
+- @factory_takeovers: Utilize the councils to seize factories.
+- @militia: Utilize the councils to expand the military capacities of the workers.
+- @fund_councils: Divert government funds to prop up the councils.
+- @donate_councils: Donate SPD resources to the councils.
+- @nothing: We will do nothing.
+
+@kpd_administration
+view-if: kpd_soviets
+max-choices: 1
+
+With the Communists in control of the councils, they are bound to make use of this.
+
+- @support_kpd_electoral: The councils support the KPD's campaigning efforts.
+- @distribute_mutual_aid: The councils distribute mutual aid.
+- @kpd_militia: The councils expand the capacity of the RFB.
+#- @pre_communist_revolution: The councils attempt to seize state power.
+
+@support_kpd_electoral
+on-arrival: workers_kpd += 6; workers_spd -= 3 if not spd_included; unemployed_kpd += 3; socialism += 1; rfb_militancy -= 0.01
+
+The KPD has used their position heading the councils to support their own campaigning efforts, championing themselves as the defenders of the workers.
+
+@distribute_mutual_aid
+on-arrival: unemployed_kpd += unemployed/2; workers_kpd += unemployed/5; workers_kpd -= welfare; unemployed_kpd -= welfare; rfb_militancy -= 0.03
+
+The KPD has devoted their funds to the councils as a means of distributing mutual aid, acting as parallel welfare programs, which increase their support.
+
+@kpd_militia
+on-arrival: rfb_strength += kpd_s; rfb_militancy += 0.01; rfb_militancy += socialism/1000; strife += 1; coup_progress += 2; sa_militancy += 0.05*bourgeois_power; sh_militancy += 0.025*bourgeois_power;
+
+The KPD has used their position in the council to funnel funds and resources towards their militia in the RFB, expanding it as the effective paramilitary wing of the council movement in Germany. The far-right sees this, and begins arming itself, preparing for a confrontation.
+
+
 
 @nothing
+view-if: spd_soviets
 
 See you later, punk.
