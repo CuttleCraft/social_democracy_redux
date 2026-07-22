@@ -247,6 +247,8 @@ on-arrival: time_to_election = 3
 call: set_next_election_time
 go-to: dilemma_2
 
+New elections have been set for [+ next_election_month : month +] [+ next_election_year +].
+
 @dilemma_2
 
 The congress of councils convenes again to discuss these new developments, and the following conclusion is reached.

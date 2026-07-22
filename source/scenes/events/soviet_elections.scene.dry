@@ -9,6 +9,12 @@ if (Q.ddp_socialist) {
     Q.soviet_parties.push('ddp');
 }
 
+Q.spd_soviets = 0;
+Q.kpd_soviets = 0;
+Q.sapd_soviets = 0;
+Q.independent_soviets = 0;
+Q.bourgeois_soviets = 0;
+
 Q.spd_backs_kpd = 0;
 Q.spd_backs_sapd = 0;
 Q.spd_backs_unaffiliate = 0;
