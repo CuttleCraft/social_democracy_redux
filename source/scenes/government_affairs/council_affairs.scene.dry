@@ -16,11 +16,6 @@ In Germany there exist parallel state institutions in the form of the workers' c
 - @bourgeois_administration: The bourgeois administration makes its moves.
 - @spd_administration: We can make moves.
 - @independent_administration: The councils do nothing.
-- @expand_reichstag: Expand cooperation with the Reichstag and avoid conflict.
-- @factory_takeovers: Utilize the councils to seize factories.
-- @militia: Utilize the councils to expand the military capacities of the workers.
-- @fund_councils: Divert government funds to prop up the councils.
-- @donate_councils: Donate SPD resources to the councils.
 - @nothing: We will do nothing.
 
 @kpd_administration
@@ -32,7 +27,7 @@ With the Communists in control of the councils, they are bound to make use of th
 - @support_kpd_electoral: The councils support the KPD's campaigning efforts.
 - @distribute_mutual_aid: The councils distribute mutual aid.
 - @kpd_militia: The councils expand the capacity of the RFB.
-#- @pre_communist_revolution: The councils attempt to seize state power.
+- @pre_communist_revolution: The councils attempt to seize state power.
 
 @support_kpd_electoral
 on-arrival: workers_kpd += 6; workers_spd -= 3 if not spd_included; unemployed_kpd += 3; socialism += 1; rfb_militancy -= 0.01
@@ -49,7 +44,46 @@ on-arrival: rfb_strength += kpd_s; rfb_militancy += 0.01; rfb_militancy += socia
 
 The KPD has used their position in the council to funnel funds and resources towards their militia in the RFB, expanding it as the effective paramilitary wing of the council movement in Germany. The far-right sees this, and begins arming itself, preparing for a confrontation.
 
+@pre_communist_revolution
+view-if: councils_initiative
+go-to: communist_revolution
+frequency-var: rfb_force
 
+@bourgeois_administration
+view-if: bourgeois_soviets
+max-choices: 1
+
+With the Bourgeois in control of the councils, they are bound to make use of this.
+
+- @do_nothing: The councils make a point of doing nothing.
+- @self_dissolve: The councils self-dissolve.
+
+@do_nothing
+on-arrival: socialism -= 1; nothings += 1
+
+The councils do nothing, seeking to leave as much responsibility as possible to the Reichstag. The bourgeoisie hope to render the councils an obsolete and useless force.
+
+@self_dissolve
+view-if: nothings >= 3 and not spd_included
+on-arrival: councils_exist = 0; socialism -= 4; pro_republic += 2
+
+The councils officially dissolve, under the rule of the bourgeoisie.
+
+@independent_administration
+view-if: independent_soviets
+
+You can't fault them, I guess.
+
+@spd_administration
+view-if: spd_soviets
+
+With us in control of the councils, we have a variety of options.
+
+- @expand_reichstag: Expand cooperation with the Reichstag and avoid conflict.
+- @factory_takeovers: Utilize the councils to seize factories.
+- @militia: Utilize the councils to expand the military capacities of the workers.
+- @fund_councils: Divert government funds to prop up the councils.
+- @donate_councils: Donate SPD resources to the councils.
 
 @nothing
 view-if: spd_soviets
