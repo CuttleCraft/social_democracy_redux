@@ -62,3 +62,5 @@ go-to: fight_2_win if striker_power >= scab_power; fight_2_loss if striker_power
 
 @fight_2_win
 on-arrival: socialism += 2; 
+
+@fight_2_lose
