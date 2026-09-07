@@ -1245,7 +1245,7 @@ Q.postal_loyalty += 0.2;
 @lowerpsloyalty
 go-to: editreichswehr
 on-arrival: {!
-Q.postal_loyaity -= 0.2;
+Q.postal_loyalty -= 0.2;
 !}
 
 Lowered Postal Services loyalty.
