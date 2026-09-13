@@ -1,7 +1,7 @@
 title: Council Policy
 new-page: true
 is-card: true
-on-arrival: council_policy_timer += 3; month_actions += 1
+on-arrival: council_policy_timer += 3; month_actions += 1; council_resources = 0 if not council_resources
 view-if: soviets_exist and executive_formed
 card-image: img/councils.jpg
 tags: govt_affairs
@@ -79,7 +79,7 @@ view-if: spd_soviets
 
 With us in control of the councils, we have a variety of options.
 
-Council resources: [+ council_resources +]
+Council capacity: [+ council_resources +]
 
 - @expand_reichstag: Expand cooperation with the Reichstag and avoid conflict.
 - @integrate_works_councils: Integrate the councils into the existing works councils as purely economic entities.
@@ -108,7 +108,27 @@ We have dissolved the councils, putting an end to the state of dual power betwee
 @factory_takeovers
 choose-if: not reformist_soviets and not neorevisionist_soviets and not bourgeois_included
 unavailable-subtitle: The current executive of the councils is unwilling to engage in such revolutionary activity.
-on-arrival: 
+on-arrival: nationalization_progress += 1; bourgeois_power -= 0.1; capital_strike_progress += 6; coup_progress += 5; unemployed -= 3 if unemployed >= 6; unemployed -= 1.5 if works_councils >= 3 and unemployed > 4; works_program += 1; workers_spd += 10*(1-dissent); unemployed_spd += 10*(1-dissent); coalition_dissent += 2; coalition_dissent += 1 if in_grand_coalition; coalition_dissent += 1 if capital_strike_progress >= 10; coalition_dissent += 1 if coup_progress >= 8; dvp_relation -= 12; z_relation -= 8; ddp_relation -= 8; workers_nsdap -= 5*(1-dissent); unemployed_nsdap -= 5*(1-dissent); left_strength += 15; reformist_dissent += 10; left_dissent -= 10; new_middle_spd -= 5; new_middle_spd += 2 if new_middle_conscious; old_middle_spd -= 10; factory_takeovers += 1; economy_goal_completed += 1; kpd_relation += 5*(1-dissent); inflation += 3; economic_growth += 1 if economic_growth < 3; socialism += 1
+achievement: wirtschaftspolitik
+
+The capitalists are, predictably, up in arms about our policy of  factory occupations. They call it illegal expropriation, and it is. Nevertheless, it is clear that they have failed, and we must take radical action.
+
+Fascists have been taking increasingly violent actions around the occupied factories, calling us thieves and looters. However, the some of the working-class supporters of the fascists have been peeled off, or at least the ones with a sense of class solidarity.
+
+@mutual_aid
+subtitle: -1 council resource
+choose-if: council_resources >= 1
+on-arrival: unemployed_spd += 8*(1-dissent); unemployed_kpd += 3*(1-dissent) if kpd_included; unemployed_sapd += 3*(1-dissent) if sapd_included; unemployed_nsdap -= (socialism/10); workers += council_resources/10; unemployed -= council_resources/10; council_resources -= 1
+
+Using the councils as framework, we distribute mutual aid. This helps alleviate the pains that many unemployed people are finding, and even helps them to find work, greatly bolstering the reputation of socialism amongst these people as an actually practical politick even when detached from traditionally reformist avenues.
+
+@militia
+subtitle: -1 council resource
+choose-if: council_resources >= 1
+on-arrival: rb_militancy += (council_resources/50)*(left_strength/100); rfb_militancy += (council_resources/100); rfb_militancy += (council_resources/100) if kpd_included; reformist_dissent += 5; z_relation -= 5; ddp_relation -= 5; dvp_relation -= 5; coup_progress += 2; council_resources -= 1
+
+Using the councils as framework, we distribute arms amongst the workers, and begin to train them into closer-knit workers' militias.
+
 
 @nothing
 view-if: spd_soviets
