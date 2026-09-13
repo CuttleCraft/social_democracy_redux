@@ -347,6 +347,47 @@ The government has enacted a program of privatizations, reversing our own nation
 
 - @break_toleration
 - @tolerate
+- @fight: Defend the occupied factories by force!
+
+@fight
+view-if: factory_takeovers
+choose-if: (rb_militancy*(left_strength/100)) >= 0.1
+unavailable-subtitle: The Reichsbanner isn't sufficiently militant.
+on-arrival: reformist_dissent += 5
+
+Are we sure? This would mean obstruction of justice, at least in the eyes of the bourgeoisie and their courts. Even considering this option infuriates our reformist wing.
+
+- @fight_2: Yes, fight.
+- @no: [? if fun_value != 42 : No. ?][? if fun_value == 42 : *Peace-lovin' man, I'm a peace-lovin' man and I'll do what I can yes I do, and I've got my eye on the sly little man who is putting the finger on you, and when things ain't right, I don't wanna fight, I'd rather go and sit in the ra-ain, peace-lovin' man I'm a peace-lovin' man and I won't - tell - you - a-gain!* ?]
+
+@no
+
+Okay.
+
+- @break_toleration
+- @tolerate
+
+
+@fight_2
+on-arrival: z_relation -= 20; reichswehr_loyalty = 0; ddp_relation -= 20; dvp_relation -= 20; old_middle_spd -= 5*bourgeois_power; new_middle_spd -= 3*bourgeois_power; rural_spd -= 3*bourgeois_power; old_middle_nsdap += 6; new_middle_nsdap += (5 - new_middle_conscious); rural_nsdap += (8 - land_reform); workers_nsdap += 4*(1-(socialism/100))*bourgeois_power; workers_spd -= workers_nsdap*(1-(socialism/100))*bourgeois_power; scab_power = sh_strength*sh_militancy; scab_power += sa_strength*sa_militancy; scab_power += reichswehr_strength*reichswehr_militancy*0.25; striker_power = rb_strength*rb_militancy*(1-dissent/2); striker_power += workers_spd_normalized*(2 - dissent)*(2 - unemployed/100)
+go-to: fight_2_win if striker_power >= scab_power; fight_2_loss if striker_power < scab_power
+
+@fight_2_win
+on-arrival: socialism += 2; pro_republic -= 5; capital_strike_progress += 5; strife += 2; sa_militancy += 0.05; coup_progress += 3; time_to_election = 2
+call: set_next_election_time
+
+We deploy the armed contingents of the Reichsbanner and other workers' forces to defend the occupied factories by force and prevent the restoration of private control over them. 
+
+In disgrace, [+ chancellor +] has resigned, and [+ president +] has called new elections, set for [+ next_election_month : month +] [+ next_election_year +].
+
+## todo: if the government is still non-fascist when this happens this should really make basically anyone appoint hitler or declare martial law or something
+
+@fight_2_loss
+on-arrival: socialism -= 3; rb_militancy -= 0.05; workers_kpd += 5; unemployed_kpd += 5; workers_spd -= 10; unemployed_spd -= 10; rb_did_illegal_stuff = 1
+
+We deploy the armed contingents of the Reichsbanner and other workers' forces to defend the occupied factories from the government, but they are quashed. Our mythopoetic struggle comes to a woeful end.
+
+## todo: reichsbanner ban lol
 
 @lifting_price_controls
 view-if: price_controls and inflation < 5
