@@ -2,7 +2,7 @@ title: Council Policy
 new-page: true
 is-card: true
 on-arrival: council_policy_timer += 3; month_actions += 1; council_resources = 0 if not council_resources
-view-if: soviets_exist and executive_formed
+view-if: soviets_exist and executive_formed and not supreme_soviet
 card-image: img/councils.jpg
 tags: govt_affairs
 #subtitle: The administration of Germany's workers' councils.

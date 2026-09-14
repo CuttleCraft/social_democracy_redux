@@ -20,12 +20,12 @@ As we attempt to transition to socialism in our ongoing rupture with the bourgeo
 @state_buyer
 view-if: not state_buyer
 subtitle: -2 budget.
-on-arrival: state_buyer_vote = 1
-go-to: legislative_menu if legislature_enabled; state_buyer_done if not legislature_enabled
+on-arrival: state_buyer_vote = 1; from_food_shortages = 1
+go-to: legislative_menu if legislature_enabled; state_buyer_done2 if not legislature_enabled
 
 We propose a bill to create a state monopoly for grain purchases.
 
-@state_buyer_done
+@state_buyer_done2
 on-arrival: bourgeois_power -= 0.05; budget -= 2; state_buyer = 1; inflation -= 0.5 if inflation >= 3; workers_spd += 2*(1-dissent); unemployed_spd += 3*(1-dissent); coalition_dissent += 1 if (in_grand_coalition or in_weimar_coalition); dvp_relation -= 5; z_relation -= 3; rural_policy += 2; capital_strike_progress += 1; economic_growth += 0.4; socialism += 2
 
 By initiating a state buyer program, we have facilitated for the proper tackling of this issue. Given the circumstances, however, farmers do not appreciate the creation of a state monopoly on grain purchases, seeing it as preparation for coercion against them to make them lower their prices. 
