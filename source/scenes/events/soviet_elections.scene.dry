@@ -547,7 +547,7 @@ for (var c of Q.candidates) {
 
 @kpd_wins
 view-if: communist_candidate >= 50
-on-arrival: reichstag_enemy = 1; spd_included = 1 if spd_backs_kpd == 2; kpd_soviets = 1; communist_influence += 3 if communist_influence; rfb_militancy += 0.1; rfb_militancy += (socialism/10); rb_strength -= left_strength; rfb_strength += left_strength; workers_kpd += (socialism/10); executive_formed = 1
+on-arrival: reichstag_enemy = 1; spd_included = 1 if spd_backs_kpd == 2; kpd_soviets = 1; communist_influence += 3 if communist_influence; rfb_militancy += (socialism/250); rb_strength -= left_strength; rfb_strength += left_strength; workers_kpd += (socialism/10); executive_formed = 1
 
 The Communists have been elected to chair the councils. They do communist stuff, like having the government do stuff. Unfortunately, the government is the councils, and the real government, the Reichstag, doesn't like it when other governments do stuff, because that's communism, and they're doing a whole lotta stuff now.
 
