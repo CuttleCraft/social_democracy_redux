@@ -343,7 +343,7 @@ While these disurbanists have proven as obvious sources of inspiration, some hav
 view-if: reconcile_town_and_country == 2 or reconcile_town_and_country == 3
 title: Launch an education initiative to teach workers basic agricultural skills.
 subtitle: We will reconcile town & country!
-on-arrival: inflation -= 0.2; rural_spd -= 2; rural -= 1; workers += 1
+on-arrival: reconcile_town_and_country += 1; inflation -= 0.2; rural_spd -= 2; rural -= 1; workers += 1
 max-visits: 1
 
 By teaching workers basic agricultural skills, we increase the self-sufficiency of urban environments further, and dilute the division of labor, also creating more workers for our developing urban agroindustrial workplaces.
@@ -369,7 +369,7 @@ We organize seasonal rotations of urban & rural workers, bringing the two fields
 view-if: reconcile_town_and_country == 6
 title: Reconcile town & country!
 subtitle: We will reconcile town & country!
-on-arrival: inflation -= 3 if inflation >= 3; economic_growth += 2; rural -= invested; workers += invested; workers += rural if rural < 0; rural = 0 if rural < 0
+on-arrival: reconcile_town_and_country += 1; inflation -= 3 if inflation >= 3; economic_growth += 2; rural -= invested; workers += invested; workers += rural if rural < 0; rural = 0 if rural < 0
 
 We have reconciled town and country, or at least made significant progress towards doing so, anyway. While there is still a long ways to go, we have constructed many new settlements based around the principle, and through seasonal labor rotation and the construction of urban agriculture in existing cities, we are helping to reduce the conflict in other manners as well.
 
