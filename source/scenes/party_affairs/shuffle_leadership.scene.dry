@@ -195,6 +195,14 @@ go-to: rm_main
 
 Siemsen has been removed as an advisor. The Leftist faction disapproves.
 
+@remove_doraemon
+title: Remove Doraemon
+view-if: doraemon_advisor = 1
+tags: remove_advisor
+on-arrival: doraemon_advisor = 0; left_dissent += 100; reformist_dissent += 100; labor_dissent += 100; center_dissent += 100; neorevisionist_dissent += 100; kpd_relation -= 100; z_relation -= 100; dvp_relation -= 100; ddp_relation -= 100; capital_strike_progress += 100; coup_progress += 100
+
+Doraemon has been removed as advisor. Everyone disapproves.
+
 
 
 # neorevisionists
@@ -287,7 +295,7 @@ title: Add other advisors.
 tags: center_advisor, left_advisor, reformist_advisor, labor_advisor, neorev_advisor, nonfactional_advisor
 frequency: 1
 
-
+- @doraemon: Add Doraemon
 - @centrist: Add Centrists
 - @left: Add Leftists
 - @reformist: Add Reformists
@@ -296,6 +304,12 @@ frequency: 1
 - @nonfactional: Add non-factional advisors
 - @rm_main: Remove advisors instead.
 - @remove_none: Stop changing advisors.
+
+@doraemon
+view-if: fun_value = 69 and not doraemon_advisor and n_advisors < 3
+on-arrival: doraemon_advisor = 1; n_advisors += 1
+
+Doraemon has been added as an advisor.
 
 @centrist
 view-if: n_advisors < 3

@@ -1,0 +1,16 @@
+title: Doraemon
+is-pinned-card: true
+tags: advisor, nonfactional
+card-image: img/portraits/Doraemon.png
+view-if: doraemon_advisor = 1
+new-page: true 
+
+= Doraemon
+
+Doraemon (ドラえもん) is a Japanese manga series written and illustrated by Fujiko F. Fujio [ja]. First serialized in 1969, the manga's chapters were collected in 45 tankōbon volumes published by Shogakukan from 1974 to 1996. The story revolves around an earless robotic cat named Doraemon, who travels back in time from the 22nd century to assist a boy named Nobita Nobi in his day-to-day life.
+
+The manga spawned a media franchise. It was adapted into three different anime TV series in 1973, 1979, and 2005. Additionally, Shin-Ei Animation has produced over forty animated films, including two 3D computer-animated films, all of which are distributed by Toho. Various types of merchandise and media have been developed, including soundtrack albums, video games, and musicals. The manga series was licensed for an English language release in North America, via Amazon Kindle, through a collaboration of Fujiko F. Fujio Pro with Voyager Japan and AltJapan Co., Ltd. The anime series was licensed by Disney for an English-language release in North America in 2014, and LUK International in Europe, the Middle East and Africa.
+
+Doraemon was well received by critics and became a commercial success in many Asian countries. It won numerous awards, including the Japan Cartoonists Association Award in 1973 and 1994, the Shogakukan Manga Award for children's manga in 1982, and the Tezuka Osamu Cultural Prize in 1997. As of 2024, it has sold over 300 million copies worldwide, making it one of the best-selling manga series of all time. The character of Doraemon is considered a Japanese cultural icon, and was appointed as the first "anime ambassador" in 2008 by the country's Foreign Ministry.
+
+- @root: Return to main
