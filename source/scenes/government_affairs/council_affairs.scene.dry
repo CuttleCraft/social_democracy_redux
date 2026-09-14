@@ -145,7 +145,7 @@ on-arrival: resources -= 2; council_resources += 1; council_resources += 1 if wo
 We donate resources from the SPD to the councils, helping to expand their capacity through the cooperation and backing of our existing party infrastructure.
 
 @integrate_works_councils
-view-if: not corporatism and not left_soviets and not kpd_included and reichstag_cooperation >= 2 and works_councils == 2
+view-if: not corporatism and not left_soviets and not kpd_included and reichstag_cooperation >= 2 and works_councils == 3
 choose-if: left_coalition_s < 50
 unavailable-subtitle: There is a majority blocking this in the councils.
 on-arrival: corporatism_vote = 1
