@@ -358,6 +358,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 = Completed Achievements in this Playthrough
 
+[? if game_achievement_korporatismus : **Korporatismus** - establish a corporatist economy. ?]
 
 [? if game_achievement_eiserne_front : **Eiserne Front** - form the Iron Front. ?]
 
@@ -465,6 +466,7 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 = Completed Achievements Overall
 
+[? if achievement_korporatismus : **Korporatismus** - establish a corporatist economy. ?]
 
 [? if achievement_eiserne_front : **Eiserne Front** - form the Iron Front. ?]
 
@@ -566,6 +568,8 @@ go-to: eg_menu if started == 1; root.start_menu_2 if started == 0
 
 
 = Incomplete Achievements
+
+[? if not achievement_korporatismus : **Korporatismus** - establish a corporatist economy. ?]
 
 [? if not achievement_eiserne_front : **Eiserne Front** - form the Iron Front. ?]
 

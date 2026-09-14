@@ -1,6 +1,39 @@
 title: Legislative menu
 on-arrival: {!
 
+if (Q.corporatism_vote) {
+
+    Q.kpd_vote = 0;
+    
+    Q.sapd_vote = 0;
+
+    Q.spd_split = 0;
+
+    if (Q.ddp_relation >= (50+(Q.capital_strike_progress*2))) {
+        Q.ddp_vote = 1;
+    } else {
+        Q.ddp_vote = 0;
+    }
+
+    if ((Q.z_party_leader == "Joos" || Q.z_relation >= (50+(Q.capital_strike_progress*1.5))) && Q.z_relation >= (50+(Q.capital_strike_progress))) {
+        Q.z_vote = 1;
+    } else {
+        Q.z_vote = 0;
+    }
+
+    Q.bvp_vote = 0;
+
+    Q.dvp_vote = 0;
+
+    Q.other_vote = 0;
+    Q.other_split = 0;
+
+    Q.dnvp_vote = 0;
+
+    Q.nsdap_vote = 0;
+
+}
+
 if (Q.welfare_cut_vote) {
 
     Q.kpd_vote = 0;
@@ -1608,11 +1641,11 @@ Currently, [+ bill_support +]% is in favor of our bill.
 - @motion_fails: The motion fails.
 
 @success
-go-to: social_welfare.welfare_cut if welfare_cut_vote; social_welfare.welfare_funded_pre_depression if welfare_fund_pre_depression_vote; social_welfare.welfare_funded_post_depression if welfare_fund_post_depression_vote; womens_rights.women_funded if women_vote; economic_democracy.council_expanded_1 if council_vote_1; economic_democracy.council_expanded_2 if council_vote_2; economic_democracy.council_expanded_3 if council_vote_3; economic_democracy.socialization_done if socialization_vote; economic_democracy.cooperative_done if cooperative_vote; judiciary.judiciary_done if judicial_vote; foreign_policy.concordat_done if concordat_vote; foreign_policy.eu_done if eu_vote; fiscal_policy.progressive_tax_done if progressive_tax_vote; fiscal_policy.raise_rich_done if raise_rich_vote; fiscal_policy.cut_done if cut_vote and budget >= 2; fiscal_policy.cut_done_wtb if cut_vote and budget < 2; fiscal_policy.raise_done if raise_vote; fiscal_policy.regressive_done if regressive_vote; fiscal_policy.tariff_cut_done if tariff_cut_vote; fiscal_policy.tariff_hike_done if tariff_hike_vote; womens_rights.women_labor if women_labor_vote; womens_rights.women_family if women_family_vote; labor_rights.cut_benefits_done if cut_benefits_vote; labor_rights.increase_employers_done if increase_employers_vote; labor_rights.balance_done if balance_vote; economic_policy.wtb_no_deficit_done if wtb_no_deficit_vote; economic_policy.wtb_deficit_done if wtb_deficit_vote; economic_policy.nationalize_done if nationalize_vote; economic_policy.reformist_done_1 if reformist_vote and reformist_budget == 2; economic_policy.reformist_done_2 if reformist_vote and reformist_budget == 1; economic_policy.synthesis_done if synthesis_vote; military_policy.rearmament_done if rearmament_vote; military_policy.disarmament_done if disarmament_vote; military_policy.military_reform_done if military_reform_vote; education_science.school_board_done if school_board_vote; education_science.public_hs_done if public_hs_vote; education_science.kwg_done if kwg_vote; education_science.applied_done if applied_vote; education_science.medical_done if medical_vote; education_science.cut_science_done if cut_science_vote; war_guilt.war_guilt_done if war_guilt_vote; labor_rights.shorten_hours_done if shorten_hours_vote; agricultural_policy.land_reform_done if land_reform_vote; agricultural_policy.state_buyer_done if state_buyer_vote
+go-to: council_affairs.corporatism_done if corporatism_vote; social_welfare.welfare_cut if welfare_cut_vote; social_welfare.welfare_funded_pre_depression if welfare_fund_pre_depression_vote; social_welfare.welfare_funded_post_depression if welfare_fund_post_depression_vote; womens_rights.women_funded if women_vote; economic_democracy.council_expanded_1 if council_vote_1; economic_democracy.council_expanded_2 if council_vote_2; economic_democracy.council_expanded_3 if council_vote_3; economic_democracy.socialization_done if socialization_vote; economic_democracy.cooperative_done if cooperative_vote; judiciary.judiciary_done if judicial_vote; foreign_policy.concordat_done if concordat_vote; foreign_policy.eu_done if eu_vote; fiscal_policy.progressive_tax_done if progressive_tax_vote; fiscal_policy.raise_rich_done if raise_rich_vote; fiscal_policy.cut_done if cut_vote and budget >= 2; fiscal_policy.cut_done_wtb if cut_vote and budget < 2; fiscal_policy.raise_done if raise_vote; fiscal_policy.regressive_done if regressive_vote; fiscal_policy.tariff_cut_done if tariff_cut_vote; fiscal_policy.tariff_hike_done if tariff_hike_vote; womens_rights.women_labor if women_labor_vote; womens_rights.women_family if women_family_vote; labor_rights.cut_benefits_done if cut_benefits_vote; labor_rights.increase_employers_done if increase_employers_vote; labor_rights.balance_done if balance_vote; economic_policy.wtb_no_deficit_done if wtb_no_deficit_vote; economic_policy.wtb_deficit_done if wtb_deficit_vote; economic_policy.nationalize_done if nationalize_vote; economic_policy.reformist_done_1 if reformist_vote and reformist_budget == 2; economic_policy.reformist_done_2 if reformist_vote and reformist_budget == 1; economic_policy.synthesis_done if synthesis_vote; military_policy.rearmament_done if rearmament_vote; military_policy.disarmament_done if disarmament_vote; military_policy.military_reform_done if military_reform_vote; education_science.school_board_done if school_board_vote; education_science.public_hs_done if public_hs_vote; education_science.kwg_done if kwg_vote; education_science.applied_done if applied_vote; education_science.medical_done if medical_vote; education_science.cut_science_done if cut_science_vote; war_guilt.war_guilt_done if war_guilt_vote; labor_rights.shorten_hours_done if shorten_hours_vote; agricultural_policy.land_reform_done if land_reform_vote; agricultural_policy.state_buyer_done if state_buyer_vote
 on-arrival: {!
 Q.bill_support = Math.round(Q.bill_support);
 !}
-on-departure: welfare_cut_vote = 0; welfare_fund_pre_depression_vote = 0; welfare_fund_post_depression_vote = 0; women_vote = 0; council_vote_1 = 0; council_vote_2 = 0; council_vote_3 = 0; socialization_vote = 0; cooperative_vote = 0; judicial_vote = 0; concordat_vote = 0; eu_vote = 0; progressive_tax_vote = 0; raise_rich_vote = 0; cut_vote = 0; raise_vote = 0; regressive_vote = 0; tariff_cut_vote = 0; tariff_hike_vote = 0; women_labor_vote = 0; women_family_vote = 0; cut_benefits_vote = 0; increase_employers_vote = 0; balance_vote = 0; wtb_no_deficit_vote = 0; wtb_deficit_vote = 0; nationalize_vote = 0; reformist_vote = 0; synthesis_vote = 0; rearmament_vote = 0; disarmament_vote = 0; military_reform_vote = 0; school_board_vote = 0; public_hs_vote = 0; kwg_vote = 0; applied_vote = 0; medical_vote = 0; cut_science_vote = 0; war_guilt_vote = 0; shorten_hours_vote = 0; land_reform_vote = 0; state_buyer_vote = 0
+on-departure: corporatism_vote = 0; welfare_cut_vote = 0; welfare_fund_pre_depression_vote = 0; welfare_fund_post_depression_vote = 0; women_vote = 0; council_vote_1 = 0; council_vote_2 = 0; council_vote_3 = 0; socialization_vote = 0; cooperative_vote = 0; judicial_vote = 0; concordat_vote = 0; eu_vote = 0; progressive_tax_vote = 0; raise_rich_vote = 0; cut_vote = 0; raise_vote = 0; regressive_vote = 0; tariff_cut_vote = 0; tariff_hike_vote = 0; women_labor_vote = 0; women_family_vote = 0; cut_benefits_vote = 0; increase_employers_vote = 0; balance_vote = 0; wtb_no_deficit_vote = 0; wtb_deficit_vote = 0; nationalize_vote = 0; reformist_vote = 0; synthesis_vote = 0; rearmament_vote = 0; disarmament_vote = 0; military_reform_vote = 0; school_board_vote = 0; public_hs_vote = 0; kwg_vote = 0; applied_vote = 0; medical_vote = 0; cut_science_vote = 0; war_guilt_vote = 0; shorten_hours_vote = 0; land_reform_vote = 0; state_buyer_vote = 0
 
 KPD: [+ kpd_vote : vote_display +]
 
@@ -1679,7 +1712,7 @@ We give concessions to the DVP enough that they agree to vote in favor of our bi
 
 @motion_fails
 on-arrival: left_dissent += 5 if left_dissent < 40; center_dissent += 5 if center_dissent < 40; reformist_dissent += 5 if reformist_dissent < 50; neorevisionist_dissent += 5 if neorevisionist_dissent < 50; labor_dissent += 5 if labor_dissent < 50
-on-departure: welfare_cut_vote = 0; welfare_fund_pre_depression_vote = 0; welfare_fund_post_depression_vote = 0; women_vote = 0; council_vote_1 = 0; council_vote_2 = 0; council_vote_3 = 0; socialization_vote = 0; cooperative_vote = 0; judicial_vote = 0; concordat_vote = 0; eu_vote = 0; progressive_tax_vote = 0; raise_rich_vote = 0; cut_vote = 0; raise_vote = 0; regressive_vote = 0; tariff_cut_vote = 0; tariff_hike_vote = 0; women_labor_vote = 0; women_family_vote = 0; cut_benefits_vote = 0; increase_employers_vote = 0; balance_vote = 0; wtb_no_deficit_vote = 0; wtb_deficit_vote = 0; nationalize_vote = 0; reformist_vote = 0; synthesis_vote = 0; rearmament_vote = 0; disarmament_vote = 0; military_reform_vote = 0; school_board_vote = 0; public_hs_vote = 0; kwg_vote = 0; applied_vote = 0; medical_vote = 0; cut_science_vote = 0; war_guilt_vote = 0; shorten_hours_vote = 0; land_reform_vote = 0; state_buyer_vote = 0
+on-departure: corporatism_vote = 0; welfare_cut_vote = 0; welfare_fund_pre_depression_vote = 0; welfare_fund_post_depression_vote = 0; women_vote = 0; council_vote_1 = 0; council_vote_2 = 0; council_vote_3 = 0; socialization_vote = 0; cooperative_vote = 0; judicial_vote = 0; concordat_vote = 0; eu_vote = 0; progressive_tax_vote = 0; raise_rich_vote = 0; cut_vote = 0; raise_vote = 0; regressive_vote = 0; tariff_cut_vote = 0; tariff_hike_vote = 0; women_labor_vote = 0; women_family_vote = 0; cut_benefits_vote = 0; increase_employers_vote = 0; balance_vote = 0; wtb_no_deficit_vote = 0; wtb_deficit_vote = 0; nationalize_vote = 0; reformist_vote = 0; synthesis_vote = 0; rearmament_vote = 0; disarmament_vote = 0; military_reform_vote = 0; school_board_vote = 0; public_hs_vote = 0; kwg_vote = 0; applied_vote = 0; medical_vote = 0; cut_science_vote = 0; war_guilt_vote = 0; shorten_hours_vote = 0; land_reform_vote = 0; state_buyer_vote = 0
 
 KPD: [+ kpd_vote : vote_display +]
 

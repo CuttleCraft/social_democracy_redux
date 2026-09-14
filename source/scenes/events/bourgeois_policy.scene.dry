@@ -311,7 +311,7 @@ view-if: works_councils > 0 and (bourgeois_power < 0.9 or capital_strike_progres
 frequency: 250
 subtitle: The bourgeoisie attack economic democracy
 on-arrival: works_councils -= 1; capital_strike_progress -= 1; economic_democracy -= 1; workers_dvp -= 5; workers_ddp -= 3 if not in_right_coalition; workers_dnvp -= 3 if in_right_coalition; workers_z -= 2
-go-to: works_councils_0 if works_councils == 0; works_councils_1 if works_councils == 1; works_councils_2 if works_councils == 2
+go-to: works_councils_0 if works_councils == 0; works_councils_1 if works_councils == 1; works_councils_2 if works_councils == 2; works_councils_3 if works_councils == 3
 
 @works_councils_0
 on-arrival: bourgeois_power += 0.01; socialism -= 1
@@ -336,6 +336,11 @@ Sectorial works councils can no longer negotiate wage and price policies for ent
 
 - @break_toleration
 - @tolerate
+
+@works_councils_3
+on-arrival: bourgeois_power += 0.05; economic_growth -= 0.3; unemployed += 1; inflation += 0.5 if inflation < 3
+
+The special privileges granted to works councils by the integration of the soviets into them are repealed, returning them to their previous status and ending the pseudo-corporatist economic model in Germany.
 
 @privatizations
 view-if: nationalization_progress > 0 and ((not (president == "Braun" or president == "Schumacher" or president == "Juchacz" or president == "Thälmann" or president == "Münzenberg")) or (in_bourgeois_coalition or in_right_coalition))

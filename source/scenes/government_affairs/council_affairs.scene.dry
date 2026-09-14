@@ -125,10 +125,41 @@ Using the councils as framework, we distribute mutual aid. This helps alleviate 
 @militia
 subtitle: -1 council resource
 choose-if: council_resources >= 1
-on-arrival: rb_militancy += (council_resources/50)*(left_strength/100); rfb_militancy += (council_resources/100); rfb_militancy += (council_resources/100) if kpd_included; reformist_dissent += 5; z_relation -= 5; ddp_relation -= 5; dvp_relation -= 5; coup_progress += 2; council_resources -= 1
+on-arrival: rb_militancy += (council_resources/50)*(left_strength/100); rfb_militancy += (council_resources/100); rfb_militancy += (council_resources/100) if kpd_included; reformist_dissent += 5; z_relation -= 5; ddp_relation -= 5; dvp_relation -= 5; coup_progress += 2; council_resources -= 1; sa_militancy += 0.05*bourgeois_power; sh_militancy += 0.025*bourgeois_power;
 
 Using the councils as framework, we distribute arms amongst the workers, and begin to train them into closer-knit workers' militias.
 
+@fund_councils
+view-if: labor_minister_party == "SPD" and finance_minister_party == "SPD"
+choose-if: budget >= 1 and judicial_reform >= 3
+unavailable-subtitle: -1 budget [? if judicial_reform < 3 : - The courts would block this as illegal ?]
+on-arrival: budget -= 1; council_resources += (3+economic_democracy); coalition_dissent += 3; z_relation -= 5; ddp_relation -= 5; dvp_relation -= 5; capital_strike_progress += 3; coup_progress += 1
+
+We divert government funds towards the councils, an act quickly decried by the bourgeois parties as not only wasteful but illegal, corrupt, and politically charged.
+
+@donate_councils
+choose-if: resources >= 2
+subtitle: -2 resources
+on-arrival: resources -= 2; council_resources += 1; council_resources += 1 if workers_aid
+
+We donate resources from the SPD to the councils, helping to expand their capacity through the cooperation and backing of our existing party infrastructure.
+
+@integrate_works_councils
+view-if: not corporatism and not left_soviets and not kpd_included and reichstag_cooperation >= 2 and works_councils == 2
+choose-if: left_coalition_s < 50
+unavailable-subtitle: There is a majority blocking this in the councils.
+on-arrival: corporatism_vote = 1
+go-to: corporatism_done if not legislature_enabled; legislative_menu if legislature_enabled
+
+We propose a law to integrate the councils into the existing works councils.
+
+@corporatism_done
+on-arrival: bourgeois_power -= 0.05; kpd_relation -= 5; left_dissent += 5; labor_strength += 10; nsdap_relation += 1; capital_strike_progress += 3; economic_democracy += 1; works_councils += 1; soviets_exist = 0; unemployed -= 1; inflation -= 0.5 if inflation > 3; economic_growth += 0.3
+achievement: korporatismus
+
+We have passed a bill to turn the workers' councils into purely economic bodies, institutionalizing them on one hand to end the state of dual power while also cementing never before seen control over the economy into the hands of the workers. Marxists decry this as corporatism, while capital decries it for infringing upon the free market. While there are resemblances between this economic model and that of corporatism, corporatism fundamentally includes a disciplining of labor to end revolutionary transformation and preserve capital, something which our law acts; yet, for lacking this, we are sure to continue seeing fierce opposition from the bourgeoisie.
+
+## the nsdap relation is just a shitpost
 
 @nothing
 view-if: spd_soviets
