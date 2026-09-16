@@ -29,6 +29,22 @@ Q.month = 1;
 // how many actions have been taken this month?
 Q.month_actions = 0;
 
+Q.bright_moon = 0;
+Q.dark_moon = 0;
+Q.moon_days = 0;
+
+var moon = window.getMoonInfo();
+
+Q.moon_days = moon.daysUntilNext;
+Q.next_moon_bright = 0;
+Q.next_moon_dark = 0;
+
+if (moon.nextType === "bright_moon") {
+    Q.next_moon_bright = 1;
+} else {
+    Q.next_moon_dark = 1;
+}
+
 Q.italo_ethiopian_war = 0;
 
 // 0 = normal difficulty, 1 = hard mode, 2 = hard mode no saves

@@ -13,6 +13,121 @@
     ui = dendryUI;
     game = ui.game;
 
+    window.getMoonInfo = function() {
+    var now = new Date();
+
+    // Convert current time to Julian Date
+    var year = now.getUTCFullYear();
+    var month = now.getUTCMonth() + 1;
+    var day =
+        now.getUTCDate() +
+        (now.getUTCHours() +
+         now.getUTCMinutes() / 60 +
+         now.getUTCSeconds() / 3600) / 24;
+
+    var y = year;
+    var m = month;
+
+    if (m <= 2) {
+        y -= 1;
+        m += 12;
+    }
+
+    var A = Math.floor(y / 100);
+    var B = 2 - A + Math.floor(A / 4);
+
+    var julianDate =
+        Math.floor(365.25 * (y + 4716)) +
+        Math.floor(30.6001 * (m + 1)) +
+        day + B - 1524.5;
+
+    // Known new moon: 2000-01-06 18:14 UTC
+    var knownNewMoon = 2451550.25972;
+
+    // Length of one lunar synodic cycle
+    var synodicMonth = 29.530588853;
+
+    // Moon's age in days since the last new moon
+    var moonAge = (julianDate - knownNewMoon) % synodicMonth;
+
+    if (moonAge < 0) {
+        moonAge += synodicMonth;
+    }
+
+    // Number of days before/after the exact phase that
+    // counts as Dark Moon or Bright Moon.
+    var phaseWindow = 2.5;
+
+    var fullMoon = synodicMonth / 2;
+
+    // How many days until the next Dark Moon begins?
+    var daysUntilDark;
+
+    if (moonAge <= phaseWindow) {
+        // Already in Dark Moon
+        daysUntilDark = 0;
+    } else {
+        daysUntilDark = synodicMonth - moonAge - phaseWindow;
+
+        if (daysUntilDark < 0) {
+            daysUntilDark = 0;
+        }
+    }
+
+    // How many days until the next Bright Moon begins?
+    var daysUntilBright;
+
+    if (moonAge >= fullMoon - phaseWindow &&
+        moonAge <= fullMoon + phaseWindow) {
+        // Already in Bright Moon
+        daysUntilBright = 0;
+    } else if (moonAge < fullMoon - phaseWindow) {
+        daysUntilBright = (fullMoon - phaseWindow) - moonAge;
+    } else {
+        daysUntilBright =
+            (synodicMonth - moonAge) +
+            (fullMoon - phaseWindow);
+    }
+
+    // Determine current moon type
+    var type;
+
+    if (moonAge <= phaseWindow ||
+        moonAge >= synodicMonth - phaseWindow) {
+        type = "dark_moon";
+    } else if (Math.abs(moonAge - fullMoon) <= phaseWindow) {
+        type = "bright_moon";
+    } else {
+        type = "normal_moon";
+    }
+
+    // If we're already in a special moon, the next one
+    // we're interested in is the *other* one.
+    var daysUntilNext;
+
+    if (type === "bright_moon") {
+        daysUntilNext = Math.ceil(daysUntilDark);
+    } else if (type === "dark_moon") {
+        daysUntilNext = Math.ceil(daysUntilBright);
+    } else {
+        daysUntilNext = Math.ceil(
+            Math.min(daysUntilBright, daysUntilDark)
+        );
+    }
+
+    return {
+        type: type,
+        nextType: type === "bright_moon"
+            ? "dark_moon"
+            : type === "dark_moon"
+                ? "bright_moon"
+                : (daysUntilBright <= daysUntilDark
+                    ? "bright_moon"
+                    : "dark_moon"),
+        daysUntilNext: daysUntilNext
+    };
+};
+
     // Add your custom code here.
   };
 

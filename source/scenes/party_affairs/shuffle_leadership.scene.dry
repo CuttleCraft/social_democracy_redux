@@ -308,6 +308,7 @@ frequency: 1
 @doraemon
 view-if: fun_value = 69 and not doraemon_advisor and n_advisors < 3
 on-arrival: doraemon_advisor = 1; n_advisors += 1
+achievement: doraemon
 
 Doraemon has been added as an advisor.
 
