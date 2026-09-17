@@ -3,6 +3,7 @@ view-if: year <= 1760 and letter_received
 is-card: true
 card-image: img/Scythian.png
 new-page: true
+tags: party_affairs
 
 = Return of the Scythian
 
