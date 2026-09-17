@@ -1,0 +1,19 @@
+title: Return of the Scythian
+view-if: year <= 1760 and letter_received
+is-card: true
+card-image: img/Scythian.png
+is-new-page: true
+
+= Return of the Scythian
+
+The Scythian has returned, carrying with her the burdensome book of sinister sworcery known as the Megatome and an unshakeable certainty that the haunted darkness of the Mingi Taw has followed her.
+
+- @acquire_megatome: Take the Megatome.
+
+@acquire_megatome
+subtitle: The burdensome book of sinister sworcery
+achievement: megatome
+
+We take the Megatome. The world is quiet here. We spot an antlered skull floating in the distance atop a cloud of darkness. The Scythian tells us gravely that this timeline is done for, and to carry forth our struggle in a new timeline. Our woeful errands are far from over, but we may still be cosmic friends forever.
+
+- @game_over: The Gogolithic Mass consumes the world. 

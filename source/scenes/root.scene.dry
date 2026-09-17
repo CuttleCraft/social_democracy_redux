@@ -29,8 +29,6 @@ Q.month = 1;
 // how many actions have been taken this month?
 Q.month_actions = 0;
 
-I'm putting this here to break the push. I'm not ready to commit this change yet. Muahaha.
-
 Q.decay = 0;
 Q.decay_counter = 0;
 

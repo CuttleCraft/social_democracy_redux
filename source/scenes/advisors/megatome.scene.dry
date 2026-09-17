@@ -1,0 +1,15 @@
+title: The Megatome
+is-pinned-card: true
+is-card: true
+card-image: img/Megatome.png
+view-if: achievement_megatome
+new-page: true
+
+= The Megatome
+
+[? if bright_moon : BRIGHT MOON ?]
+
+[? if dark_moon : DARK MOON ?]
+
+[? if not bright_moon and not dark_moon : [? if next_moon_bright : BRIGHT MOON ?][? if next_moon_dark : DARK MOON ?] IN [+ moon_days +] DAYS ?]
+

@@ -1,2 +1,12 @@
 title: Letter from the Scythian
-view-if: scythian_deployed and year < 
+view-if: scythian_deployed and year <= 1764
+on-arrival: letter_received = 1
+tags: event
+max-visits: 1
+new-page: true
+
+= Letter from the Scythian
+
+We have received a letter from the Scythian, announcing that at long last Mingi Taw has risen from the enraptured earth beneath the mountains of the Caucasus and that she has managed to retrieve from its maw the burdensome book of sinister sworcery known as the Megatome. She says that she will soon return, but warns that the haunted darkness beneath Mingi Taw seems to have been released from the mountain, following her back.
+
+It really is handy that the Postal Affairs Ministry is still running efficiently.
