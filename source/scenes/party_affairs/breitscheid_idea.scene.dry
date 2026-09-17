@@ -5,6 +5,7 @@ is-card: true
 card-image: img/portraits/BreitscheidRudolf.jpg
 view-if: time_travelled_to_be_here and decay >= 1
 tags: party_affairs
+max-visits: 1
 
 = Breitscheid's Idea
 

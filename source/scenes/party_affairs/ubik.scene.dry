@@ -4,6 +4,7 @@ is-card: true
 view-if: time_travelled_to_be_here
 card_image: img/Ubik.jpg
 tags: party_affairs
+on-arrival: month_actions += 1
 
 = Ubik
 
