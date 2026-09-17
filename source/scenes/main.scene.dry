@@ -56,7 +56,7 @@ is-deck: true
 
 @govt
 title: Government Affairs
-view-if: time >= 6 or spd_in_government
+view-if: time >= 6 or spd_in_government or foreign_minister_party == "SPD"
 card-image: img/reichstag_2.jpg
 is-deck: true
 
