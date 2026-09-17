@@ -944,6 +944,9 @@ subtitle: [? if times_waited >= 6 : What's taking them so long? ?]
 [? if times_waited == 1000 : Psyche! ?]
 [? if times_waited >= 1001 : Not really. ?]
 
+- @wait: Wait.
+- @leave2: Okaylet'sjustgo
+
 @leave2
 view-if: times_waited >= 15
 go-to: leave
