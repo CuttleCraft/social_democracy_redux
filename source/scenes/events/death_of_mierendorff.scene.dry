@@ -1,0 +1,11 @@
+title: The Death of Carlo Mierendorff
+view-if: decay >= 6
+frequency: 1000
+max-visits: 1
+on-arrival: mierendorff_dead = 1; n_advisors -= 1 if mierendorff_advisor == 1; mierendorff_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

@@ -313,7 +313,13 @@ if (Q.month_actions >= 1) {
     }
     if (Q.time_travelled_to_be_here) {
         Q.decay_counter += 1;
-        if (Q.decay_counter == 3) {
+        if (Q.decay >= 4) {
+            Q.decay_counter += 1;
+        }
+        if (Q.decay >= 10) {
+            Q.decay_counter += 1;
+        }
+        if (Q.decay_counter == 4) {
             Q.decay += 1;
             Q.decay_counter = 0;
         }

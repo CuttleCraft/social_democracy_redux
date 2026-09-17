@@ -1,0 +1,11 @@
+title: The Death of Kurt Rosenfeld
+view-if: decay >= 3 and decay_counter >= 2
+frequency: 1000
+max-visits: 1
+on-arrival: rosenfeld_dead = 1; n_advisors -= 1 if rosenfeld_advisor == 1; rosenfeld_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

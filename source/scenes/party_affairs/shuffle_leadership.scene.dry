@@ -348,7 +348,7 @@ subtitle: Rudolf Hilferding is an economist and one of our chief Marxist theoret
 is-card: true
 card-image: img/portraits/HilferdingRudolf.jpg
 tags: center_advisor
-view-if: hilferding_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+view-if: hilferding_advisor = 0 and n_advisors < 3 and centrists_resign = 0 and not hilferding_dead
 on-arrival: hilferding_advisor = 1; n_advisors += 1; center_strength += 3; center_dissent -= 1;
 go-to: advisor_menu
 
@@ -360,7 +360,7 @@ subtitle: Otto Wels is a long-time party organizer and member of the leadership,
 is-card: true
 card-image: img/portraits/WelsRudolf.jpg
 tags: center_advisor
-view-if: wels_advisor = 0 and n_advisors < 3 and centrists_resign = 0
+view-if: wels_advisor = 0 and n_advisors < 3 and centrists_resign = 0 and not wels_dead
 on-arrival: wels_advisor = 1; n_advisors += 1; center_strength += 3; center_dissent -= 1;
 go-to: advisor_menu
 
@@ -383,7 +383,7 @@ title: Rudolf Breitscheid
 subtitle: Rudolf Breitscheid comes from a well-educated background and is one of our foreign policy leaders.
 is-card: true
 card-image: img/portraits/BreitscheidRudolf.jpg
-view-if: breitscheid_advisor = 0 and n_advisors < 3
+view-if: breitscheid_advisor = 0 and n_advisors < 3 and not breitscheid_dead
 on-arrival: breitscheid_advisor = 1; n_advisors += 1; center_strength += 3; center_dissent -= 1;
 go-to: advisor_menu
 tags: center_advisor
@@ -399,7 +399,7 @@ subtitle: Carl Severing is a one-time Prussian interior minister and police refo
 is-card: true
 card-image: img/portraits/SeveringCarl.jpg
 tags: reformist_advisor
-view-if: severing_advisor = 0 and n_advisors < 3
+view-if: severing_advisor = 0 and n_advisors < 3 and not severing_dead
 on-arrival: severing_advisor = 1; n_advisors += 1; reformist_strength += 5; reformist_dissent -= 2; left_dissent += 2
 go-to: advisor_menu
 
@@ -411,7 +411,7 @@ subtitle: Otto Braun is the Minister-President of Prussia, and one of the most r
 is-card: true
 card-image: img/portraits/BraunOtto.jpg
 tags: reformist_advisor
-view-if: braun_advisor = 0 and n_advisors < 3
+view-if: braun_advisor = 0 and n_advisors < 3 and not braun_dead
 on-arrival: braun_advisor = 1; n_advisors += 1; reformist_strength += 5; reformist_dissent -= 2; left_dissent += 2
 go-to: advisor_menu
 
@@ -422,7 +422,7 @@ title: Marie Juchacz
 subtitle: Marie Juchacz is the founder of Worker's Welfare, a mutual-aid organization.
 is-card: true
 card-image: img/portraits/JuchaczMarie.jpg
-view-if: juchacz_advisor = 0 and n_advisors < 3
+view-if: juchacz_advisor = 0 and n_advisors < 3 and not juchacz_dead
 on-arrival: juchacz_advisor = 1; n_advisors += 1; reformist_strength += 5; reformist_dissent -= 2; left_dissent += 2
 go-to: advisor_menu
 tags: reformist_advisor
@@ -434,7 +434,7 @@ title: Antonie Pfülf
 subtitle: Antonie Pfülf is a leader in social policy and women's rights.
 is-card: true
 card-image: img/portraits/PfülfAntonie.jpg
-view-if: pfulf_advisor = 0 and n_advisors < 3
+view-if: pfulf_advisor = 0 and n_advisors < 3 and not pfulf_dead
 on-arrival: pfulf_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: reformist_advisor
@@ -462,7 +462,7 @@ title: Toni Sender
 subtitle: Toni Sender is an anti-war and womens' rights advocate, and Reichstag member.
 is-card: true
 card-image: img/portraits/SenderToni.jpg
-view-if: sender_advisor = 0 and n_advisors < 3
+view-if: sender_advisor = 0 and n_advisors < 3 and not sender_dead
 on-arrival: sender_advisor = 1; n_advisors += 1; left_strength += 5; left_dissent -= 2; reformist_dissent += 2
 go-to: advisor_menu
 tags: left_advisor
@@ -474,7 +474,7 @@ title: Kurt Rosenfeld
 subtitle: Kurt Rosenfeld is a lawyer, anti-militarist activist, and Reichstag member.
 is-card: true
 card-image: img/portraits/RosenfeldKurt.jpg
-view-if: rosenfeld_advisor = 0 and n_advisors < 3 and left_split = 0
+view-if: rosenfeld_advisor = 0 and n_advisors < 3 and left_split = 0 and not rosenfeld_dead
 on-arrival: rosenfeld_advisor = 1; n_advisors += 1; left_strength += 5; left_dissent -= 2; reformist_dissent += 2
 go-to: advisor_menu
 tags: left_advisor
@@ -486,7 +486,7 @@ title: Max Seydewitz
 subtitle: Max Seydewitz is a former leader of the youth wing, current supporter of the left wing of the SPD, and advocates for class struggle.
 is-card: true
 card-image: img/portraits/SeydewitzMax.jpg
-view-if: seydewitz_advisor = 0 and n_advisors < 3 and left_split = 0
+view-if: seydewitz_advisor = 0 and n_advisors < 3 and left_split = 0 and not seydewitz_dead
 on-arrival: seydewitz_advisor = 1; n_advisors += 1; left_strength += 5; left_dissent -= 2; reformist_dissent += 2
 go-to: advisor_menu
 tags: left_advisor
@@ -498,7 +498,7 @@ title: Anna Siemsen
 subtitle: Anna Siemsen is an and educational reform advocate and pacifist, who was one of the few German women to receive a PhD in the pre-war period.
 is-card: true
 card-image: img/portraits/SiemsenAnna.jpg
-view-if: siemsen_advisor = 0 and n_advisors < 3 and left_split = 0
+view-if: siemsen_advisor = 0 and n_advisors < 3 and left_split = 0 and not siemsen_dead
 on-arrival: siemsen_advisor = 1; n_advisors += 1; left_strength += 5; left_dissent -= 2; reformist_dissent += 2
 go-to: advisor_menu
 tags: left_advisor
@@ -514,7 +514,7 @@ subtitle: Theodor Leipart is the leader of the ADGB, the German Trade Union Fede
 is-card: true
 card-image: img/portraits/LeipartTheodor.jpg
 tags: labor_advisor
-view-if: leipart_advisor = 0 and n_advisors < 3 and unions_independent = 0
+view-if: leipart_advisor = 0 and n_advisors < 3 and unions_independent = 0 and not leipart_dead
 on-arrival: leipart_advisor = 1; n_advisors += 1; labor_strength += 5; labor_dissent -= 2; center_dissent += 2
 go-to: advisor_menu
 
@@ -526,7 +526,7 @@ subtitle: Siegfried Aufhäuser is the leader of the AfA-Bund, the white-collar t
 is-card: true
 card-image: img/portraits/AufhäuserSiegfried.jpg
 tags: labor_advisor
-view-if: aufhauser_advisor = 0 and n_advisors < 3
+view-if: aufhauser_advisor = 0 and n_advisors < 3 and not aufhauser_dead
 on-arrival: aufhauser_advisor = 1; n_advisors += 1; labor_strength += 5; labor_dissent -= 2; reformist_dissent += 2
 go-to: advisor_menu
 
@@ -538,7 +538,7 @@ subtitle: Rudolf Wissell is an economist who has been the Labor Minister, and is
 is-card: true
 card-image: img/portraits/WissellRudolf.jpg
 tags: labor_advisor
-view-if: wissell_advisor = 0 and n_advisors < 3 and unions_independent = 0
+view-if: wissell_advisor = 0 and n_advisors < 3 and unions_independent = 0 and not wissell_dead
 on-arrival: wissell_advisor = 1; n_advisors += 1; labor_strength += 3; labor_dissent -= 1
 go-to: advisor_menu
 
@@ -564,7 +564,7 @@ title: Carlo Mierendorff
 subtitle: Carlo Mierendorff is one of the youngest members of the Reichstag, and the originator of the "Neo-Revisionist" movement. He is an anti-Nazi strategist.
 is-card: true
 card-image: img/portraits/MierendorffCarlo.jpg
-view-if: mierendorff_advisor = 0 and n_advisors < 3
+view-if: mierendorff_advisor = 0 and n_advisors < 3 and not mierendorff_dead
 on-arrival: mierendorff_advisor = 1; n_advisors += 1; neorevisionist_strength += 5; neorevisionist_dissent -= 2; center_dissent += 2
 go-to: advisor_menu
 tags: neorev_advisor
@@ -577,7 +577,7 @@ subtitle: Kurt Schumacher is a Great War veteran and energetic speaker for the s
 is-card: true
 card-image: img/portraits/SchumacherKurt.jpg
 tags: neorev_advisor
-view-if: schumacher_advisor = 0 and n_advisors < 3
+view-if: schumacher_advisor = 0 and n_advisors < 3 and not schumacher_dead
 on-arrival: schumacher_advisor = 1; n_advisors += 1; neorevisionist_strength += 5; neorevisionist_dissent -= 2; center_dissent += 2
 go-to: advisor_menu
 
@@ -588,7 +588,7 @@ title: Julius Leber
 subtitle: Julius Leber is a former Reichswehr officer who resigned in opposition to the Kapp coup attempt.
 is-card: true
 card-image: img/portraits/LeberJulius.jpg
-view-if: leber_advisor = 0 and n_advisors < 3
+view-if: leber_advisor = 0 and n_advisors < 3 and not leber_dead
 on-arrival: leber_advisor = 1; n_advisors += 1; neorevisionist_strength += 5; neorevisionist_dissent -= 2; center_dissent += 2
 go-to: advisor_menu
 tags: neorev_advisor
@@ -602,7 +602,7 @@ title: Fritz Baade
 subtitle: Fritz Baade is one of the few agricultural policy experts in the SPD.
 is-card: true
 card-image: img/portraits/BaadeFritz.jpg
-view-if: baade_advisor = 0 and n_advisors < 3
+view-if: baade_advisor = 0 and n_advisors < 3 and not baade_dead
 on-arrival: baade_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -615,7 +615,7 @@ title: Magnus Hirschfeld
 subtitle: Magnus Hirschfeld is the founder of the Institut für Sexualwissenschaft and an advocate for the rights of sexual minorities.
 is-card: true
 card-image: img/portraits/HirschfeldMagnus.jpg
-view-if: hirschfeld_advisor = 0 and n_advisors < 3
+view-if: hirschfeld_advisor = 0 and n_advisors < 3 and not hirschfeld_dead
 on-arrival: hirschfeld_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -629,7 +629,7 @@ title: Gustav Radbruch
 subtitle: Gustav Radbruch is a renowned legal scholar and long-time SPD justice minister.
 is-card: true
 card-image: img/portraits/RadbruchGustav.jpg
-view-if: radbruch_advisor = 0 and n_advisors < 3
+view-if: radbruch_advisor = 0 and n_advisors < 3 and not radbruch_dead
 on-arrival: radbruch_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor
@@ -642,7 +642,7 @@ title: Friedrich Stampfer
 subtitle: Friedrich Stampfer is the long-time editor-in-chief of Vorwärts, our party newspaper.
 is-card: true
 card-image: img/portraits/StampferFriedrich.jpg
-view-if: stampfer_advisor = 0 and n_advisors < 3
+view-if: stampfer_advisor = 0 and n_advisors < 3 and not stampfer_dead
 on-arrival: stampfer_advisor = 1; n_advisors += 1
 go-to: advisor_menu
 tags: nonfactional_advisor

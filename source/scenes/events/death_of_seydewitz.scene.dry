@@ -1,0 +1,11 @@
+title: The Death of Max Seydewitz
+view-if: decay >= 3
+frequency: 1000
+max-visits: 1
+on-arrival: seydewitz_dead = 1; n_advisors -= 1 if seydewitz_advisor == 1; seydewitz_advisor = 0;
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

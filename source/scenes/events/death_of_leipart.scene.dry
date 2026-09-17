@@ -1,8 +1,8 @@
-title: The Death of Rudolf Hilferding
+title: The Death of Theodor Leipart
 view-if: decay >= 2 and decay_counter >= 3
 frequency: 1000
 max-visits: 1
-on-arrival: hilferding_dead = 1; n_advisors -= 1 if hilferding_advisor == 1; hilferding_advisor = 0
+on-arrival: leipart_dead = 1; n_advisors -= 1 if leipart_advisor == 1; leipart_advisor = 0
 tags: event
 
 JUMP IN THE URINAL

@@ -15,9 +15,9 @@ tags: party_affairs
 - @root: Do nothing.
 
 @purchase
-choose-if: resources >= 1
-subtitle: -1 resource
-on-arrival: resources -= 1; decay -= 1
+choose-if: resources >= 2
+subtitle: -2 resource
+on-arrival: resources -= 2; decay -= 1
 
  Pop tasty Ubik into your toaster, made only from fresh fruit and
  healthful all-vegetable shortening. Ubik makes breakfast a feast,

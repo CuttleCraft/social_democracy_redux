@@ -29,7 +29,7 @@ What should our foreign policy priority be?
 - @concordat
 - @support_austria
 - @support_austria_2
-#- @mingi_taw
+- @mingi_taw
 - @root: Do not enact any policies for now.
 - @easy_discard
 - @cancel_advisor_action
@@ -228,4 +228,14 @@ Along with France, Great Britain, and many other states of Western and Eastern E
 A major component of the union is the free movement of people and goods across the countries of Europe, as well as the stabilization of currency exchange rates. This provides new markets for German products and new sources of investment.
 
 Fascist Italy remains a problem, and the Soviet Union also lies outside the system. But for now, there is new hope for peace and prosperity throughout the continent.
+
+@mingi_taw
+title: Send the Scythian on her woeful errand to the Kingdom of Mingi Taw.
+subtitle: We have heard of a haunted darkness gathering beyond the perilous precipice beneath Mingi Taw...
+view-if: decay and time_travelled_to_be_here
+on-arrival: scythian_deployed = 1
+
+The Scythian bids us her humble farewells as she sails across the sea to the distant, faraway lands of Mingi Taw, up apon the mountains of the Caucasus. 
+
+When we will next see her, we do not now, but it is possible that the Kingdom of Mingi Taw does not exist yet, and belongs further in the past, in which case we will have to hunker down and ward off this decay ourselves for a while longer.
 

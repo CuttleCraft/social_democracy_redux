@@ -1,0 +1,11 @@
+title: The Death of Toni Sender
+view-if: decay >= 4 and decay_counter >= 3
+frequency: 1000
+max-visits: 1
+on-arrival: sender_dead = 1; n_advisors -= 1 if sender_advisor == 1; sender_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

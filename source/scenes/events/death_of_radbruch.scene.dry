@@ -1,0 +1,11 @@
+title: The Death of Gustav Radbruch
+view-if: decay >= 5
+frequency: 1000
+max-visits: 1
+on-arrival: radbruch_advisor = 1; n_advisors -= 1 if radbruch_advisor == 1; radbruch_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

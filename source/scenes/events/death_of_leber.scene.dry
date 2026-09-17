@@ -1,8 +1,8 @@
-title: The Death of Otto Braun
+title: The Death of Julius Leber
 view-if: decay >= 4
 frequency: 1000
 max-visits: 1
-on-arrival: braun_dead = 1; n_advisors -= 1 if braun_advisor == 1; braun_advisor = 0; 
+on-arrival: leber_dead = 1; n_advisors -= 1 if leber_advisor == 1; leber_advisor = 0
 tags: event
 
 JUMP IN THE URINAL

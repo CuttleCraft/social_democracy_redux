@@ -1,0 +1,11 @@
+title: The Death of Friedrich Stampfer
+view-if: decay >= 5 and decay_counter >= 1
+frequency: 1000
+max-visits: 1
+on-arrival: stampfer_dead = 1; n_advisors -= 1 if stampfer_advisor == 1; stampfer_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

@@ -16,9 +16,9 @@ tags: party_affairs
 - @root: Do nothing.
 
 @purchase
-choose-if: resources >= 1
-subtitle: -1 resource
-on-arrival: resources -= 1; decay -= 1
+choose-if: resources >= 2
+subtitle: -2 resource
+on-arrival: resources -= 2; decay -= 1
 
  Has perspiration odor taken you out of the swim? Ten-day Ubik
  deodorant spray or Ubik roll-on ends worry of offending, brings you

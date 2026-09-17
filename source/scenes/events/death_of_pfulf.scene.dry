@@ -1,0 +1,11 @@
+title: The Death of Antonie Pfülf
+view-if: decay >= 3
+frequency: 1000
+max-visits: 1
+on-arrival: pfulf_dead = 1; n_advisors -= 1 if pfulf_advisor == 1; pfulf_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

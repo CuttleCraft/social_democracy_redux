@@ -1,8 +1,8 @@
-title: The Death of Fritz Baade
+title: The Death of Marie Juchacz
 view-if: decay >= 3 and decay_counter >= 1
 frequency: 1000
 max-visits: 1
-on-arrival: baade_dead = 1; n_advisors -= 1 if baade_advisor == 1; baade_advisor = 0
+on-arrival: juchacz_dead = 1; n_advisors -= 1 if juchacz_advisor == 1; juchacz_advisor = 0
 tags: event
 
 JUMP IN THE URINAL

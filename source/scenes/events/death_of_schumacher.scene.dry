@@ -1,0 +1,11 @@
+title: The Death of Paul Levi
+view-if: decay >= 7
+frequency: 1000
+max-visits: 1
+on-arrival: schumacher_dead = 1; n_advisors -= 1 if schumacher_advisor == 1; schumacher_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

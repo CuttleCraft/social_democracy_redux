@@ -1,0 +1,8 @@
+title: 1920
+subtitle: An old year 
+tags: event
+view-if: year = 1920 and month = 11
+priority: 2
+max-visits: 1
+
+<span style="color:rgb(155,130,160);font-family:Garamond,'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">They go as I say, they do as I tell them.</span>

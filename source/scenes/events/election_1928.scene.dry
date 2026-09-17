@@ -950,7 +950,11 @@ go-to: leave
 
 @leave
 achievement: time_travel
-on-arrival: time_travelled_to_be_here = 1 if times_waited
+on-arrival: time_travelled_to_be_here = 1 if times_waited; {!
+
+window.dendryUI.dendryEngine.state.visits = {}
+
+!}
 
 We step out the time machine, noticing... huh. Something seems a little off. Different, even.
 

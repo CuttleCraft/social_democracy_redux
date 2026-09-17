@@ -15,9 +15,9 @@ tags: party_affairs
 - @root: Do nothing.
 
 @purchase
-choose-if: resources >= 1
-subtitle: -1 resource
-on-arrival: resources -= 1; decay -= 1
+choose-if: resources >= 2
+subtitle: -2 resource
+on-arrival: resources -= 2; decay -= 1
 
  If money worries have you in the cellar, go visit the lady at Ubik
  Savings & Loan. She’ll take the frets out of your debts. Suppose, for
