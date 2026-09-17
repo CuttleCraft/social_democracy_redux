@@ -1,0 +1,26 @@
+title: Ubik
+new-page: true 
+is-card: true
+view-if: time_travelled_to_be_here
+card_image: img/Ubik5.jpg
+tags: party_affairs
+
+= Ubik
+
+ Can’t make the frug contest, Helen; stomach’s upset. I’ll fix you Ubik!
+ Ubik drops you back in the thick of things fast. Taken as directed,
+ Ubik speeds relief to head and stomach. Remember: Ubik is only
+ seconds away. Avoid prolonged use
+
+- @purchase: Buy Ubik.
+- @root: Do nothing.
+
+@purchase
+choose-if: resources >= 1
+subtitle: -1 resource
+on-arrival: resources -= 1; decay -= 1
+
+ Has perspiration odor taken you out of the swim? Ten-day Ubik
+ deodorant spray or Ubik roll-on ends worry of offending, brings you
+ back where the happening is. Safe when used as directed in a
+ conscientious program of body hygiene

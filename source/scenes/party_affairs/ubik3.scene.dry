@@ -1,0 +1,25 @@
+title: Ubik
+new-page: true 
+is-card: true
+view-if: time_travelled_to_be_here
+card_image: img/Ubik3.jpg
+tags: party_affairs
+
+= Ubik
+
+ Instant Ubik has all the fresh flavor of just-brewed drip coffee. Your
+ husband will say, Christ, Sally, I used to think your coffee was only
+ so-so, But now, wow! Safe when taken as directed
+
+- @purchase: Buy Ubik.
+- @root: Do nothing.
+
+@purchase
+choose-if: resources >= 1
+subtitle: -1 resource
+on-arrival: resources -= 1; decay -= 1
+
+ My hair is so dry, so unmanageable. What’s a girl to do? Simply rub
+ in creamy Ubik hair conditioner. In just five days you’ll discover new
+ body in your hair, new glossiness. And Ubik hairspray, used as
+ directed, is absolutely safe

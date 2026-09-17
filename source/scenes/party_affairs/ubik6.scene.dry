@@ -1,0 +1,27 @@
+title: Ubik
+new-page: true 
+is-card: true
+view-if: time_travelled_to_be_here
+card_image: img/Ubik6.jpg
+tags: party_affairs
+
+= Ubik
+
+ We wanted to give you a shave like no other you ever had. We said,
+ It’s about time a man’s face got a little loving. We said, With Ubik’s
+ -winding Swiss chromium never-ending blade, the days of
+ scrape-scrape are over. So try Ubik. And be loved. Warning: use
+ only as directed. And with caution
+
+- @purchase: Buy Ubik.
+- @root: Do nothing.
+
+@purchase
+choose-if: resources >= 1
+subtitle: -1 resource
+on-arrival: resources -= 1; decay -= 1
+
+ Taken as directed, Ubik provides uninterrupted sleep without
+ morning-after grogginess. You awaken fresh, ready to tackle all
+ those little annoying problems facing you. Do not exceed
+ recommended dosage

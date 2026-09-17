@@ -1,0 +1,24 @@
+title: Ubik
+new-page: true 
+is-card: true
+view-if: time_travelled_to_be_here
+card_image: img/Ubik2.jpg
+tags: party_affairs
+
+= Ubik
+
+ The best way to ask for beer is to sing out Ubik. Made from select
+ hops, choice water, slow-aged for perfect flavor, Ubik is the nation’s
+ number-one choice in beer. Made only in Cleveland
+
+- @purchase: Buy Ubik.
+- @root: Do nothing.
+
+@purchase
+choose-if: resources >= 1
+subtitle: -1 resource
+on-arrival: resources -= 1; decay -= 1
+
+ If money worries have you in the cellar, go visit the lady at Ubik
+ Savings & Loan. She’ll take the frets out of your debts. Suppose, for
+ example, you borrow fifty-nine poscreds on an interest-only loan

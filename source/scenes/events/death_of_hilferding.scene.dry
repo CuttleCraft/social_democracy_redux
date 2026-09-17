@@ -5,4 +5,7 @@ max-visits: 1
 on-arrival: levi_dead = 1; n_advisors -= 1 if levi_advisor == 1; levi_advisor = 0; workers_sapd *= 0.75 if sapd_formed == 1 and sapd_consolidated != 1; workers_sapd *= 0.9 if sapd_consolidated == 1
 tags: event
 
-Paul Levi, a leader of the left wing of our party, has died in an unfortunate accident. He will be missed.
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

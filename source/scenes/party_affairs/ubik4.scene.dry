@@ -1,0 +1,24 @@
+title: Ubik
+new-page: true 
+is-card: true
+view-if: time_travelled_to_be_here
+card_image: img/Ubik4.jpg
+tags: party_affairs
+
+= Ubik
+
+ Wild new Ubik salad dressing, not Italian, not French, but an entirely
+ new and different taste treat that’s waking up the world. Wake up to
+ Ubik and be wild! Safe when taken as directed
+
+- @purchase: Buy Ubik.
+- @root: Do nothing.
+
+@purchase
+choose-if: resources >= 1
+subtitle: -1 resource
+on-arrival: resources -= 1; decay -= 1
+
+ Pop tasty Ubik into your toaster, made only from fresh fruit and
+ healthful all-vegetable shortening. Ubik makes breakfast a feast,
+ puts zing into your thing! Safe when handled as directed

@@ -1,0 +1,11 @@
+title: The Death of Otto Wels
+view-if: decay >= 1
+frequency: 1000
+max-visits: 1
+on-arrival: wels_dead = 1; n_advisors -= 1 if wels_advisor == 1; wels_advisor = 0
+tags: event
+
+JUMP IN THE URINAL
+AND STAND ON YOUR HEAD.
+I’M THE ONE THAT’S ALIVE.
+YOU’RE ALL DEAD.

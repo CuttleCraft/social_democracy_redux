@@ -1,0 +1,26 @@
+title: Ubik
+new-page: true 
+is-card: true
+view-if: time_travelled_to_be_here
+card_image: img/Ubik.jpg
+tags: party_affairs
+
+= Ubik
+
+ Friends, this is clean-up time and we’re discounting all our silent,
+ electric Ubiks by this much money. Yes, we’re throwing away the
+ blue-book. And remember: every Ubik on our lot has been used only
+ as directed
+
+- @purchase: Buy Ubik.
+- @root: Do nothing.
+
+@purchase
+choose-if: resources >= 1
+subtitle: -1 resource
+on-arrival: resources -= 1; decay -= 1
+
+ Perk up pouting household surfaces with new miracle Ubik, the
+ easy-to-apply, extra-shiny, non-stick plastic coating.
+ Entirely harmless if used as directed. Saves endless scrubbing,
+ glides you right out of the kitchen
