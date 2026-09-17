@@ -4,6 +4,7 @@ is-card: true
 card-image: img/Megatome.png
 view-if: achievement_megatome
 new-page: true
+tags: advisor
 
 = The Megatome
 
