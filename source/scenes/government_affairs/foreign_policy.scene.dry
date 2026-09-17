@@ -234,6 +234,7 @@ title: Send the Scythian on her woeful errand to the Kingdom of Mingi Taw.
 subtitle: We have heard of a haunted darkness gathering beyond the perilous precipice beneath Mingi Taw...
 view-if: decay and time_travelled_to_be_here
 on-arrival: scythian_deployed = 1
+max-visits: 1
 
 The Scythian bids us her humble farewells as she sails across the sea to the distant, faraway lands of Mingi Taw, up apon the mountains of the Caucasus. 
 
