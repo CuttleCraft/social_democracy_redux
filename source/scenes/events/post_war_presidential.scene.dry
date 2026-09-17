@@ -18,6 +18,7 @@ Finally, as the country emerges from civil war, presidential elections will be h
 @pres_election
 
 - @support_braun: Run Otto Braun.
+- @support_braun2: Run Otto Braun.
 - @support_schumacher: Run Kurt Schumacher.
 - @support_wirth: Support Joseph Wirth.
 - @support_thalmann: Support Ernst Thälmann.
@@ -25,7 +26,38 @@ Finally, as the country emerges from civil war, presidential elections will be h
 - @support_gessler: Support Otto Gessler.
 - @support_adenauer: Support Konrad Adenauer.
 
+@support_braun2
+view-if: (old_braun or not spd_prussia) and achievement_megatome
+subtitle: He's sleepy, but we can use the Megatome to enter his dreams.
+
+We drift off to sleep...
+
+- @dream: We have a nice dream.
+- @prospit: ...and wake up on Prospit.
+- @derse: ...and wake up on Derse.
+
+@dream
+view-if: not bright_moon and not dark_moon
+go-to: pres_election
+
+In his dream, Otto Braun is playing golf with Otto Wels and Paul von Hindenburg after a long day of holding together a flimsy popular front. How heartwarming, truly.
+
+@prospit
+view-if: bright_moon
+set-bg: img/Prospit.webp
+subtitle: The Kingdom of Light
+
+We wake up on a planet glimmering gold, orbitting a large sky-looking thing that we intuit to be called Skaia. 
+
+@derse
+view-if: dark_moon
+set-bg: img/Derse.webp
+subtitle: The Kingdom of Darkness
+
+We wake up on a planet pulsating purple, drenched in the deep black dark of outer space. 
+
 @support_braun
+view-if: not ((old_braun or not spd_prussia) and achievement_megatome)
 subtitle: -2 resources.
 choose-if: not old_braun and spd_prussia
 unavailable-subtitle: He's sleepy.

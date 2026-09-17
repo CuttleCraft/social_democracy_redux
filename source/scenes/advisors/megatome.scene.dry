@@ -13,3 +13,10 @@ new-page: true
 
 [? if not bright_moon and not dark_moon : [? if next_moon_bright : BRIGHT MOON ?][? if next_moon_dark : DARK MOON ?] IN [+ moon_days +] DAYS ?]
 
+- @song_of_sworcery: Sing a song of sworcery.
+- @root: Back to main.
+
+@song_of_sworcery
+subtitle: It is time to learn the song of sworcery - a consciousness expansion technique that reveals a mystical musical dimension.
+
+Our singing voice is kinda bad
