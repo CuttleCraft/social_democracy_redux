@@ -2,7 +2,7 @@ title: Return of the Scythian
 view-if: year <= 1760 and letter_received
 is-card: true
 card-image: img/Scythian.png
-is-new-page: true
+new-page: true
 
 = Return of the Scythian
 
