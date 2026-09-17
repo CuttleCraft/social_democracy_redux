@@ -21,6 +21,7 @@ max-cards: 3
 - @pres
 - #advisor
 - @shuffle_leadership_pinned
+- @megatome
 
 @main_easy
 set-bg: img/map_2.jpg
