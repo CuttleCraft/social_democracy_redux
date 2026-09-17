@@ -1,7 +1,7 @@
-title: 1920
+title: 1918
 subtitle: An old year 
 tags: event
-view-if: year = 1920 and month = 11
+view-if: year <= 1918 and month <= 11
 priority: 2
 max-visits: 1
 
