@@ -319,9 +319,9 @@ if (Q.month_actions >= 1) {
         if (Q.decay >= 10) {
             Q.decay_counter += 1;
         }
-        if (Q.decay_counter == 4) {
+        if (Q.decay_counter >= 4) {
             Q.decay += 1;
-            Q.decay_counter = 0;
+            Q.decay_counter -= 4;
         }
         Q.time -= 2;
         Q.time -= Q.decay;
