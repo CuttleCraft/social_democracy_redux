@@ -20,6 +20,6 @@ Yeah, I know what you're thinking. But trust me, okay?
 
 @seize_foreign_ministry
 subtitle: [? if not we_are_awesome : Those sick futuristic firearms would really come in handy. ?][? if we_are_awesome : Sure is good we picked those sick futuristic firearms up. ?]
-on-arrival: foreign_minister_party = "SPD"; foreign_minister = "Breitscheid"
+on-arrival: foreign_minister_party = "SPD"; foreign_minister = "Breitscheid"; spd_in_government = 1
 
 We have obtained the onerous ministry of externalities known as the Ministry of Foreign Affairs & we are awesome.
