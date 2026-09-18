@@ -854,6 +854,7 @@ elements.forEach(el => {
   el.style.maxWidth = '800px';
 }); !}
 go-to: sprites
+set-bg: img/Dark.png
 
 Suddenly, the room is encased in a spectral, mystical purple-turqoise magical musical mystical light, reflecting irridescent shadows off of every surface in a choral of kaleidoscopes that submerges our visual vortex. 
 
@@ -920,8 +921,8 @@ Walking against the wind, Hitler walks down the podium towards the mysterious ap
 - @combat: Step out from behind our chairs to challenge the Trigon to battle!
 
 @combat
-
-Will do.
+subtitle: Engage Combat Mode
+go-to: gold_trigon_boss_battle
 
 @follow_doraemon
 
