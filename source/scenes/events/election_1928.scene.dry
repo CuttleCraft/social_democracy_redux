@@ -853,10 +853,13 @@ const elements = document.querySelectorAll('header, #content, footer');
 elements.forEach(el => {
   el.style.maxWidth = '800px';
 }); !}
+go-to: sprites
 
 Suddenly, the room is encased in a spectral, mystical purple-turqoise magical musical mystical light, reflecting irridescent shadows off of every surface in a choral of kaleidoscopes that submerges our visual vortex. 
 
 This magical aura squashes out all the sounds in the room, replacing them with the enchanting song of sworcery, as silent and loud as everything and nothing all at once. Hitler, his men, Doraemon, the other Reichstag deputies and the time travelers all turn their heads.
+
+@sprites
 
 - @postal_sprite: The Sylvan sprite from the Postal Affairs Ministry!
 - @capital_sprite: The Sylvan sprite from our spineless bribe-taking!
@@ -867,6 +870,7 @@ This magical aura squashes out all the sounds in the room, replacing them with t
 view-if: achievement_postal_sylvan and not postal_sprite_seen
 subtitle: Miracles.
 on-arrival: postal_sprite_seen = 1
+go-to: sprites
 
 With a flash of light, a Sylvan sprite from the Postal Affairs Ministry flickers into view before us. The gasps of the audience are inaudible, the song of sworcery echoing over and through them.
 
@@ -874,6 +878,7 @@ With a flash of light, a Sylvan sprite from the Postal Affairs Ministry flickers
 view-if: achievement_capital_sylvan and not capital_sprite_seen
 subtitle: Miracles.
 on-arrival: capital_sprite_seen = 1
+go-to: sprites
 
 With a flash of light, a Sylvan sprite from our own spineless backhanded deals with big business flickers into view before us. The gasps of the audience are inaudible, the song of sworcery echoing over and through them.
 
@@ -881,6 +886,7 @@ With a flash of light, a Sylvan sprite from our own spineless backhanded deals w
 subtitle: Miracles.
 view-if: achievement_antifa_sylvan and not antifa_sprite_seen
 on-arrival: antifa_sprite_seen = 1
+go-to: sprites
 
 With a flash of light, a Sylvan sprite from Hitler's death at the hands of Austrofascist putschists in Austria flickers into view before us. The gasps of the audience are inaudible, the song of sworcery echoing over and through them.
 
