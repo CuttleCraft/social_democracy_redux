@@ -2525,6 +2525,10 @@ if (Q.month_actions >= 1) {
         }
     }
 }
+if (Q.sworcery && Q.sworcery_timer < 4) {
+    Q.sworcery = 0;
+    window.setSworceryUI(false)
+}
 // prevent forever support if the economy is bad
     if (Q.year >= 1934 && (Q.inflation >= 8 || Q.unemployed >= 20) && Q.pro_republic <= 45 && Q.spd_in_government) {
         if (Q.workers_spd_normalized > 40) {

@@ -4,6 +4,7 @@ is-card: true
 card-image: img/Megatome.png
 view-if: achievement_megatome
 new-page: true
+on-arrival: sworcery_timer = 0 if not sworcery_timer
 
 = The Megatome
 
@@ -14,9 +15,144 @@ new-page: true
 [? if not bright_moon and not dark_moon : [? if next_moon_bright : BRIGHT MOON ?][? if next_moon_dark : DARK MOON ?] IN [+ moon_days +] DAYS ?]
 
 - @song_of_sworcery: Sing a song of sworcery.
-- @root: Back to main.
+- @mind_log: Let's read some minds.
+- @root: Return to main
 
 @song_of_sworcery
 subtitle: It is time to learn the song of sworcery - a consciousness expansion technique that reveals a mystical musical dimension.
+choose-if: sworcery_timer < 1
+on-arrival: sworcery = 1; {! 
 
-Our singing voice is kinda bad
+window.setSworceryUI(true);
+Q.sworcery_timer = 6;
+
+!}
+
+We are now in a sworcerous state, and may seek to release Sylvan sprites from their hiding places so as to set afoot a time of mIrAcLeS, I mean miracles.
+
+@mind_log
+max-choices: 1
+
+The Megatome is great at picking up on psychic transmissions.
+
+- #mind_reading
+
+@kaas_angry
+tags: mind_reading
+view-if: z_party_leader == "Kaas" and z_relation < 30
+title: Ludwig Kaas
+subtitle: ...those social democrats...
+
+...are so big and mean! I wish they would stop bullying me. I'm gonna tell on them!! Waaahhh. Wahhh. Wahhhhh. 
+
+@kaas_happy
+tags: mind_reading
+view-if: z_party_leader == "Kaas" and z_relation >= 70
+title: Ludwig Kaas
+subtitle: ...those social democrats...
+
+...are my best friends forever!! :D yippeee I love friendshippppp omg omg I'm so happy yayyy weeeee 
+
+@kaas_celebrity
+tags: mind_reading
+view-if: z_party_leader == "Kaas"
+title: Ludwig Kaas
+subtitle: ...whew...
+
+...I signed [+ fun_value +] autographs today. So many screaming girls everywhere I go...it's tough!
+
+@bruning
+tags: mind_reading
+view-if: chancellor == "Brüning"
+title: Heinrich Brüning
+subtitle: ...as always...
+
+...more austerity. 
+
+@papen
+tags: mind_reading
+view-if: chancellor == "Papen"
+title: Franz von Papen
+subtitle: ...money...
+
+...Money money money money money money. Money money money...
+
+@papen2
+tags: mind_reading
+view-if: chancellor == "Schleicher"
+title: Franz von Papen
+subtitle: ...will pay, that evil...
+
+...twink will pay. That evil twink will pay. That evil twink will pay. That evil twink will pay. That evil twink will...
+
+@papen3
+tags: mind_reading
+view-if: chancellor == "Hitler"
+title: Franz von Papen
+subtitle: ...yay...
+
+I'm vice-chancellor :D 
+
+@schleicher
+tags: mind_reading
+view-if: chancellor == "Schleicher"
+title: Kurt von Schleicher
+subtitle: ...interesting...
+
+Navigating the complex interplay of various political forces in the German arena will be quite the interesting and intellectually engaging exercise for me, but I am convinced I can pull it off. I just have to tame the Nazis, and maybe also the Social Democrats. 
+
+@ebert
+tags: mind_reading
+view-if: president == "Ebert"
+title: Friedrich Ebert
+subtitle: I love...
+
+...vooooooooooooooooooooooooooooooooooooooooooting for war credits. I'll never forget how fun it was to voooooooooooooooooote for war credits. I sure hope I don't die on my way to this court case in a few weeks.
+
+@hindenburg
+tags: mind_reading
+view-if: president == "Hindenburg" and year < 1928
+title: Paul von Hindenburg
+subtitle: ...hmph...
+
+The Weimar constitution lowkirkenuinely not that bad icl ngl. Ts doesnt pmo half as much as I thought tbh. Smh my head at Ludendorff rofl. Ts ez dubs GGs wp.
+
+@hindenburg2
+tags: mind_reading
+view-if: president == "Hindenburg" and year >= 1928 and year < 1930
+title: Paul von Hindenburg
+subtitle: OK
+
+@Grok How 2 use social democrats to get leniency from Entente full walkthrough 
+
+@hindenburg3
+tags: mind_reading
+view-if: president == "Hindenburg" and year >= 1930
+title: Paul von Hindenburg
+subtitle: OK I'm bolstered
+
+I'm bored I'm gonna try and dismantle German democracy now
+
+@braun
+tags: mind_reading
+view-if: president == "Braun"
+title: Otto Braun
+subtitle: Dreams...
+
+I keep having these strange dreams featuring these three triangles, these "Trigons", these manifestations of cosmic geometry. Specifically, I feel like for whatever reason the orange one and the light blue one, I think they're called the Bright Moon and Dark Moon trigons, are stuck in my head. They keep messing up my Sburb session even though they have nothing to do with Homestuck. Like I'm just trying to chill in my Homestuck fanfic au here and these trigons have to come along to prospit and derse and mess everything up. It's not fair. I wish the other SPD politicians liked Homestucks. I tried to adopt a typing quirk and make a trollsona but Otto Wels called me a dork. :<
+
+@thalmann_werewolf_pre
+tags: mind_reading
+view-if: next_moon_bright and moon_days < 2 and not bright_moon
+title: Ernst Thälmann
+subtitle: Oh man...
+
+It's almost a full moon. I've gotta make sure nobody notices my secret.
+
+@thalmann_werewolf
+tags: mind_reading
+view-if: bright_moon 
+title: Ernst Thälmann
+subtitle: Awooooooooooooooooooooo!
+
+AWOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! 

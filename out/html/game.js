@@ -128,6 +128,14 @@
     };
 };
 
+window.setSworceryUI = function(active) {
+  const content = document.getElementById('content');
+
+  if (content) {
+    content.style.backgroundColor = active ? '#440a7f' : '';
+  }
+};
+
     // Add your custom code here.
   };
 
