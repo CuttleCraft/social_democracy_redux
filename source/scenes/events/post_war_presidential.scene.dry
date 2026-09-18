@@ -46,6 +46,15 @@ In his dream, Otto Braun is playing golf with Otto Wels and Paul von Hindenburg 
 view-if: bright_moon
 set-bg: img/Prospit.webp
 subtitle: The Kingdom of Light
+on-arrival: {!
+const toolsWrapper = document.getElementById('tools_wrapper');
+if (toolsWrapper) {
+  toolsWrapper.style.display = 'none';
+}
+const elements = document.querySelectorAll('header, #content, footer');
+elements.forEach(el => {
+  el.style.maxWidth = '800px';
+}); !}
 
 We wake up on a planet glimmering gold, orbitting a large sky-looking thing that we intuit to be called Skaia. 
 
@@ -53,6 +62,15 @@ We wake up on a planet glimmering gold, orbitting a large sky-looking thing that
 view-if: dark_moon
 set-bg: img/Derse.webp
 subtitle: The Kingdom of Darkness
+on-arrival: {!
+const toolsWrapper = document.getElementById('tools_wrapper');
+if (toolsWrapper) {
+  toolsWrapper.style.display = 'none';
+}
+const elements = document.querySelectorAll('header, #content, footer');
+elements.forEach(el => {
+  el.style.maxWidth = '800px';
+}); !}
 
 We wake up on a planet pulsating purple, drenched in the deep black dark of outer space. 
 
