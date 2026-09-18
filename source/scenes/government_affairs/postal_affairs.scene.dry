@@ -16,11 +16,13 @@ Current loyalty: [+ postal_loyalty : loyalty +]
 
 - @postal_loyalty: Increase the loyalty of the postal services.
 - @expand_postal: Expand the postal services.
+#- @nuclear_research: Direct the postal services to nuclear research.
 - @distribute_vorwarts: Distribute Vörwarts through the postal services.
 - @infiltrate_far_right: Infiltrate and hijack far-right mail.
 - @infiltrate_bourgeois: Infiltrate and hijack bourgeois mail.
 - @leak_blackmail: Release the blackmail we have compiled on the bourgeois parties.
 - @militarize: Militarize the postmen.
+- @sylvan_sprite
 
 @postal_loyalty
 on-arrival: postal_loyalty += 0.05
@@ -93,3 +95,13 @@ max-visits: 1
 set-bg: img/map_2.jpg
 
 The postal services are enrolled into the Reichsbanner as auxiliary forces. The bourgeois parties are understandably outraged.
+
+@sylvan_sprite
+title: <span style="color:rgb(131, 210, 255);font-family:Palatino,'Palatino Linotype',serif;font-weight:700;letter-spacing:0.5px;">Release a Sylvan sprite!</span>
+view-if: achievement_megatome and sworcery and not achievement_postal_sylvan
+subtitle: Miracles! Miracles! Miracles!
+achievement: postal_sylvan
+set-bg: img/map_2.jpg
+max-visits: 1
+
+We have released a Sylvan sprite.

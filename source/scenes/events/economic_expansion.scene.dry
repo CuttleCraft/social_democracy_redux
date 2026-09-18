@@ -21,6 +21,17 @@ on-arrival: resources += 3; bourgeois_power += 0.02; left_dissent += 10; center_
 
 We are not a party to turn away supports just because of their economic class; we abandoned that practice when we become a people's party. Corporations are people, too. It's only a natural progression of our policy.
 
+- @sylvan_sprite
+
+@sylvan_sprite
+title: <span style="color:rgb(131, 210, 255);font-family:Palatino,'Palatino Linotype',serif;font-weight:700;letter-spacing:0.5px;">Release a Sylvan sprite!</span>
+view-if: achievement_megatome and sworcery and not achievement_capital_sylvan
+subtitle: Miracles! Miracles! Miracles!
+achievement: capital_sylvan
+max-visits: 1
+
+We have released a Sylvan sprite. 
+
 @ew
 view-if: capital_strike_progress < 0 and expansion_seen >= 2 and not in_grand_coalition and peoples_party and not capital_flight
 unavailable-subtitle: <span style="color:rgb(170,150,60);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Who's we? I don't!</span>

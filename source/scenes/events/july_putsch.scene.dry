@@ -15,3 +15,14 @@ Following the failure of Hitler's Austria to achieve diplomatic recognition, and
 @wow
 
 It seems that the man who would have destroyed German democracy is gone, after all, even in his attempt to regain relevance through exile in Austria.
+
+- @sylvan_sprite
+
+@sylvan_sprite
+title: <span style="color:rgb(131, 210, 255);font-family:Palatino,'Palatino Linotype',serif;font-weight:700;letter-spacing:0.5px;">Release a Sylvan sprite!</span>
+view-if: achievement_megatome and sworcery and not achievement_antifa_sylvan
+subtitle: Miracles! Miracles! Miracles!
+achievement: antifa_sylvan
+max-visits: 1
+
+We have released a Sylvan sprite. 

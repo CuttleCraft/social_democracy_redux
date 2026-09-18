@@ -6,12 +6,15 @@ card-image: img/portraits/BreitscheidRudolf.jpg
 view-if: time_travelled_to_be_here and decay >= 1
 tags: party_affairs
 max-visits: 1
+go-to: normal_plan if not achievement_megatome; get_out_of_here if achievement_megatome
 
 = Breitscheid's Idea
 
 Listen, man. I don't know what's going on here, and I don't like it one bit. I'm really not super jazzed about this whole decay thing. It's kind of freaking me out to be honest. This Ubik thing kind of spooks me too. It feels like the rest of the world is dead all of a sudden and we're the only ones left, and now we're crumbling bit by bit too.
 
 I'll get to the point.
+
+@normal_plan
 
 I have this Scythian friend in the, well what's left of the Foreign Ministry, who's offering to run us a woeful errand if we can just lend her a hand. 
 
@@ -24,3 +27,16 @@ subtitle: [? if not we_are_awesome : Those sick futuristic firearms would really
 on-arrival: foreign_minister_party = "SPD"; foreign_minister = "Breitscheid"; spd_in_government = 1
 
 We have obtained the onerous ministry of externalities known as the Ministry of Foreign Affairs & we are awesome.
+
+@get_out_of_here
+
+That book you have, the Megatome. I've heard it's a pretty burdensome book, and somehow ties to sinister sworcery. Well, get it out of here! This is a dangerous place. The darkness beneath Mingi Taw is trying to retrieve it.
+
+- @sword: Breitscheid unsheathes his sword, and, before we can utter another word...
+
+@sword
+subtitle: ...brings it down upon us.
+
+This timeline is doomed anyway. Take that book back to the alpha timeline. You don't belong here.
+
+- @game_over: Everything goes black...

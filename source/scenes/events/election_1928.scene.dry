@@ -830,6 +830,92 @@ subtitle: Woah, what the heck?
 Some strange robot cat thing calling itself Doraemon claiming to have befriended us in another timeline has appeared to show us a way out the back of the Reichstag. By this point, we're already kind of freaked out by the whole time travel thing, so this new concept of a dimension-hopping cat robot doesn't really give us all too many heebie-jeebies.
 
 - @follow_doraemon: Take the lead, buddy!
+- @megatome_reveal: Show Doraemon our Megatome!
+
+@megatome_reveal
+view-if: achievement_megatome
+subtitle: I'm sure it'll come in handy here.
+
+Doraemon stops in his tracks, confused. He seems pretty unimpressed by this big burdensome book & we can't really blame him. 
+
+- @song_of_sworcery: Sing a song of sworcery!
+
+@song_of_sworcery
+subtitle: Arise, Sylvan sprites!
+on-arrival: {!
+
+window.setSworceryUI(true);
+const toolsWrapper = document.getElementById('tools_wrapper');
+if (toolsWrapper) {
+  toolsWrapper.style.display = 'none';
+}
+const elements = document.querySelectorAll('header, #content, footer');
+elements.forEach(el => {
+  el.style.maxWidth = '800px';
+}); !}
+
+Suddenly, the room is encased in a spectral, mystical purple-turqoise magical musical mystical light, reflecting irridescent shadows off of every surface in a choral of kaleidoscopes that submerges our visual vortex. 
+
+This magical aura squashes out all the sounds in the room, replacing them with the enchanting song of sworcery, as silent and loud as everything and nothing all at once. Hitler, his men, Doraemon, the other Reichstag deputies and the time travelers all turn their heads.
+
+- @postal_sprite: The Sylvan sprite from the Postal Affairs Ministry!
+- @capital_sprite: The Sylvan sprite from our spineless bribe-taking!
+- @antifa_sprite: The Sylvan sprite from Hitler's grave!
+- @deafening_silence: The aura shatters with deafening silence.
+
+@postal_sprite
+view-if: achievement_postal_sylvan and not postal_sprite_seen
+subtitle: Miracles.
+on-arrival: postal_sprite_seen = 1
+
+With a flash of light, a Sylvan sprite from the Postal Affairs Ministry flickers into view before us. The gasps of the audience are inaudible, the song of sworcery echoing over and through them.
+
+@capital_sprite
+view-if: achievement_capital_sylvan and not capital_sprite_seen
+subtitle: Miracles.
+on-arrival: capital_sprite_seen = 1
+
+With a flash of light, a Sylvan sprite from our own spineless backhanded deals with big business flickers into view before us. The gasps of the audience are inaudible, the song of sworcery echoing over and through them.
+
+@antifa_sprite
+subtitle: Miracles.
+view-if: achievement_antifa_sylvan and not antifa_sprite_seen
+on-arrival: antifa_sprite_seen = 1
+
+With a flash of light, a Sylvan sprite from Hitler's death at the hands of Austrofascist putschists in Austria flickers into view before us. The gasps of the audience are inaudible, the song of sworcery echoing over and through them.
+
+@deafening_silence
+view-if: (not achievement_postal_sylvan or postal_sprite_seen) and (not achievement_capital_sylvan or capital_sprite_seen) and (not achievement_antifa_sylvan or antifa_sprite_seen)
+
+The aura crackles and shatters as our song comes to an end, the sprites summoned before us joining together and zooming through the roof of the building upwards into the sky.
+
+- @gold_trigon: With a brilliant and booming flash of light, the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>** comes into view.
+- @nothing_happens: Nothing happens.
+
+@nothing_happens
+view-if: not achievement_postal_sylvan or not achievement_antifa_sylvan or not achievement_capital_sylvan
+
+The timeline ends itself out of second-hand embarassment, sparing us from certain death and destruction.
+
+- @game_over: Game over.
+
+@gold_trigon
+view-if: achievement_antifa_sylvan and achievement_capital_sylvan and achievement_postal_sylvan
+subtitle: Miracles afoot!
+
+Following the crackle of golden light, a gust of wind shakes the Reichstag & we feel it resonate through our bones. Reichstag deputies clamor over their chairs, desperate to escape. Hitler's shouting grows indiscernable as his followers scamper behind him to get away from this Godly apparition. Even Doraemon is scared.
+
+- @hitler_trigon: Hitler approaches the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**
+
+@hitler_trigon
+
+Walking against the wind, Hitler walks down the podium towards the mysterious apparition, unwilling to be intimidated. He is promptly obliterated and destroyed by a massive orb of pure magical energy. Doraemon gives us a look of pure terror and motions to flee but we feel our Megatome stirring & understand what we must do.
+
+- @combat: Step out from behind our chairs to challenge the Trigon to battle!
+
+@combat
+
+Will do.
 
 @follow_doraemon
 
