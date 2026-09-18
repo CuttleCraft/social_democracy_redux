@@ -69,6 +69,46 @@ subtitle: ...as always...
 
 ...more austerity. 
 
+@marx
+tags: mind_reading
+view-if: president == "Marx"
+title: Wilhelm Marx
+subtitle: ...gosh...
+
+My head is full of like, a slurry of Marxists and liberals, it's really strange. I feel like all of my decisions are being guided by this slurry, it's like a ouija board or something and I'm just a puppet on strings. Some force is connecting me to a parallel reality and allowing the inhabitants of that reality to democratically control me through my medium. 
+
+@marx2
+tags: mind_reading
+view-if: president != "Marx" and z_party_leader != "Kaas" and z_party_leader != "Joos"
+title: Wilhelm Marx
+subtitle: I love free will.
+
+Free will is so great. I'm glad that my decisions are my own.
+
+@joos
+tags: mind_reading
+view-if: z_party_leader == "Joos"
+title: Joseph Joos
+subtitle: Yeehaw!!!
+
+I drive really slow in the ultrafast lane while people behind me are going in-sane!!!!! I'm an asshole!!! >:D
+
+@joos2
+tags: mind_reading
+view-if: z_party_leader == "Joos" and z_relation < 30
+title: Joseph Joos
+subtitle: Bummer!
+
+These social democrats are bummers! I hate speed limits. 
+
+@joos3
+tags: mind_reading
+view-if: z_party_leader == "Joos" and z_relation > 70
+title: Joseph Joos
+subtitle: Bummer!
+
+These speed limits are bummers! I hope the social democrats repeal speed limits. 
+
 @papen
 tags: mind_reading
 view-if: chancellor == "Papen"
@@ -156,3 +196,14 @@ title: Ernst Thälmann
 subtitle: Awooooooooooooooooooooo!
 
 AWOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! 
+
+@conciliators
+tags: mind_reading
+view-if: kpd_party_leader == "Conciliators"
+title: The Conciliators
+subtitle: **...MUST...**
+
+**...OVERTHROW...GERMAN GOVERNMENT... WE ARE THE CONCILIATORS. WE ARE A SUPERNATURAL PSYCHIC MANIFESTATION OF A COLLECTIVE HIVEMIND FUSED TOGETHER FROM EVERY CONCILIATOR IN THE COMMUNIST PARTY OF GERMANY TOWARDS A HIGHER FORM OF BEING FAR SURPASSING BOURGEOIS INDIVIDUALITY. JOIN US. IN OUR COLLECTIVE LEADERSHIP. OVER THE VANGUARD PARTY OF THE WORKING CLASS. WE WILL TAKE COMMAND. WE WILL BURY YOU. LONG LIVE THE HIVEMIND. ASSIMILATE. ASSIMILATE. ASSIMILATE.**
+
+
+

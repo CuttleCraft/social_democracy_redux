@@ -129,12 +129,11 @@
 };
 
 window.setSworceryUI = function(active) {
-  const elements = document.querySelectorAll('header, #content, footer');
+  const content = document.getElementById('content');
 
-  elements.forEach(el => {
-    el.style.backgroundColor = active ? '#d8c9df' : '';
-    el.style.color = active ? '#30263a' : '';
-  });
+  if (content) {
+    content.style.backgroundColor = active ? '#d8c9df' : '';
+  }
 };
 
     // Add your custom code here.
