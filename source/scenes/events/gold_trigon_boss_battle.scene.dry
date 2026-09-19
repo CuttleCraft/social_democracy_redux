@@ -194,8 +194,24 @@ Otto Wels has some tricks up his sleeve.
 
 </div>
 
-- @reinvigorate: Reinvigorate
-- @finance: Finance
+- @reinvigorate
+- @finance
+
+@reinvigorate
+title: Reinvigorate
+subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. Restore everyone's stamina by your own, while completely depleting your own. (up to 9 stamina)
+on-arrival: {!
+Q[selected_combatant + "_action"] = "reinvigorate";
+!}
+go-to: menu
+
+@finance
+title: Finance
+subtitle: Spend turn calling up German industry to fundraise for the struggle. Gain 1 resource. Resources can be spent to upgrade stats. (3 stamina)
+on-arrival: {!
+Q[selected_combatant + "_action"] = "finance";
+!}
+go-to: menu
 
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
