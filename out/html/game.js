@@ -128,6 +128,44 @@
     };
 };
 
+window.setCombatHand = function(active) {
+  const engine = window.dendryUI.dendryEngine;
+
+  if (!engine._normalDisplayChoices) {
+    engine._normalDisplayChoices = engine.displayChoices;
+  }
+
+  if (active) {
+    engine.displayChoices = function() {
+      const choices = this.getCurrentChoices();
+      const scene = this.getCurrentScene();
+
+      if (!choices) {
+        return this;
+      }
+
+      const combatants = [];
+
+      for (var c of choices) {
+        const choiceScene = this.game.scenes[c.id];
+
+        if (!choiceScene) {
+          continue;
+        }
+
+        c.image = choiceScene.cardImage;
+        combatants.push(c);
+      }
+
+      this.ui.displayHand(combatants, scene.maxCards);
+
+      return this;
+    };
+  } else {
+    engine.displayChoices = engine._normalDisplayChoices;
+  }
+};
+
 window.setSworceryUI = function(active) {
   const content = document.getElementById('content');
 

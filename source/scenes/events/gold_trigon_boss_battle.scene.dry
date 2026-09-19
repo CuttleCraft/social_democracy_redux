@@ -1,6 +1,8 @@
 title: ...vs Gold Trigon
 new-page: true
-is-hand: true
+on-arrival: {!
+window.setCombatHand(true);
+!}
 
 = ...vs Gold Trigon
 
