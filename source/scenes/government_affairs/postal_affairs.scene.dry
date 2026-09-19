@@ -30,6 +30,7 @@ Current loyalty: [+ postal_loyalty : loyalty +]
 @fanmail
 view-if: z_party_leader == "Kaas"
 on-arrival: fanmail_monitoring = 1
+max-visits: 1
 
 Since becoming leader of the Center Party, we have noticed that Ludwig Kaas has been receiving a lot of fanmail. We have begun to monitor the flow of this fanmail.
 
