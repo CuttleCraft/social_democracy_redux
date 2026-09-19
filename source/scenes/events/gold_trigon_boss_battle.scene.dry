@@ -21,6 +21,7 @@ Q.wels_sta = 9;
 Q.wels_sta_m = 9;
 
 Q.hilferding_action = "";
+
 Q.wels_action = "";
 
 const engine = window.dendryUI.dendryEngine;
@@ -77,6 +78,9 @@ for (var c of Q.combatants) {
         Q.everyone_is_done = 0;
     }
 }
+if (Q.choosing_target) {
+    Q.everyone_is_done = 0;
+}
 !}
 
 - #combatant
@@ -87,8 +91,9 @@ title: Rudolf Hilferding
 is-pinned-card: true
 tags: combatant
 card-image: img/portraits/HilferdingRudolf.jpg
-view-if: hilferding_advisor = 1
-on-arrival: selected_combatant = "hilferding"
+view-if: (hilferding_advisor = 1) and (not choosing_target or (selected_combatant != "hilferding"))
+on-arrival: selected_combatant = "hilferding" if not choosing_target; selected_target = "hilferding" if choosing_target
+go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
 
@@ -113,13 +118,58 @@ Rudolf Hilferding has some tricks up his sleeve.
 
 </div>
 
+- @strategize
+- @medicine
+- @socialize
+
+@strategize
+title: Strategize
+subtitle: Spend turn planning the battle ahead. The next turn, stamina cost for all abilities will be halved, but have to be decided now (3 stamina)
+on-arrival: {!
+Q[selected_combatant + "_action"] = "strategize";
+!}
+go-to: menu
+
+@medicine
+title: Medicine
+subtitle: Spend turn treating another combatant. Selected combatant will have full health, but will also have to spend their turn being treated (5 stamina)
+on-arrival: {!
+Q[Q.selected_combatant + "_action"] = "medicine";
+Q.choosing_target = 1;
+!}
+
+<div class="combat-advisor-screen">
+
+Select a target.
+
+</div>
+
+- #combatant
+
+@socialize
+title: Socialize
+subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina)
+on-arrival: {!
+Q[Q.selected_combatant + "_action"] = "socialize";
+Q.choosing_target = 1;
+!}
+
+<div class="combat-advisor-screen">
+
+Select a target.
+
+</div>
+
+- #combatant
+
 @wels_c
 title: Otto Wels
 is-pinned-card: true
 tags: combatant
 card-image: img/portraits/WelsOtto.jpg
 view-if: wels_advisor = 1
-on-arrival: selected_combatant = "wels"
+on-arrival: selected_combatant = "wels" if not choosing_target; selected_target = "wels" if choosing_target
+go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
 
@@ -130,13 +180,28 @@ Stamina: [+ wels_sta +]
 
 </div>
 
+- @attack
+- @defend
+- @wels_abilities: Let's explore Wels' special abilities.
 - @menu: Return
+
+@wels_abilities
+subtitle: Reinvigorate - Finance
+
+<div class="combat-advisor-screen">
+
+Otto Wels has some tricks up his sleeve.
+
+</div>
+
+- @reinvigorate: Reinvigorate
+- @finance: Finance
 
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
 subtitle: An ordinary attack, dealing damage. (1 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "attack";
+Q[Q.selected_combatant + "_action"] = "attack";
 !}
 go-to: menu
 
@@ -144,16 +209,33 @@ go-to: menu
 title: Take a defensive stance and attempt to heal.
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "defend";
+Q[Q.selected_combatant + "_action"] = "defend";
 !}
 go-to: menu
+
+@target_chosen
+on-arrival: {! 
+
+Q[Q.selected_combatant+"_target"] = Q.selected_target;
+Q.selected_combatant = 0;
+Q.selected_target = 0;
+Q.choosing_target = 0;
+
+!}
+go-to: menu
+
+<div class="combat-advisor-screen">
+
+Selected.
+
+</div>
 
 @next_turn
 view-if: everyone_is_done
 on-arrival: everyone_is_done = 0; {! 
 
 for (var c of Q.combatants) {
-    Q[selected_combatant+"_action"] = 0;
+    Q[Q.selected_combatant+"_action"] = 0;
     Q[c+"_action"] = "";
     // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
 }
