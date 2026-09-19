@@ -135,37 +135,86 @@ window.setCombatHand = function(active) {
     engine._normalDisplayChoices = engine.displayChoices;
   }
 
-  if (active) {
-    engine.displayChoices = function() {
-      const choices = this.getCurrentChoices();
-      const scene = this.getCurrentScene();
+  if (!active) {
+    engine.displayChoices = engine._normalDisplayChoices;
 
-      if (!choices) {
-        return this;
+    const oldHand = document.getElementById('combat-hand');
+    if (oldHand) {
+      oldHand.remove();
+    }
+
+    return;
+  }
+
+  engine.displayChoices = function() {
+    const choices = this.getCurrentChoices();
+
+    if (!choices) {
+      return this;
+    }
+
+    const content = document.getElementById('content');
+
+    if (!content) {
+      return this;
+    }
+
+    // Remove any combat hand left over from a previous display.
+    const oldHand = document.getElementById('combat-hand');
+    if (oldHand) {
+      oldHand.remove();
+    }
+
+    const combatHand = document.createElement('div');
+    combatHand.id = 'combat-hand';
+    combatHand.className = 'hand';
+
+    for (let i = 0; i < choices.length; i++) {
+      const choice = choices[i];
+      const choiceScene = this.game.scenes[choice.id];
+
+      if (!choiceScene) {
+        continue;
       }
 
-      const combatHand = [];
+      const cardWrapper = document.createElement('div');
+      cardWrapper.className = 'card-in-hand';
 
-      for (var c of choices) {
-        const choiceScene = this.game.scenes[c.id];
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = '#';
 
-        if (!choiceScene) {
-          continue;
+      if (choiceScene.cardImage) {
+        const image = document.createElement('img');
+        image.className = 'card-img';
+        image.src = choiceScene.cardImage;
+        image.alt = choice.title || '';
+        card.appendChild(image);
+      }
+
+      const caption = document.createElement('span');
+      caption.className = 'card-caption';
+      caption.textContent = choice.title || choice.id;
+      card.appendChild(caption);
+
+      card.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        if (!choice.canChoose) {
+          return;
         }
 
-        c.image = choiceScene.cardImage;
-        combatHand.push(c);
-      }
+        engine.choose(i);
+      });
 
-      this.state.currentHands[this.state.sceneId] = combatHand;
+      cardWrapper.appendChild(card);
+      combatHand.appendChild(cardWrapper);
+    }
 
-      this.ui.displayHand(combatHand, scene.maxCards);
+    content.appendChild(combatHand);
 
-      return this;
-    };
-  } else {
-    engine.displayChoices = engine._normalDisplayChoices;
-  }
+    return this;
+  };
 };
 
 window.setSworceryUI = function(active) {
