@@ -20,6 +20,30 @@ Q.wels_def = 4;
 Q.wels_sta = 9;
 Q.wels_sta_m = 9;
 
+Q.hilferding_action = "";
+Q.wels_action = "";
+
+setTimeout(function() {
+  const engine = window.dendryUI.dendryEngine;
+  const choices = engine.getCurrentChoices();
+
+  Q.combatants = [];
+
+  for (const choice of choices) {
+    const choiceScene = engine.game.scenes[choice.id];
+
+    if (
+      choiceScene &&
+      choiceScene.tags &&
+      choiceScene.tags.includes("combatant")
+    ) {
+      Q.combatants.push(choice.id.replace(/_c$/, ""));
+    }
+  }
+
+  Q.everyone_is_done = 0;
+}, 0);
+
 !}
 go-to: menu
 
@@ -44,9 +68,17 @@ if (!Q.doraemon_spoke) {
     window.showCombatDialogue("doraemon", "Holy smokes!");
     Q.doraemon_spoke = 1;
 }
+
+Q.everyone_is_done = 1;
+for (var c of Q.combatants) {
+    if (Q[c+'_action'] == "") {
+        Q.everyone_is_done = 0;
+    }
+}
 !}
 
 - #combatant
+- @next_turn: Submit the selected actions
 
 @hilferding_c
 title: Rudolf Hilferding
@@ -101,7 +133,37 @@ Stamina: [+ wels_sta +]
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
 subtitle: An ordinary attack, dealing damage. (1 stamina)
+on-arrival: {!
+Q[selected_combatant + "_action"] = "attack";
+!}
 
 @defend
 title: Take a defensive stance and attempt to heal.
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina)
+on-arrival: {!
+Q[selected_combatant + "_action"] = "defend";
+!}
+
+@next_turn
+view-if: everyone_is_done
+on-arrival: everyone_is_done = 0; {! 
+
+for (var c of Q.combatants) {
+    Q[selected_combatant+"_action"] = 0;
+    Q[c+"_action"] = "";
+    // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
+}
+
+window.setCombatHand(false);
+
+window.showCombatDialogue("doraemon", "Nice job! You just did something. I support doing things.");
+
+!} 
+
+<div class="combat-advisor-screen">
+
+We attack the Gold Trigon.
+
+</div>
+
+- @menu: Return
