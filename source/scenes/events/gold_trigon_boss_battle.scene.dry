@@ -40,7 +40,9 @@ for (const id in combatantIds) {
     continue;
   }
 
-  Q.combatants.push(id.replace(/_c$/, ""));
+  Q.combatants.push(
+    choice.id.split(".").pop().replace(/_c$/, "")
+  );
 }
 
 Q.everyone_is_done = 0;
@@ -135,19 +137,17 @@ Stamina: [+ wels_sta +]
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
 subtitle: An ordinary attack, dealing damage. (1 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "attack";
+Q[Q.selected_combatant + "_action"] = "attack";
 !}
-
-- @menu: Return
+go-to: menu
 
 @defend
 title: Take a defensive stance and attempt to heal.
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "defend";
+Q[Q.selected_combatant + "_action"] = "defend";
 !}
-
-- @menu: Return
+go-to: menu
 
 @next_turn
 view-if: everyone_is_done
@@ -158,8 +158,6 @@ for (var c of Q.combatants) {
     Q[c+"_action"] = "";
     // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
 }
-
-window.setCombatHand(false);
 
 window.showCombatDialogue("doraemon", "Nice job! You just did something. I support doing things.");
 
