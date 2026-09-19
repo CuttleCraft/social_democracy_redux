@@ -459,11 +459,11 @@ body.combat-mode .card-in-hand {
   min-width: 0;
   height: 100%;
   box-sizing: border-box;
-  padding: 1em 1.25em;
+  padding: 0.25em 0.25em;
 
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Courier New', Courier, monospace;
   font-style: italic;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.9em;
   line-height: 1;
 
