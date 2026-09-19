@@ -16,6 +16,9 @@ Current loyalty: [+ postal_loyalty : loyalty +]
 
 - @postal_loyalty: Increase the loyalty of the postal services.
 - @expand_postal: Expand the postal services.
+- @fanmail: Monitor Ludwig Kaas' fanmail.
+- @intercept_fanmail: Intercept Ludwig Kaas' fanmail.
+- @stuff_mailbox: Stuff Ludwig Kaas' mailbox with additional fanmail.
 #- @nuclear_research: Direct the postal services to nuclear research.
 - @distribute_vorwarts: Distribute Vörwarts through the postal services.
 - @infiltrate_far_right: Infiltrate and hijack far-right mail.
@@ -23,6 +26,88 @@ Current loyalty: [+ postal_loyalty : loyalty +]
 - @leak_blackmail: Release the blackmail we have compiled on the bourgeois parties.
 - @militarize: Militarize the postmen.
 - @sylvan_sprite
+
+@fanmail
+view-if: z_party_leader == "Kaas"
+on-arrival: fanmail_monitoring = 1
+
+Since becoming leader of the Center Party, we have noticed that Ludwig Kaas has been receiving a lot of fanmail. We have begun to monitor the flow of this fanmail.
+
+@intercept_fanmail
+view-if: fanmail_monitoring
+choose-if: fun_value > 0 
+unavailable-subtitle: Ludwig Kaas doesn't receive fanmail.
+
+Since we are monitoring Ludwig Kaas' fanmail, we can choose to confiscate many of the letters directed to him, and prevent them from reaching their destination. How many should we confiscate?
+
+- @minus_one: One letter.
+- @minus_two: Two letters.
+- @minus_five: Five letters.
+- @minus_ten: Ten letters.
+- @minus_twentyfive: Twenty five letters.
+
+@minus_one
+on-arrival: fun_value -= 1
+
+We have confiscated a single letter.
+
+@minus_two
+on-arrival: fun_value -= 2
+
+We have confiscated two letters.
+
+@minus_five
+on-arrival: fun_value -= 5
+
+We have confiscated five letters.
+
+@minus_ten
+on-arrival: fun_value -= 10
+
+We have confiscated ten letters.
+
+@minus_twentyfive
+on-arrival: fun_value -= 25
+
+We have confiscated twenty-five letters.
+
+@stuff_mailbox
+view-if: fanmail_monitoring
+choose-if: fun_value <= 100
+unavailable-subtitle: There's no space in Ludwig Kaas' mailbox for more.
+
+Since we are monitoring Ludwig Kaas' fanmail, we can choose to fabricate and duplicate additional fanmail to him, stuffing his mailbox with these letters. How many should we place?
+
+- @add_one: One letter.
+- @add_two: Two letters.
+- @add_five: Five letters.
+- @add_ten: Ten letters.
+- @add_twentyfive: Twenty five letters.
+
+@add_one
+on-arrival: fun_value += 1
+
+We have delivered a single letter.
+
+@add_two
+on-arrival: fun_value += 2
+
+We have delivered two letters.
+
+@add_five
+on-arrival: fun_value += 5
+
+We have delivered five letters.
+
+@add_ten
+on-arrival: fun_value += 10
+
+We have delivered ten letters.
+
+@add_twentyfive
+on-arrival: fun_value += 25
+
+We have delivered twenty-five letters.
 
 @postal_loyalty
 on-arrival: postal_loyalty += 0.05

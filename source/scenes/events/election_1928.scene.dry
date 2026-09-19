@@ -4,7 +4,7 @@ tags: event
 priority: -1
 view-if: ((year = next_election_year and month >= next_election_month) or (year > next_election_year)) and not supreme_soviet
 on-arrival: gov_tension = 0; bb_failed = 0; status_quo = 0; reichswehr_loyalty -= 0.2 if reichswehr_loyalty >= 0.4 and chancellor == "Groener"; old_economic_health = economic_health; hindenburg_angry = 0; unity_refused = 0; wirth_lead = 0; dvp_willing = 0; dvp_willing = 1 if ((dvp_relation+spd_votes+(pro_republic/6)) >= ((100-pro_republic)+capital_strike_progress+(coup_progress/2))); z_willing = 0; z_willing = 1 if z_relation >= 50 or (z_relation >= 25 and bourgeois_coalition < 50)
-on-departure: month_actions += 1; in_election = 0; next_election_year = next_election_year + 4; n_elections += 1; next_election_time = time + 48; papen_chancellor_timer = 4;
+on-departure: month_actions += 1; in_election = 0; next_election_year = next_election_year + 4; n_elections += 1; next_election_time = time + 48; papen_chancellor_timer = 4; shuffler = 0
 set-jump: post_election_1928
 
 # the low priority means that this event is only seen after all other events are resolved for the month.
@@ -3136,17 +3136,23 @@ Julius Leber of the SPD has been appointed Reichswehr Minister.
 
 @postal_affairs
 title: Postal Affairs Ministry
-view-if: fun_value >= 62 and fun_value < 70 and postal_affairs_minister_party != "SPD"
-subtitle: This is not our typical domain, and it is not recommended we take this ministry unless we're fine with silly jokes.
+view-if: ((fun_value >= 62 and fun_value < 70) or shuffler) and postal_affairs_minister_party != "SPD"
+subtitle: This is not our typical domain, and it is not recommended we take this ministry unless we're fine with deeply serious activities.
 unavailable-subtitle: We do not have enough leverage.
 tags: mins_1928
-choose-if: leverage >= 35 and chancellor == "Wirth"
+choose-if: (leverage >= 35 and chancellor == "Wirth") or (shuffles >= 10)
 on-arrival: leverage -= 35; postal_affairs_minister_party = "SPD"; postal_affairs_minister = "Fillak"
 go-to: ministries
 
 Tobias Fillak of the SPD has been appointed Postal Affairs Minister.
 
-
+@shuffle_cabinet_return
+view-if: shuffler
+title: On second thought...
+subtitle: Let's not change anything just now.
+on-arrival: coalition_dissent -= 1; month_actions -= 1; shuffles += 1; shuffler = 0
+go-to: shuffle_cabinet
+tags: mins_1928
 
 @no_more
 title: No more ministries.
