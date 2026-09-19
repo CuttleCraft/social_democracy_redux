@@ -842,7 +842,7 @@ Doraemon stops in his tracks, confused. He seems pretty unimpressed by this big 
 
 @song_of_sworcery
 subtitle: Arise, Sylvan sprites!
-#on-arrival: {!
+on-arrival: {!
 
 window.setSworceryUI(true);
 const toolsWrapper = document.getElementById('tools_wrapper');
