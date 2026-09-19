@@ -159,15 +159,13 @@ window.setCombatHand = function(active) {
       return this;
     }
 
-    // Remove any combat hand left over from a previous display.
     const oldHand = document.getElementById('combat-hand');
     if (oldHand) {
       oldHand.remove();
     }
 
-    const combatHand = document.createElement('div');
-    combatHand.id = 'combat-hand';
-    combatHand.className = 'hand';
+    const combatChoices = [];
+    const normalChoices = [];
 
     for (let i = 0; i < choices.length; i++) {
       const choice = choices[i];
@@ -177,6 +175,27 @@ window.setCombatHand = function(active) {
         continue;
       }
 
+
+      if (choiceScene.tags && choiceScene.tags.includes('combatant')) {
+        choice.image = choiceScene.cardImage;
+        combatChoices.push({
+          choice: choice,
+          index: i
+        });
+      } else {
+        normalChoices.push(choice);
+      }
+    }
+
+    if (combatChoices.length > 0) {
+      const combatHand = document.createElement('div');
+      combatHand.id = 'combat-hand';
+      combatHand.className = 'hand';
+
+      for (const entry of combatChoices) {
+        const choice = entry.choice;
+        const index = entry.index;
+
       const cardWrapper = document.createElement('div');
       cardWrapper.className = 'card-in-hand';
 
@@ -184,10 +203,10 @@ window.setCombatHand = function(active) {
       card.className = 'card';
       card.href = '#';
 
-      if (choiceScene.cardImage) {
+    if (choice.image) {
         const image = document.createElement('img');
         image.className = 'card-img';
-        image.src = choiceScene.cardImage;
+        image.src = choice.image;
         image.alt = choice.title || '';
         card.appendChild(image);
       }
@@ -204,7 +223,7 @@ window.setCombatHand = function(active) {
           return;
         }
 
-        engine.choose(i);
+        engine.choose(index);
       });
 
       cardWrapper.appendChild(card);
@@ -212,9 +231,14 @@ window.setCombatHand = function(active) {
     }
 
     content.appendChild(combatHand);
+  }
 
-    return this;
-  };
+  if (normalChoices.length > 0) {
+    this.ui.displayChoices(normalChoices);
+  }
+
+  return this;
+};
 };
 
 window.showCombatDialogue = function(advisorId, text) {
