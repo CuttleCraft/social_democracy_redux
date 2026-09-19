@@ -392,6 +392,29 @@ a.card:focus .card-tooltip, a.card:hover .card-tooltip {
   position: absolute;
 }
 
+#combat-hand {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1em;
+  width: 100%;
+  direction: ltr;
+}
+
+body.combat-mode .card-in-hand {
+  margin-right: 0;
+}
+
+#gold-trigon {
+  width: 180px;
+  height: 160px;
+  background: rgb(255, 208, 0);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  margin: 1em auto 2em auto;
+  filter: drop-shadow(0 0 12px rgba(255, 208, 0, 0.7));
+}
+
 /* Unlike cards, face images can have different sizes. */
 .face-figure {
   /*vertical-align: top;*/
