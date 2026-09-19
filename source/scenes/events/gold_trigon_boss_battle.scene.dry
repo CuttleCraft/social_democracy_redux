@@ -16,10 +16,9 @@ Q.wels_def = 4;
 Q.wels_sta = 9;
 
 !}
+go-to: menu
 
 = ...vs Gold Trigon
-
-Before us stands a cosmic foe.
 
 <div class="gold-trigon"></div>
 
@@ -30,6 +29,13 @@ Before us stands a cosmic foe.
   <div id="combat-dialogue-text" class="combat-dialogue-text"></div>
 </div>
 
+@menu
+on-arrival: {!
+document.querySelectorAll('.combat-advisor-screen').forEach(el => el.remove());
+
+window.setCombatHand(true);
+!}
+
 - #combatant
 
 @hilferding_c
@@ -37,12 +43,18 @@ title: Rudolf Hilferding
 is-pinned-card: true
 tags: combatant
 card-image: img/portraits/HilferdingRudolf.jpg
-view-if: wels_advisor = 1
+view-if: hilferding_advisor = 1
+
+<div class="combat-advisor-screen">
 
 HP: [+ hilferding_hp +]
 Attack: [+ hilferding_att +]
 Defense: [+ hilferding_def +]
 Stamina: [+ hilferding_sta +]
+
+- @menu: Return
+
+</div>
 
 @wels_c
 title: Otto Wels
@@ -51,7 +63,13 @@ tags: combatant
 card-image: img/portraits/WelsOtto.jpg
 view-if: wels_advisor = 1
 
+<div class="combat-advisor-screen">
+
 HP: [+ wels_hp +]
 Attack: [+ wels_att +]
 Defense: [+ wels_def +]
 Stamina: [+ wels_sta +]
+
+- @menu: Return
+
+</div>
