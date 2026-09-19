@@ -406,12 +406,13 @@ body.combat-mode .card-in-hand {
   margin-right: 0;
 }
 
-#gold-trigon {
-  width: 180px;
-  height: 160px;
-  background: rgb(255, 208, 0);
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  margin: 1em auto 2em auto;
+.gold-trigon {
+  width: 0;
+  height: 0;
+  border-left: 90px solid transparent;
+  border-right: 90px solid transparent;
+  border-top: 160px solid rgb(255, 208, 0);
+  margin: 2em auto;
   filter: drop-shadow(0 0 12px rgba(255, 208, 0, 0.7));
 }
 

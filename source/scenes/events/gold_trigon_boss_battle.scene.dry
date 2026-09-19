@@ -5,16 +5,12 @@ window.setCombatHand(true);
 
 const content = document.getElementById('content');
 
-if (content) {
-  const trigon = document.createElement('div');
-  trigon.id = 'gold-trigon';
-  content.insertBefore(trigon, content.firstChild);
-}
-
 !}
 
 = ...vs Gold Trigon
 
 Before us stands a cosmic foe.
+
+<div class="gold-trigon"></div>
 
 - #advisor
