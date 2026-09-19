@@ -796,7 +796,13 @@ Q.enabling_r = Math.round((Q.enabling_r/total_r)*100);
 go-to: enabling_act_passed if enabling_r >= 67; enabling_act_failed if enabling_r < 67
 
 @enabling_act_passed
-go-to: enabling_act_passed2 if fun_value < 100; time_travel if fun_value == 100
+go-to: enabling_act_passed2 if fun_value < 100; time_travel if fun_value == 100; supersecret if fun_value > 100
+
+@supersecret
+
+Despite our best efforts...the Enabling Act has...woah, hold on, is that Ludwig Kaas? Holy smokes, he's being tailed by a massive crowd. We're gonna be trampled. To death.
+
+- @game_over: And so we were.
 
 @time_travel
 
