@@ -420,35 +420,48 @@ body.combat-mode .card-in-hand {
   display: flex;
   align-items: stretch;
   width: 100%;
+  height: 130px;
   min-height: 130px;
+  max-height: 130px;
   margin: 1.5em 0;
   box-sizing: border-box;
 
   border: 2px solid #6f5b78;
   background-color: #eee6f0;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .combat-dialogue-portrait {
   flex: 0 0 120px;
   width: 120px;
+  height: 126px;
   overflow: hidden;
   border-right: 2px solid #6f5b78;
 }
 
 .combat-dialogue-portrait img {
+  display: block;
   width: 100%;
   height: 100%;
+  max-width: none;
+  max-height: none;
   object-fit: cover;
 }
 
 .combat-dialogue-text {
   flex: 1;
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
   padding: 1em 1.25em;
-  font-family: Garamond, Georgia, serif;
+
+  font-family: 'Times New Roman', Times, serif;
   font-style: italic;
   font-size: 1.05em;
   line-height: 1.5;
+
+  overflow-y: auto;
 }
 
 /* Unlike cards, face images can have different sizes. */
