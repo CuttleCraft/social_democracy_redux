@@ -13,4 +13,11 @@ Before us stands a cosmic foe.
 
 <div class="gold-trigon"></div>
 
+<div class="combat-dialogue">
+  <div class="combat-dialogue-portrait">
+    <img id="combat-dialogue-image" src="" alt="">
+  </div>
+  <div id="combat-dialogue-text" class="combat-dialogue-text"></div>
+</div>
+
 - #advisor

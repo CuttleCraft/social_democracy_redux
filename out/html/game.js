@@ -217,6 +217,49 @@ window.setCombatHand = function(active) {
   };
 };
 
+window.showCombatDialogue = function(advisorId, text) {
+  const engine = window.dendryUI.dendryEngine;
+  const scene = engine.game.scenes[advisorId];
+
+  const image = document.getElementById('combat-dialogue-image');
+  const textBox = document.getElementById('combat-dialogue-text');
+
+  if (!image || !textBox) {
+    return;
+  }
+
+  if (scene && scene.cardImage) {
+    image.src = scene.cardImage;
+    image.style.display = '';
+  } else {
+    image.src = '';
+    image.style.display = 'none';
+  }
+
+  if (window.combatDialogueTimer) {
+    clearTimeout(window.combatDialogueTimer);
+  }
+
+  textBox.textContent = '';
+
+  const characters = Array.from(text);
+  let index = 0;
+
+  function typeNextCharacter() {
+    if (index >= characters.length) {
+      window.combatDialogueTimer = null;
+      return;
+    }
+
+    textBox.textContent += characters[index];
+    index++;
+
+    window.combatDialogueTimer = setTimeout(typeNextCharacter, 30);
+  }
+
+  typeNextCharacter();
+};
+
 window.setSworceryUI = function(active) {
   const content = document.getElementById('content');
 
