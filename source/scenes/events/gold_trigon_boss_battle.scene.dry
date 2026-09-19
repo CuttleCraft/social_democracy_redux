@@ -15,8 +15,6 @@ Q.wels_att = 7;
 Q.wels_def = 4;
 Q.wels_sta = 9;
 
-window.showCombatDialogue("doraemon", "Holy smokes!");
-
 !}
 go-to: menu
 
@@ -36,6 +34,11 @@ on-arrival: {!
 document.querySelectorAll('.combat-advisor-screen').forEach(el => el.remove());
 
 window.setCombatHand(true);
+
+if (!Q.doraemon_spoke) {
+    window.showCombatDialogue("doraemon", "Holy smokes!");
+    Q.doraemon_spoke = 1;
+}
 !}
 
 - #combatant
@@ -46,6 +49,7 @@ is-pinned-card: true
 tags: combatant
 card-image: img/portraits/HilferdingRudolf.jpg
 view-if: hilferding_advisor = 1
+on-arrival: selected_combatant = "hilferding"
 
 <div class="combat-advisor-screen">
 
@@ -56,7 +60,19 @@ Stamina: [+ hilferding_sta +]
 
 </div>
 
+- @attack
+- @defend
+- @hilferding_abilities: Let's explore Hilferding's special abilities.
 - @menu: Return
+
+@hilferding_abilities
+subtitle: Strategize - Medicine - Socialize
+
+<div class="combat-advisor-screen">
+
+Rudolf Hilferding has some tricks up his sleeve.
+
+</div>
 
 @wels_c
 title: Otto Wels
@@ -64,6 +80,7 @@ is-pinned-card: true
 tags: combatant
 card-image: img/portraits/WelsOtto.jpg
 view-if: wels_advisor = 1
+on-arrival: selected_combatant = "wels"
 
 <div class="combat-advisor-screen">
 
@@ -75,3 +92,11 @@ Stamina: [+ wels_sta +]
 </div>
 
 - @menu: Return
+
+@attack
+title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
+subtitle: An ordinary attack, dealing damage. (1 stamina)
+
+@defend
+title: Take a defensive stance and attempt to heal.
+subtitle: An ordinary defense, regaining 1 HP. (1 stamina)
