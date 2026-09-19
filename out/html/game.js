@@ -233,8 +233,18 @@ window.setCombatHand = function(active) {
     content.appendChild(combatHand);
   }
 
-  if (normalChoices.length > 0) {
-    this.ui.displayChoices(normalChoices);
+  this.ui.displayChoices(choices);
+
+  const choiceList = content.querySelector('ul.choices');
+
+  if (choiceList) {
+    for (const entry of combatChoices) {
+      const li = choiceList.children[entry.index];
+
+      if (li) {
+        li.style.display = 'none';
+      }
+    }
   }
 
   return this;
