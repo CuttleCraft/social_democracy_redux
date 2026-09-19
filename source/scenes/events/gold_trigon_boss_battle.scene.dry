@@ -5,6 +5,16 @@ window.setCombatHand(true);
 
 const content = document.getElementById('content');
 
+Q.hilferding_hp = 21;
+Q.hilferding_att = 3;
+Q.hilferding_def = 9;
+Q.hilferding_sta = 5;
+
+Q.wels_hp = 19;
+Q.wels_att = 7;
+Q.wels_def = 4;
+Q.wels_sta = 9;
+
 !}
 
 = ...vs Gold Trigon
@@ -20,4 +30,28 @@ Before us stands a cosmic foe.
   <div id="combat-dialogue-text" class="combat-dialogue-text"></div>
 </div>
 
-- #advisor
+- #combatant
+
+@hilferding_c
+title: Rudolf Hilferding
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/HilferdingRudolf.jpg
+view-if: wels_advisor = 1
+
+HP: [+ hilferding_hp +]
+Attack: [+ hilferding_att +]
+Defense: [+ hilferding_def +]
+Stamina: [+ hilferding_sta +]
+
+@wels_c
+title: Otto Wels
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/WelsOtto.jpg
+view-if: wels_advisor = 1
+
+HP: [+ wels_hp +]
+Attack: [+ wels_att +]
+Defense: [+ wels_def +]
+Stamina: [+ wels_sta +]
