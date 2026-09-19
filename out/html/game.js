@@ -144,7 +144,7 @@ window.setCombatHand = function(active) {
         return this;
       }
 
-      const combatants = [];
+      const combatHand = [];
 
       for (var c of choices) {
         const choiceScene = this.game.scenes[c.id];
@@ -154,10 +154,12 @@ window.setCombatHand = function(active) {
         }
 
         c.image = choiceScene.cardImage;
-        combatants.push(c);
+        combatHand.push(c);
       }
 
-      this.ui.displayHand(combatants, scene.maxCards);
+      this.state.currentHands[this.state.sceneId] = combatHand;
+
+      this.ui.displayHand(combatHand, scene.maxCards);
 
       return this;
     };
