@@ -52,9 +52,9 @@ Attack: [+ hilferding_att +]
 Defense: [+ hilferding_def +]
 Stamina: [+ hilferding_sta +]
 
-- @menu: Return
-
 </div>
+
+- @menu: Return
 
 @wels_c
 title: Otto Wels
@@ -70,6 +70,6 @@ Attack: [+ wels_att +]
 Defense: [+ wels_def +]
 Stamina: [+ wels_sta +]
 
-- @menu: Return
-
 </div>
+
+- @menu: Return
