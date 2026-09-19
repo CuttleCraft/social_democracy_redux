@@ -15,6 +15,8 @@ Q.wels_att = 7;
 Q.wels_def = 4;
 Q.wels_sta = 9;
 
+window.showCombatDialogue("doraemon", "Holy smokes!");
+
 !}
 go-to: menu
 
