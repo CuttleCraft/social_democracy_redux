@@ -23,26 +23,27 @@ Q.wels_sta_m = 9;
 Q.hilferding_action = "";
 Q.wels_action = "";
 
-setTimeout(function() {
-  const engine = window.dendryUI.dendryEngine;
-  const choices = engine.getCurrentChoices();
+const engine = window.dendryUI.dendryEngine;
 
-  Q.combatants = [];
+Q.combatants = [];
 
-  for (const choice of choices) {
-    const choiceScene = engine.game.scenes[choice.id];
+const combatantIds = engine.game.tagLookup["combatant"] || {};
 
-    if (
-      choiceScene &&
-      choiceScene.tags &&
-      choiceScene.tags.includes("combatant")
-    ) {
-      Q.combatants.push(choice.id.replace(/_c$/, ""));
-    }
+for (const id in combatantIds) {
+  const scene = engine.game.scenes[id];
+
+  if (!scene) {
+    continue;
   }
 
-  Q.everyone_is_done = 0;
-}, 0);
+  if (scene.viewIf && !engine._runPredicate(scene.viewIf, true)) {
+    continue;
+  }
+
+  Q.combatants.push(id.replace(/_c$/, ""));
+}
+
+Q.everyone_is_done = 0;
 
 !}
 go-to: menu
@@ -137,12 +138,16 @@ on-arrival: {!
 Q[selected_combatant + "_action"] = "attack";
 !}
 
+- @menu: Return
+
 @defend
 title: Take a defensive stance and attempt to heal.
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina)
 on-arrival: {!
 Q[selected_combatant + "_action"] = "defend";
 !}
+
+- @menu: Return
 
 @next_turn
 view-if: everyone_is_done
