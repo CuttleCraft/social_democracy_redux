@@ -126,7 +126,7 @@ Rudolf Hilferding has some tricks up his sleeve.
 title: Strategize
 subtitle: Spend turn planning the battle ahead. The next turn, stamina cost for all abilities will be halved, but have to be decided now (3 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "strategize";
+Q[Q.selected_combatant + "_action"] = "strategize";
 !}
 go-to: menu
 
@@ -201,7 +201,7 @@ Otto Wels has some tricks up his sleeve.
 title: Reinvigorate
 subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. Restore everyone's stamina by your own, while completely depleting your own. (up to 9 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "reinvigorate";
+Q[Q.selected_combatant + "_action"] = "reinvigorate";
 !}
 go-to: menu
 
@@ -209,7 +209,7 @@ go-to: menu
 title: Finance
 subtitle: Spend turn calling up German industry to fundraise for the struggle. Gain 1 resource. Resources can be spent to upgrade stats. (3 stamina)
 on-arrival: {!
-Q[selected_combatant + "_action"] = "finance";
+Q[Q.selected_combatant + "_action"] = "finance";
 !}
 go-to: menu
 
