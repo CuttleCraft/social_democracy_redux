@@ -21,12 +21,14 @@ Q.hilferding_att = 3;
 Q.hilferding_def = 9;
 Q.hilferding_sta = 5;
 Q.hilferding_sta_m = 5;
+Q.hilferding_hp_m = 21;
 
 Q.wels_hp = 19;
 Q.wels_att = 7;
 Q.wels_def = 4;
 Q.wels_sta = 9;
 Q.wels_sta_m = 9;
+Q.wels_hp_m = 19;
 
 Q.hilferding_action = "";
 Q.hilferding_plan = "";
@@ -131,6 +133,8 @@ go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
 
+**Rudolf Hilferding**
+
 HP: [+ hilferding_hp +]
 Attack: [+ hilferding_att +]
 Defense: [+ hilferding_def +]
@@ -167,7 +171,6 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "strategize";
 }
 !}
-go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
@@ -193,7 +196,7 @@ go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
-Select a target.
+[+ sc_display +] will, at the cost of 5 stamina and the turn of the selected individual, heal the individual to full health, bringing them back up to battle readiness in time for the next turn of combat. Who should be treated?
 
 </div>
 
@@ -231,6 +234,8 @@ on-arrival: selected_combatant = "wels" if not choosing_target; selected_target 
 go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
+
+**Otto Wels**
 
 HP: [+ wels_hp +]
 Attack: [+ wels_att +]
@@ -290,7 +295,6 @@ if (!Q.planning_combat) {
 } else {
     Q[Q.selected_combatant+"_plan"] = "attack";
 }
-clearCombatPlanIfNeeded();
 !}
 go-to: menu
 
