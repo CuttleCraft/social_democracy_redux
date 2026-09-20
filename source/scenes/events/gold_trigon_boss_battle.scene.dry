@@ -21,8 +21,17 @@ Q.wels_sta = 9;
 Q.wels_sta_m = 9;
 
 Q.hilferding_action = "";
+Q.hilferding_plan = "";
 
 Q.wels_action = "";
+Q.wels_plan = "";
+
+Q.planning_combat = 0;
+Q.plan_is_done = 0;
+
+Q.choosing_target = 0;
+Q.selected_combatant = 0;
+Q.selected_target = 0;
 
 const engine = window.dendryUI.dendryEngine;
 
@@ -81,10 +90,23 @@ for (var c of Q.combatants) {
 if (Q.choosing_target) {
     Q.everyone_is_done = 0;
 }
+
+Q.plan_is_done = 1;
+if (Q.planning_combat) {
+    for (var c of Q.combatants) {
+        if (Q[c + "_plan"] == "") {
+            Q.plan_is_done = 0;
+        }
+    }
+}
+
 !}
+
+[? if planning_combat : We are planning - all actions we select are for the **next turn**, rather than the current one. ?]
 
 - #combatant
 - @next_turn: Submit the selected actions
+- @finalize_plan: Finalize the battle plan
 
 @hilferding_c
 title: Rudolf Hilferding
@@ -92,7 +114,7 @@ is-pinned-card: true
 tags: combatant
 card-image: img/portraits/HilferdingRudolf.jpg
 view-if: (hilferding_advisor = 1) and (not choosing_target or (selected_combatant != "hilferding"))
-on-arrival: selected_combatant = "hilferding" if not choosing_target; selected_target = "hilferding" if choosing_target
+on-arrival: selected_combatant = "hilferding" if not choosing_target; selected_target = "hilferding" if choosing_target; sc_display = "Hilferding" if not choosing_target; sc_plan = hilferding_plan if not choosing_target
 go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
@@ -124,19 +146,36 @@ Rudolf Hilferding has some tricks up his sleeve.
 
 @strategize
 title: Strategize
-subtitle: Spend turn planning the battle ahead. The next turn, stamina cost for all abilities will be halved, but have to be decided now (3 stamina)
+subtitle: Spend turn planning the battle ahead. The next turn, stamina cost for all abilities will be halved, but have to be decided now (3 stamina) [? if sc_plan == "strategize" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "strategize";
+if (!Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "strategize";
+    Q.planning_combat = 1;
+} else {
+    Q[Q.selected_combatant+"_plan"] = "strategize";
+}
 !}
-go-to: menu
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of 3 stamina, use their expertise in political strategization and theorization to formulate a battle plan for the next turn after this one. When the battle plan is finalized, it can be implemented. We are now **drafting the plan** - before finalizing our combatants' actions for this turn, please complete the plan for the next turn.
+
+</div>
+
+- @menu: Return
 
 @medicine
 title: Medicine
-subtitle: Spend turn treating another combatant. Selected combatant will have full health, but will also have to spend their turn being treated (5 stamina)
+subtitle: Spend turn treating another combatant. Selected combatant will have full health, but will also have to spend their turn being treated (5 stamina) [? if sc_plan == "medicine" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "medicine";
-Q.choosing_target = 1;
+if (!Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "medicine";
+    Q.choosing_target = 1;
+} else {
+    Q[Q.selected_combatant+"_plan"] = "medicine";
+}
 !}
+go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
@@ -148,11 +187,16 @@ Select a target.
 
 @socialize
 title: Socialize
-subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina)
+subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina) [? if sc_plan == "socialize" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "socialize";
-Q.choosing_target = 1;
+if !(Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "socialize";
+    Q.choosing_target = 1;
+} else {
+    Q[Q.selected_combatant+"_plan"] = "socialize";
+}
 !}
+go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
@@ -168,7 +212,7 @@ is-pinned-card: true
 tags: combatant
 card-image: img/portraits/WelsOtto.jpg
 view-if: wels_advisor = 1
-on-arrival: selected_combatant = "wels" if not choosing_target; selected_target = "wels" if choosing_target
+on-arrival: selected_combatant = "wels" if not choosing_target; selected_target = "wels" if choosing_target; sc_display = "Wels" if not choosing_target; sc_plan = wels_plan if not choosing_target
 go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
@@ -199,33 +243,49 @@ Otto Wels has some tricks up his sleeve.
 
 @reinvigorate
 title: Reinvigorate
-subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. Restore everyone's stamina by your own, while completely depleting your own. (up to 9 stamina)
+subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. Restore everyone's stamina by your own, while completely depleting your own. (up to 9 stamina) [? if sc_plan == "reinvigorate" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "reinvigorate";
+if (!Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "reinvigorate";
+} else {
+    Q[Q.selected_combatant+"_plan"] = "reinvigorate";
+}
 !}
 go-to: menu
 
 @finance
 title: Finance
-subtitle: Spend turn calling up German industry to fundraise for the struggle. Gain 1 resource. Resources can be spent to upgrade stats. (3 stamina)
+subtitle: Spend turn calling up German industry to fundraise for the struggle. Gain 1 resource. Resources can be spent to upgrade stats. (3 stamina) [? if sc_plan == "finance" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "finance";
+if (!Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "finance";
+} else {
+    Q[Q.selected_combatant+"_plan"] = "finance";
+}
 !}
 go-to: menu
 
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
-subtitle: An ordinary attack, dealing damage. (1 stamina)
+subtitle: An ordinary attack, dealing damage. (1 stamina) [? if sc_plan == "attack" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "attack";
+if (!Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "attack";
+} else {
+    Q[Q.selected_combatant+"_plan"] = "attack";
+}
 !}
 go-to: menu
 
 @defend
 title: Take a defensive stance and attempt to heal.
-subtitle: An ordinary defense, regaining 1 HP. (1 stamina)
+subtitle: An ordinary defense, regaining 1 HP. (1 stamina) [? if sc_plan == "defend" : - **this is our plan** ?]
 on-arrival: {!
-Q[Q.selected_combatant + "_action"] = "defend";
+if (!Q.planning_combat) {
+    Q[Q.selected_combatant + "_action"] = "defend";
+} else {
+    Q[Q.selected_combatant+"_plan"] = "defend";
+}
 !}
 go-to: menu
 
@@ -246,12 +306,23 @@ Selected.
 
 </div>
 
+@finalize_plan
+view-if: planning_combat and plan_is_done
+on-arrival: planning_combat = 0
+
+<div class="combat-advisor-screen">
+
+We have finalized the battle plan, so it may be implemented next turn.
+
+</div>
+
+- @menu: Return
+
 @next_turn
-view-if: everyone_is_done
+view-if: everyone_is_done and not planning_combat
 on-arrival: everyone_is_done = 0; {! 
 
 for (var c of Q.combatants) {
-    Q[Q.selected_combatant+"_action"] = 0;
     Q[c+"_action"] = "";
     // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
 }
