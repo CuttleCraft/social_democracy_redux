@@ -155,6 +155,7 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "strategize";
 }
 !}
+go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
@@ -189,7 +190,7 @@ Select a target.
 title: Socialize
 subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina) [? if sc_plan == "socialize" : - **this is our plan** ?]
 on-arrival: {!
-if !(Q.planning_combat) {
+if (!Q.planning_combat) {
     Q[Q.selected_combatant + "_action"] = "socialize";
     Q.choosing_target = 1;
 } else {
