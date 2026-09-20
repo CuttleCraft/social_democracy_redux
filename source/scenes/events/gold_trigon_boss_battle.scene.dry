@@ -3,9 +3,13 @@ new-page: true
 on-arrival: {!
 window.setCombatHand(true);
 
-function clearCombatPlanIfNeeded() {
-    console.log("clearCombatPlanIfNeeded exists");
-}
+window.clearCombatPlanIfNeeded = function() {
+    if (Q[Q.selected_combatant + "_action"] == "strategize") {
+        for (var c of Q.combatants) {
+            Q[c + "_plan"] = "";
+        }
+    }
+};
 
 const content = document.getElementById('content');
 
@@ -178,6 +182,7 @@ title: Medicine
 subtitle: Spend turn treating another combatant. Selected combatant will have full health, but will also have to spend their turn being treated (5 stamina) [? if sc_plan == "medicine" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatPlanIfNeeded();
     Q[Q.selected_combatant + "_action"] = "medicine";
     Q.choosing_target = 1;
 } else {
@@ -199,6 +204,7 @@ title: Socialize
 subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina) [? if sc_plan == "socialize" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatPlanIfNeeded();
     Q[Q.selected_combatant + "_action"] = "socialize";
     Q.choosing_target = 1;
 } else {
@@ -279,6 +285,7 @@ title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New R
 subtitle: An ordinary attack, dealing damage. (1 stamina) [? if sc_plan == "attack" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatPlanIfNeeded();
     Q[Q.selected_combatant + "_action"] = "attack";
 } else {
     Q[Q.selected_combatant+"_plan"] = "attack";
@@ -292,6 +299,7 @@ title: Take a defensive stance and attempt to heal.
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina) [? if sc_plan == "defend" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatPlanIfNeeded();
     Q[Q.selected_combatant + "_action"] = "defend";
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
