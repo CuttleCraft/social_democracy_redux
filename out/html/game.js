@@ -304,8 +304,31 @@ window.showCombatDialogue = function(advisorId, text) {
 };
 
 window.startCombatCutscene = function(dialogues) {
-  window.combatDialogueQueue = dialogues.slice();
+  const engine = window.dendryUI.dendryEngine;
+  const qualities = engine.state.qualities;
+
+  const actor = qualities.selected_combatant;
+
+  window.combatDialogueQueue = dialogues.map(function(dialogue) {
+    let speaker = dialogue[0];
+
+    if (speaker === "random_other_combatant") {
+      const others = (qualities.combatants || []).filter(function(combatant) {
+        return combatant !== actor;
+      });
+
+      if (others.length > 0) {
+        speaker = others[Math.floor(Math.random() * others.length)];
+      } else {
+        speaker = actor;
+      }
+    }
+
+    return [speaker, dialogue[1]];
+  });
+
   window.combatDialogueIndex = 0;
+  window.combatDialogueFinished = false;
 
   window.playNextCombatDialogue();
 };
