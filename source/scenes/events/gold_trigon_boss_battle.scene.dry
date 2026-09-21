@@ -1,6 +1,8 @@
 title: ...vs Gold Trigon
 new-page: true
 on-arrival: {!
+Q.gold_trigon_turn = 1;
+
 window.setCombatHand(true);
 
 window.clearCombatStatsIfNeeded = function() {
@@ -103,8 +105,13 @@ document.querySelectorAll('.combat-advisor-screen').forEach(el => el.remove());
 window.setCombatHand(true);
 
 if (!Q.doraemon_spoke) {
-    window.showCombatDialogue("doraemon", "Holy smokes!");
+    window.showCombatDialogue("doraemon", "Holy smokes, woah, hey, get back here! Hey! That's not safe! It'll kill you guys!");
     Q.doraemon_spoke = 1;
+} else if (Q.doraemon_spoke == 1) {
+    window.showCombatDialogue("doraemon", "Really guys, be responsible now! This is absolutely unsafe, every little bit of it. I mean, really, really unsafe stuff we're talking about here. It literally evaporated Hitler!");
+    Q.doraemon_spoke += 1;
+} else if (Q.doraemon_spoke == 2) {
+    window.showCombatDialogue("doraemon", "Well, okay. If you guys insist on fighting it, I'll um...I'm cheering for you! And, if you decide to change your minds, I'll show you all to the time machine!");
 }
 
 Q.everyone_is_done = 1;
@@ -241,7 +248,7 @@ go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
-Select a target.
+[+ sc_display +] will, at the cost of 4 stamina, make friends with the selected individual. They will be so jolly and whimsical together, that when taking actions together, they will harmonize their actions together and dunk on whoever stands in their way. This is the power, my friend, of socialization. Who should we socialize with?
 
 </div>
 
@@ -296,7 +303,15 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "reinvigorate";
 }
 !}
-go-to: menu
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of all stamina, reinvigorate the morale of all other combatants. The fieriness and effectiveness of the speech will directly correlate to the energy and gusto with which it is given. 
+
+</div>
+
+- @menu: Return
 
 @finance
 title: Finance
@@ -308,7 +323,15 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "finance";
 }
 !}
-go-to: menu
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of 3 stamina, fundraise resources equivalent to 1, with which we may upgrade and hone the power and potential of our combatants.
+
+</div>
+
+- @menu: Return
 
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
@@ -321,7 +344,14 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "attack";
 }
 !}
-go-to: menu
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will engage in the primordially primal practice of violence, aimed at the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
+
+</div>
+
+- @menu: Return
 
 @defend
 title: Take a defensive stance and attempt to heal.
@@ -334,7 +364,14 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "defend";
 }
 !}
-go-to: menu
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will engage in the hippocratically harmonious practice of defense, aimed at sacred self to cherish and protect it.
+
+</div>
+
+- @menu: Return
 
 @target_chosen
 on-arrival: {! 
@@ -349,13 +386,14 @@ Q.selected_target = 0;
 Q.choosing_target = 0;
 
 !}
-go-to: menu
 
 <div class="combat-advisor-screen">
 
-Selected.
+Our sights have been set upon the target, upon which our comraderly affections shall be bestowed.
 
 </div>
+
+- @menu: Return
 
 @finalize_plan
 view-if: planning_combat and plan_is_done
@@ -373,12 +411,16 @@ We have finalized the battle plan, so it may be implemented next turn.
 view-if: everyone_is_done and not planning_combat
 on-arrival: everyone_is_done = 0; {! 
 
+Q.gold_trigon_turn += 1;
+
 for (var c of Q.combatants) {
     Q[c+"_action"] = "";
     // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
 }
 
-window.showCombatDialogue("doraemon", "Nice job! You just did something. I support doing things.");
+if (Q.gold_trigon_turn == 2) {
+    window.showCombatDialogue("doraemon", "Okay, wow. You're all still alive. That's good to see.");
+}
 
 !} 
 
