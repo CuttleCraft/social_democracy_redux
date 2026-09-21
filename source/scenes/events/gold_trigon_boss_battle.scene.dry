@@ -109,13 +109,21 @@ document.querySelectorAll('.combat-advisor-screen').forEach(el => el.remove());
 window.setCombatHand(true);
 
 if (!Q.doraemon_spoke) {
-    window.showCombatDialogue("doraemon", "Holy smokes, woah, hey, get back here! Hey! That's not safe! It'll kill you guys!");
+    window.startCombatCutscene([
+        ["doraemon", "Holy smokes, woah, hey, get back here! Hey! That's not safe! It'll kill you guys!"]
+    ]);
     Q.doraemon_spoke = 1;
+
 } else if (Q.doraemon_spoke == 1) {
-    window.showCombatDialogue("doraemon", "Really guys, be responsible now! This is absolutely unsafe, every little bit of it. I mean, really, really unsafe stuff we're talking about here. It literally evaporated Hitler!");
+    window.startCombatCutscene([
+        ["doraemon", "Really guys, be responsible now! This is absolutely unsafe, every little bit of it. I mean, really, really unsafe stuff we're talking about here. It literally evaporated Hitler!"]
+    ]);
     Q.doraemon_spoke += 1;
+
 } else if (Q.doraemon_spoke == 2) {
-    window.showCombatDialogue("doraemon", "Well, okay. If you guys insist on fighting it, I'll um...I'm cheering for you! And, if you decide to change your minds, I'll show you all to the time machine!");
+    window.startCombatCutscene([
+        ["doraemon", "Well, okay. If you guys insist on fighting it, I'll um...I'm cheering for you! And, if you decide to change your minds, I'll show you all to the time machine!"]
+    ]);
     Q.doraemon_spoke += 1;
 }
 

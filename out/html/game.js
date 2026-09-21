@@ -270,10 +270,6 @@ window.showCombatDialogue = function(advisorId, text) {
     image.style.display = 'none';
   }
 
-  if (window.combatDialogueTimer) {
-    clearTimeout(window.combatDialogueTimer);
-  }
-
   textBox.textContent = '';
 
   const characters = Array.from(text);
@@ -281,17 +277,64 @@ window.showCombatDialogue = function(advisorId, text) {
 
   function typeNextCharacter() {
     if (index >= characters.length) {
+      window.combatDialogueTyping = false;
       window.combatDialogueTimer = null;
       return;
     }
 
-    textBox.textContent += characters[index];
+    const character = characters[index];
+    textBox.textContent += character;
     index++;
 
-    window.combatDialogueTimer = setTimeout(typeNextCharacter, 30);
+    let delay = 15;
+
+    if (character === '.' || character === '!' || character === '?' || character === '…') {
+      delay = 180;
+    } else if (character === ',' || character === ';' || character === ':') {
+      delay = 70;
+    } else if (character === ' ') {
+      delay = 5;
+    }
+
+    window.combatDialogueTimer = setTimeout(typeNextCharacter, delay);
   }
 
+  window.combatDialogueTyping = true;
   typeNextCharacter();
+};
+
+window.startCombatCutscene = function(dialogues) {
+  window.combatDialogueQueue = dialogues.slice();
+  window.combatDialogueIndex = 0;
+
+  window.playNextCombatDialogue();
+};
+
+window.playNextCombatDialogue = function() {
+  const queue = window.combatDialogueQueue;
+
+  if (!queue || window.combatDialogueIndex >= queue.length) {
+    window.combatDialogueQueue = null;
+    window.combatDialogueIndex = 0;
+    window.combatDialogueFinished = true;
+    return;
+  }
+
+  const dialogue = queue[window.combatDialogueIndex];
+
+  window.combatDialogueFinished = false;
+
+  window.showCombatDialogue(dialogue[0], dialogue[1]);
+};
+
+window.advanceCombatDialogue = function() {
+  if (window.combatDialogueTyping) {
+    return;
+  }
+
+  window.combatDialogueIndex++;
+
+  window.playNextCombatDialogue();
 };
 
 window.setSworceryUI = function(active) {
