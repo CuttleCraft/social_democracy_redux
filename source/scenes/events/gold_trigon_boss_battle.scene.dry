@@ -3,10 +3,24 @@ new-page: true
 on-arrival: {!
 window.setCombatHand(true);
 
-window.clearCombatPlanIfNeeded = function() {
+window.clearCombatStatsIfNeeded = function() {
     if (Q[Q.selected_combatant + "_action"] == "strategize") {
         for (var c of Q.combatants) {
             Q[c + "_plan"] = "";
+        }
+    } else if (Q[Q.selected_combatant+"_target"] != "") {
+        var former_target = Q[Q.selected_combatant+"_target"];
+        Q[Q.selected_combatant+"_target"] = "";
+        var other_targeters = 0;
+        for (var c of Q.combatants) {
+            if (Q[c+"_target"] == former_target) {
+                other_targeters = 1
+            }
+        }
+        if (other_targeters == 0) {
+            if (Q[former_target+"_action"] == "immobile") {
+                Q[former_target+"_action"] = "";
+            }
         }
     }
 };
@@ -31,9 +45,11 @@ Q.wels_sta_m = 9;
 Q.wels_hp_m = 19;
 
 Q.hilferding_action = "";
+Q.hilferding_target = "";
 Q.hilferding_plan = "";
 
 Q.wels_action = "";
+Q.wels_target = "";
 Q.wels_plan = "";
 
 Q.planning_combat = 0;
@@ -110,6 +126,8 @@ if (Q.planning_combat) {
     }
 }
 
+Q.was_already_planning_combat = 0;
+
 !}
 
 <div class="combat-advisor-screen">
@@ -128,6 +146,8 @@ is-pinned-card: true
 tags: combatant
 card-image: img/portraits/HilferdingRudolf.jpg
 view-if: (hilferding_advisor = 1) and (not choosing_target or (selected_combatant != "hilferding"))
+choose-if: hilferding_action != "immobile"
+unavailable-subtitle: Hilferding's turn is being consumed by a fellow combatant - change their action to something else
 on-arrival: selected_combatant = "hilferding" if not choosing_target; selected_target = "hilferding" if choosing_target; sc_display = "Hilferding" if not choosing_target; sc_plan = hilferding_plan if not choosing_target
 go-to: target_chosen if choosing_target
 
@@ -169,8 +189,10 @@ if (!Q.planning_combat) {
     Q.planning_combat = 1;
 } else {
     Q[Q.selected_combatant+"_plan"] = "strategize";
+    Q.was_already_planning_combat = 1;
 }
 !}
+go-to: menu if was_already_planning_combat
 
 <div class="combat-advisor-screen">
 
@@ -185,9 +207,10 @@ title: Medicine
 subtitle: Spend turn treating another combatant. Selected combatant will have full health, but will also have to spend their turn being treated (5 stamina) [? if sc_plan == "medicine" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
-    window.clearCombatPlanIfNeeded();
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "medicine";
     Q.choosing_target = 1;
+    Q.consumes_turns = 1;
 } else {
     Q[Q.selected_combatant+"_plan"] = "medicine";
 }
@@ -207,7 +230,7 @@ title: Socialize
 subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina) [? if sc_plan == "socialize" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
-    window.clearCombatPlanIfNeeded();
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "socialize";
     Q.choosing_target = 1;
 } else {
@@ -230,6 +253,8 @@ is-pinned-card: true
 tags: combatant
 card-image: img/portraits/WelsOtto.jpg
 view-if: wels_advisor = 1
+choose-if: wels_action != "immobile"
+unavailable-subtitle: Wels' turn is being consumed by a fellow combatant - change their action to something else
 on-arrival: selected_combatant = "wels" if not choosing_target; selected_target = "wels" if choosing_target; sc_display = "Wels" if not choosing_target; sc_plan = wels_plan if not choosing_target
 go-to: target_chosen if choosing_target
 
@@ -290,7 +315,7 @@ title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New R
 subtitle: An ordinary attack, dealing damage. (1 stamina) [? if sc_plan == "attack" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
-    window.clearCombatPlanIfNeeded();
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "attack";
 } else {
     Q[Q.selected_combatant+"_plan"] = "attack";
@@ -303,7 +328,7 @@ title: Take a defensive stance and attempt to heal.
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina) [? if sc_plan == "defend" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
-    window.clearCombatPlanIfNeeded();
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "defend";
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
@@ -315,6 +340,10 @@ go-to: menu
 on-arrival: {! 
 
 Q[Q.selected_combatant+"_target"] = Q.selected_target;
+if (Q.consumes_turns) {
+    Q[Q.selected_target+"_action"] = "immobile";
+    Q.consumes_turns = 0;
+}
 Q.selected_combatant = 0;
 Q.selected_target = 0;
 Q.choosing_target = 0;
