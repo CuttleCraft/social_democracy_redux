@@ -583,6 +583,88 @@ on-arrival: {!
 if (!Q.planning_combat) {
     window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "attack";
+    if (Q.selected_combatant == "wels") {
+        Q.wels_attacks = (Q.wels_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["wels", "Prepare for trouble!|"],
+                ["wels", "And make it, uh, single, cause, I'm alone...||"],
+                ["wels", "But single or not, I'm gonna beat you down, Mr. Triangle Man. Or woman."],
+                ["doraemon", "Wels has attacked!!!"],
+            ],
+            2: [
+                ["wels", "Ready for round two? Here goes, trianglekid.|"],
+                ["doraemon", "Wels has attacked!!!"],
+            ],
+            3: [
+                ["wels", "You're done for."],
+                ["wels", "Feel the power of my, well, I'm not gonna literally punch you, you're a big floating triangle in the air with seemingly cosmic properties, but like, my uh,||| mind-beam."],
+                ["doraemon", "Wels has attacked!!!"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.wels_attacks] || [
+            ["wels", "Bam! Boom! Hai-ya!!!"],
+            ["doraemon", "Wels has attacked!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "hilferding") {
+        Q.hilferding_attacks = (Q.hilferding_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["hilferding", "I haven't done this in years. Not since the Great Bake Sale of 1919...|"],
+                ["hilferding", "But you'd be wrong to think me rusty.|"],
+                ["hilferding", "Prepare yourself, psychocosmological foe, for I yield only to-"],
+                ["severing", "That's my line!"],
+                ["hilferding", "My bad. Regardless..."],
+                ["hilferding", "(Picture me rolling my sleeves up dramatically in a no-nonsense fashion)"],
+                ["hilferding", "(I'd slug the triangle's jaw)"],
+                ["doraemon", "(Wow)|||"],
+                ["hilferding", "(If it had one I mean)|"],
+                ["doraemon", "(Yeah I got that)|"],
+                ["hilferding", "(Good)"],
+                ["doraemon", "Hilferding has attacked!!!"],
+            ],
+            2: [
+                ["hilferding", "This is not my first rodeo, and by God, it will not be my last. You, you apparition of finance capital, shall feel the might of proletarian force.|"],
+                ["hilferding", "You shall inevitably yield to your expropriation by the social-democratic movement, which champions forth history.|"],
+                ["hilferding", "Brace yourself, manifestation, for-"],
+                ["wissell", "Stop larping"],
+                ["hilferding", "Okay fine I'll just get this over with."],
+                ["hilferding", "Irregardless, it will undermine the material conditions which allow this superstructural force of production to persist."],
+                ["doraemon", "Hilferding has attacked!!!"],
+            ],
+            3: [
+                ["hilferding", "I've eaten only waffles all day.|"],
+                ["hilferding", "For those not in the know, there has been a researched correlation between eating waffles and winning.|"],
+                ["hilferding", "This is in contrast to pancakes, which are correlated heavily with abject failure and defeat.|"],
+                ["hilferding", "I would not be surprised if cosmic geometry consumed exclusively pancakes, albeit evidently to not quite the extent of Hitler."],
+                ["doraemon", "Hilferding has attacked!!!"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.hilferding_attacks] || [
+            ["hilferding", "The world is but a marble in the palm of my hand!"],
+            ["doraemon", "Hilferding has attacked!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
 } else {
     Q[Q.selected_combatant+"_plan"] = "attack";
 }
@@ -603,6 +685,96 @@ on-arrival: {!
 if (!Q.planning_combat) {
     window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "defend";
+    if (Q.selected_combatant == "wels") {
+        Q.wels_defends = (Q.wels_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["wels", "Peace-lovin' man, I'm a peace-lovin' man..."],
+                ["wels", "Wait, that's already been referenced somewhere else in the game?|"],
+                ["wels", "Okay, sorry."],
+                ["doraemon", "Wels has defended!!!"],
+            ],
+            2: [
+                ["wels", "I don't really have anything cooler to say, to be honest.|"],
+                ["doraemon", "Wels has defended!!!"],
+            ],
+            3: [
+                ["wels", "These recent moves I've been making are low-key a waste of my talents.|"],
+                ["doraemon", "Wels has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.wels_defends] || [
+            ["wels", "I'm boring..."],
+            ["doraemon", "Wels has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "hilferding") {
+        Q.hilferding_defends = (Q.hilferding_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["hilferding", "Obviously, I'm familiar with the hippocratic oath.|"],
+                ["hilferding", "What I'm doing right now has pretty much nothing to do with it.|"],
+                ["hilferding", "I don't know why it's considered descriptive here, it isn't very apt.|"],
+                ["hilferding", "Regardless, my skills are suited here to self-treatment and self-care.|"],
+                ["hilferding", "Even if I would rather be doing something more useful.|"],
+                ["hilferding", "Which, would really be of greater use.|"],
+                ["hilferding", "By,| w|e|l|l|,| the definition of the word useful."],
+                ["doraemon", "Hilferding has defended!!!"],
+            ],
+            2: [
+                ["hilferding", "I suppose I shouldn't overlook the potential tactical utility that this has..."],
+                ["hilferding", "But surely there is more I could be doing?|"],
+                ["hilferding", "Then again, I supported doing pretty much nothing for like,||| the entire Great Depression."],
+                ["hilferding", "Except those moments I didn't|, which you gotta give me credit for, by the way.|"],
+                ["hilferding", "Really, I think my legacy isn't nearly as bad as it's made out to be.|"],
+                ["hilferding", "Why isn't anyone talking about the actual plans I had? I wasn't just some ||chud|| advocating for us to do nothing all the time. I had ideas!"],
+                ["hilferding", "I wrote Finance Capital! Vladimir Lenin was influenced by that!"],
+                ["hilferding", "Plus, I did have actual ideas for things to actually do during the period of the Great Depression, too. They'd still probably work, but somehow I feel like they're not relevant now that this whole cosmic geometry thing has taken the stage. Regardless..."],
+                ["hilferding", "The point is, I didn't really advocate for doing nothing, it was just the practical effect of the policies I advocated."],
+                ["hilferding", "Which you can only really know with hindsight!"],
+                ["hilferding", "My ideas were perfectly sensible. Haven't even been discredited yet, but the Megatome seems to think they will be."],
+                ["hilferding", "Y'know, those time travelers who were here moments ago? They're probably Keynesians."],
+                ["hilferding", "Don't ask me my thoughts on Keynesians."],
+                ["woytinsky", "..."],
+                ["hilferding", "Ew."],
+                ["doraemon", "Okay, wrap it up. Your monologue is over."],
+                ["doraemon", "Hilferding has defended!!!"],
+            ],
+            3: [
+                ["hilferding", "Returning to my point on Keynesians...|"],
+                ["hilferding", "Deficit spending is an utterly reckless policy. I mean, you have to consider that Germany doesn't exist in a vacuum, for one.|"],
+                ["hilferding", "Foreign countries will see deficit spending - the Entente powers - and change their evaluation of our currency's value, or reparations attitude, accordingly."],
+                ["hilferding", "It makes far more sense to negotiate to alleviate the reparations burden, which we can do more easily from a position of strengthening our currency."],
+                ["hilferding", "Then, we can further make agreements to cut tariffs, and stimulate international investment again."],
+                ["hilferding", "It should be no surprise that a global crisis requires a global response."],
+                ["hilferding", "Anyway, defense."],
+                ["doraemon", "Hilferding has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.hilferding_defends] || [
+            ["hilferding", "If you want to hear more about my economic opinions, you can read my works."],
+            ["doraemon", "Hilferding has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
 }
@@ -618,16 +790,6 @@ if (!Q.planning_combat) {
 
 @target_chosen
 on-arrival: {! 
-
-Q[Q.selected_combatant+"_target"] = Q.selected_target;
-if (Q.consumes_turns) {
-    Q[Q.selected_target+"_action"] = "immobile";
-    Q.consumes_turns = 0;
-}
-Q.selected_combatant = 0;
-Q.selected_target = 0;
-Q.choosing_target = 0;
-
 if (Q.socialize_cutscene_tbd) {
     Q.socialize_cutscene_tbd = 0;
     if (Q.selected_combatant == "hilferding") {
@@ -659,6 +821,14 @@ if (Q.socialize_cutscene_tbd) {
     Q.combat_cutscene_queue.push(id);
     }
 }
+Q[Q.selected_combatant+"_target"] = Q.selected_target;
+if (Q.consumes_turns) {
+    Q[Q.selected_target+"_action"] = "immobile";
+    Q.consumes_turns = 0;
+}
+Q.selected_combatant = 0;
+Q.selected_target = 0;
+Q.choosing_target = 0;
 
 !}
 
