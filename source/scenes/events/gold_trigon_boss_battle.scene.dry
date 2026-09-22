@@ -225,13 +225,10 @@ if (!Q.planning_combat) {
 }
 
 if (Q.selected_combatant == "hilferding") {
-    if (!Q.hilferding_strategies) {
-        Q.hilferding_strategies = 1;
-    } else {
-        Q.hilferding_strategies += 1;
-    }
-    if (Q.hilferding_strategies == 1) {
-        var dialogues = [
+    Q.hilferding_strategies = (Q.hilferding_strategies || 0) + 1;
+
+    var strategyDialogues = {
+        1: [
             ["hilferding", "This strange apparition of seemingly cosmic geometry represents an unprecedented progression in the development of global finance-capitalism. In this thesis, we will aim to-"],
             ["random_other_combatant", "Hilfy, I don't think-"],
             ["hilferding", "Be quiet. The socialist movement must correctly diagnose the historical sociomaterial conditions which led to the emergence of this triangular manifestation, in order to address its response."],
@@ -240,15 +237,8 @@ if (Q.selected_combatant == "hilferding") {
             ["hilferding", "We will accomplish this by rocking its shit violence-style.|"],
             ["random_other_combatant", "Ohhh. Okay. Sure, I can agree with that.|"],
             ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ];
-        if (!Q.doraemon_narrated) {
-            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-            Q.doraemon_narrated = 1;
-        }
-        var id = window.queueCombatCutscene(dialogues);
-        Q.combat_cutscene_queue.push(id);
-    } else if (Q.hilferding_strategies == 2) {
-        var dialogues = [
+        ],
+        2: [
             ["hilferding", "The policy of cosmic geometry is bound to lead towards war, and hence to the unleashing of revolutionary storms.|"],
             ["random_other_combatant", "Amen.|"],
             ["hilferding", "Now, then, is the issue of how we as revolutionaries should seek to unleash our storms."],
@@ -262,15 +252,8 @@ if (Q.selected_combatant == "hilferding") {
             ["hilferding", "We just need to beat its ass, basically."],
             ["hilferding", "I wrote the specifics down in my notepad."],
             ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ];
-        if (!Q.doraemon_narrated) {
-            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-            Q.doraemon_narrated = 1;
-        }
-        var id = window.queueCombatCutscene(dialogues);
-        Q.combat_cutscene_queue.push(id);
-    } else if (Q.hilferding_strategies == 3) {
-        var dialogues = [
+        ],
+        3: [
             ["hilferding", "Maybe if we tried baking cookies..."],
             ["hilferding", "Then doing a bakesale..."],
             ["hilferding", "Hm...|"],
@@ -280,27 +263,23 @@ if (Q.selected_combatant == "hilferding") {
             ["hilferding", "Braun, shut up. Nobody cares about Homestuck."],
             ["braun", "But you just referenced it!"],
             ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ];
-        if (!Q.doraemon_narrated) {
-            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-            Q.doraemon_narrated = 1;
-        }
-        var id = window.queueCombatCutscene(dialogues);
-        Q.combat_cutscene_queue.push(id);
-    }  else if (Q.hilferding_strategies >= 4) {
-        var dialogues = [
-            ["hilferding", "I am an immaculate theorist."],
-            ["hilferding", "Read my theories now."],
-            ["random_other_combatant", "Okay..."],
-            ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ];
-        if (!Q.doraemon_narrated) {
-            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-            Q.doraemon_narrated = 1;
-        }
-        var id = window.queueCombatCutscene(dialogues);
-        Q.combat_cutscene_queue.push(id);
+        ],
+    };
+
+    var dialogues = strategyDialogues[Q.hilferding_strategies] || [
+        ["hilferding", "I am an immaculate theorist."],
+        ["hilferding", "Read my theories now."],
+        ["random_other_combatant", "Okay..."],
+        ["doraemon", "Hilferding has made a battle plan for the next turn!"],
+    ];
+
+    if (!Q.doraemon_narrated) {
+        dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+        Q.doraemon_narrated = 1;
     }
+
+    var id = window.queueCombatCutscene(dialogues);
+    Q.combat_cutscene_queue.push(id);
 }
 
 !}
