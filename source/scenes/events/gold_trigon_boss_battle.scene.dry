@@ -444,15 +444,19 @@ We have finalized the battle plan, so it may be implemented next turn.
 - @menu: Return
 
 @next_turn
+choose-if: not cutscene_unfinished
+unavailable-subtitle: Don't interrupt.
 view-if: everyone_is_done and not planning_combat
-on-arrival: everyone_is_done = 0; {! 
-
-Q.gold_trigon_turn += 1;
+on-arrival: {! 
 
 if (Q.combat_cutscene_queue.length > 0) {
     window.startCombatCutscene(Q.combat_cutscene_queue.shift());
     return;
 }
+
+Q.everyone_is_done = 0;
+
+Q.gold_trigon_turn += 1;
 
 for (var c of Q.combatants) {
     Q[c+"_action"] = "";
@@ -466,10 +470,9 @@ for (var c of Q.combatants) {
 
 !} 
 
-<div class="combat-advisor-screen">
+- @next_turn: Who's next?
+- @return_to_menu: Proceed to the next turn
 
-We attack the Gold Trigon.
-
-</div>
-
-- @menu: Return
+@return_to_menu
+view-if: not everyone_is_done
+go-to: menu

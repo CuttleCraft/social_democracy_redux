@@ -327,6 +327,8 @@ window.startCombatCutscene = function(dialoguesOrId) {
     const engine = window.dendryUI.dendryEngine;
     const Q = engine.state.qualities;
 
+    Q.cutscene_unfinished = 1;
+
     let dialogues;
     let actor = Q.selected_combatant;
 
@@ -355,7 +357,7 @@ window.startCombatCutscene = function(dialoguesOrId) {
             if (others.length > 0) {
                 speaker = others[Math.floor(Math.random() * others.length)];
             } else {
-                speaker = actor;
+                speaker = "doraemon";
             }
         }
 
@@ -375,6 +377,7 @@ window.playNextCombatDialogue = function() {
     window.combatDialogueQueue = null;
     window.combatDialogueIndex = 0;
     window.combatDialogueFinished = true;
+    dendryUI.dendryEngine.state.qualities.cutscene_unfinished = 0;
     return;
   }
 
