@@ -219,67 +219,67 @@ if (!Q.planning_combat) {
     window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "strategize";
     Q.planning_combat = 1;
+    
+    if (Q.selected_combatant == "hilferding") {
+        Q.hilferding_strategies = (Q.hilferding_strategies || 0) + 1;
+
+        var strategyDialogues = {
+            1: [
+                ["hilferding", "This strange apparition of seemingly cosmic geometry represents an unprecedented progression in the development of global finance-capitalism. In this thesis, we will aim to-"],
+                ["random_other_combatant", "Hilfy, I don't think-"],
+                ["hilferding", "Be quiet. The socialist movement must correctly diagnose the historical sociomaterial conditions which led to the emergence of this triangular manifestation, in order to address its response."],
+                ["hilferding", "Hm..."],
+                ["hilferding", "Yes. I see it. This apparition of cosmic geometry represents an aspect of the bourgeois superstructure yet also simultaneously a means of production in itself, and must therefore be dismantled and proletarianized pursuant to its expropriation."],
+                ["hilferding", "We will accomplish this by rocking its shit violence-style.|"],
+                ["random_other_combatant", "Ohhh. Okay. Sure, I can agree with that.|"],
+                ["doraemon", "Hilferding has made a battle plan for the next turn!"],
+            ],
+            2: [
+                ["hilferding", "The policy of cosmic geometry is bound to lead towards war, and hence to the unleashing of revolutionary storms.|"],
+                ["random_other_combatant", "Amen.|"],
+                ["hilferding", "Now, then, is the issue of how we as revolutionaries should seek to unleash our storms."],
+                ["hilferding", "Hm..."],
+                ["hilferding", "Doraemon, any ideas?"],
+                ["doraemon", "No???"],
+                ["hilferding", "Come on. Are you even a Marxist?"],
+                ["doraemon", "I'm not!|"],
+                ["hilferding", "Wait, really? Damn."],
+                ["hilferding", "Well, that's okay. I figured it out myself."],
+                ["hilferding", "We just need to beat its ass, basically."],
+                ["hilferding", "I wrote the specifics down in my notepad."],
+                ["doraemon", "Hilferding has made a battle plan for the next turn!"],
+            ],
+            3: [
+                ["hilferding", "Maybe if we tried baking cookies..."],
+                ["hilferding", "Then doing a bakesale..."],
+                ["hilferding", "Hm...|"],
+                ["hilferding", "No, that wouldn't work."],
+                ["hilferding", "I'll just have to do things in my rough and tumble dirty wifebeaterly sort of way."],
+                ["braun", "I get that reference!"],
+                ["hilferding", "Braun, shut up. Nobody cares about Homestuck."],
+                ["braun", "But you just referenced it!"],
+                ["doraemon", "Hilferding has made a battle plan for the next turn!"],
+            ],
+        };
+
+        var dialogues = strategyDialogues[Q.hilferding_strategies] || [
+            ["hilferding", "I am an immaculate theorist."],
+            ["hilferding", "Read my theories now."],
+            ["random_other_combatant", "Okay..."],
+            ["doraemon", "Hilferding has made a battle plan for the next turn!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
 } else {
     Q[Q.selected_combatant+"_plan"] = "strategize";
     Q.was_already_planning_combat = 1;
-}
-
-if (Q.selected_combatant == "hilferding") {
-    Q.hilferding_strategies = (Q.hilferding_strategies || 0) + 1;
-
-    var strategyDialogues = {
-        1: [
-            ["hilferding", "This strange apparition of seemingly cosmic geometry represents an unprecedented progression in the development of global finance-capitalism. In this thesis, we will aim to-"],
-            ["random_other_combatant", "Hilfy, I don't think-"],
-            ["hilferding", "Be quiet. The socialist movement must correctly diagnose the historical sociomaterial conditions which led to the emergence of this triangular manifestation, in order to address its response."],
-            ["hilferding", "Hm..."],
-            ["hilferding", "Yes. I see it. This apparition of cosmic geometry represents an aspect of the bourgeois superstructure yet also simultaneously a means of production in itself, and must therefore be dismantled and proletarianized pursuant to its expropriation."],
-            ["hilferding", "We will accomplish this by rocking its shit violence-style.|"],
-            ["random_other_combatant", "Ohhh. Okay. Sure, I can agree with that.|"],
-            ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ],
-        2: [
-            ["hilferding", "The policy of cosmic geometry is bound to lead towards war, and hence to the unleashing of revolutionary storms.|"],
-            ["random_other_combatant", "Amen.|"],
-            ["hilferding", "Now, then, is the issue of how we as revolutionaries should seek to unleash our storms."],
-            ["hilferding", "Hm..."],
-            ["hilferding", "Doraemon, any ideas?"],
-            ["doraemon", "No???"],
-            ["hilferding", "Come on. Are you even a Marxist?"],
-            ["doraemon", "I'm not!|"],
-            ["hilferding", "Wait, really? Damn."],
-            ["hilferding", "Well, that's okay. I figured it out myself."],
-            ["hilferding", "We just need to beat its ass, basically."],
-            ["hilferding", "I wrote the specifics down in my notepad."],
-            ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ],
-        3: [
-            ["hilferding", "Maybe if we tried baking cookies..."],
-            ["hilferding", "Then doing a bakesale..."],
-            ["hilferding", "Hm...|"],
-            ["hilferding", "No, that wouldn't work."],
-            ["hilferding", "I'll just have to do things in my rough and tumble dirty wifebeaterly sort of way."],
-            ["braun", "I get that reference!"],
-            ["hilferding", "Braun, shut up. Nobody cares about Homestuck."],
-            ["braun", "But you just referenced it!"],
-            ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-        ],
-    };
-
-    var dialogues = strategyDialogues[Q.hilferding_strategies] || [
-        ["hilferding", "I am an immaculate theorist."],
-        ["hilferding", "Read my theories now."],
-        ["random_other_combatant", "Okay..."],
-        ["doraemon", "Hilferding has made a battle plan for the next turn!"],
-    ];
-
-    if (!Q.doraemon_narrated) {
-        dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-        Q.doraemon_narrated = 1;
-    }
-
-    var id = window.queueCombatCutscene(dialogues);
-    Q.combat_cutscene_queue.push(id);
 }
 
 !}
@@ -302,58 +302,56 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant + "_action"] = "medicine";
     Q.choosing_target = 1;
     Q.consumes_turns = 1;
-    Q.medicine_cutscene_tbd = 1; 
+    if (Q.selected_combatant == "hilferding") {
+        Q.hilferding_medicines = (Q.hilferding_medicines || 0) + 1;
+
+        var medicineDialogues = {
+            1: [
+                ["hilferding", "Now, now. I've done this before. It's really simple. You ready to be treated?|"],
+                ["combatant_target", "Uhh...| I guess so. It's gotta be done."],
+                ["hilferding", "It's for your own wellbeing and health. Don't worry, I've recently made massive strides in the field of medical treatment using knowledge gained through the Megatome, so all I need to do is inject you with the elixir of eternal life."],
+                ["combatant_target", "Wait, wh-?"],
+                ["doraemon", "Hilferding has treated his patient!"],
+            ],
+            2: [
+                ["hilferding", "You know, I used to work in Vienna as a paediatrician.|"],
+                ["doraemon", "Oh, so that's the historical basis for your ability?|"],
+                ["hilferding", "Pretty much. I studied medicine in university.|"],
+                ["doraemon", "Cool.|||"],
+                ["doraemon", "Hilferding has treated his patient!"],
+                ["combatant_target", "I didn't even get a line of dialogue for that one..."],
+                ["doraemon", "Too bad! You've been treated!"],
+            ],
+            3: [
+                ["hilferding", "For today's treatment, I baked the elixir of eternal life into your cookies."],
+                ["hilferding", "I just wanted to incorporate my passion for baking into this somehow.|"],
+                ["doraemon", "What's the historical basis for that?|"],
+                ["combatant_target", "Hilferding's cookies are world famous. Don't tell me you haven't tried one.|"],
+                ["doraemon", "Huh, okay. I didn't realize."],
+                ["doraemon", "So can I have one?|"],
+                ["hilferding", "Nope, sorry. Ran out of dough."],
+                ["doraemon", "Shucks, buster."],
+                ["doraemon", "Hilferding has given his patient cookies!"],
+            ],
+        };
+
+        var dialogues = medicineDialogues[Q.hilferding_medicines] || [
+            ["hilferding", "By the way, the elixir of eternal life?"],
+            ["hilferding", "It actually doesn't give you eternal life."],
+            ["combatant_target", "I figured."],
+            ["doraemon", "Hilferding has treated his patient!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
 } else {
     Q[Q.selected_combatant+"_plan"] = "medicine";
-}
-
-if (Q.selected_combatant == "hilferding") {
-    Q.hilferding_medicines = (Q.hilferding_medicines || 0) + 1;
-
-    var medicineDialogues = {
-        1: [
-            ["hilferding", "Now, now. I've done this before. It's really simple. You ready to be treated?|"],
-            ["combatant_target", "Uhh...| I guess so. It's gotta be done."],
-            ["hilferding", "It's for your own wellbeing and health. Don't worry, I've recently made massive strides in the field of medical treatment using knowledge gained through the Megatome, so all I need to do is inject you with the elixir of eternal life."],
-            ["combatant_target", "Wait, wh-?"],
-            ["doraemon", "Hilferding has treated his patient!"],
-        ],
-        2: [
-            ["hilferding", "You know, I used to work in Vienna as a paediatrician.|"],
-            ["doraemon", "Oh, so that's the historical basis for your ability?|"],
-            ["hilferding", "Pretty much. I studied medicine in university.|"],
-            ["doraemon", "Cool.|||"],
-            ["doraemon", "Hilferding has treated his patient!"],
-            ["combatant_target", "I didn't even get a line of dialogue for that one..."],
-            ["doraemon", "Too bad! You've been treated!"],
-        ],
-        3: [
-            ["hilferding", "For today's treatment, I baked the elixir of eternal life into your cookies."],
-            ["hilferding", "I just wanted to incorporate my passion for baking into this somehow.|"],
-            ["doraemon", "What's the historical basis for that?|"],
-            ["combatant_target", "Hilferding's cookies are world famous. Don't tell me you haven't tried one.|"],
-            ["doraemon", "Huh, okay. I didn't realize."],
-            ["doraemon", "So can I have one?|"],
-            ["hilferding", "Nope, sorry. Ran out of dough."],
-            ["doraemon", "Shucks, buster."],
-            ["doraemon", "Hilferding has given his patient cookies!"],
-        ],
-    };
-
-    var dialogues = medicineDialogues[Q.hilferding_medicines] || [
-        ["hilferding", "By the way, the elixir of eternal life?"],
-        ["hilferding", "It actually doesn't give you eternal life."],
-        ["combatant_target", "I figured."],
-        ["doraemon", "Hilferding has treated his patient!"],
-    ];
-
-    if (!Q.doraemon_narrated) {
-        dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-        Q.doraemon_narrated = 1;
-    }
-
-    var id = window.queueCombatCutscene(dialogues);
-    Q.combat_cutscene_queue.push(id);
 }
 
 !}
@@ -375,6 +373,7 @@ if (!Q.planning_combat) {
     window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "socialize";
     Q.choosing_target = 1;
+    Q.socialize_cutscene_tbd = 1;
 } else {
     Q[Q.selected_combatant+"_plan"] = "socialize";
 }
@@ -434,53 +433,53 @@ subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. 
 on-arrival: {!
 if (!Q.planning_combat) {
     Q[Q.selected_combatant + "_action"] = "reinvigorate";
+    if (Q.selected_combatant == "wels") {
+        Q.wels_reinvigorates = (Q.wels_reinvigorates || 0) + 1;
+
+        var reinvigoratesDialogues = {
+            1: [
+                ["wels", "In this historic hour, we German Social Democrats solemnly pledge ourselves to the principles of humanity and justice, of freedom and socialism."],
+                ["wels", "No psychocosmological geometric trifecta gives you the power to destroy ideas that are eternal and indestructible!|||"],
+                ["random_other_combatant", "Inspirational...|"],
+                ["random_other_combatant", "Hear, hear!|"],
+                ["wels", "Heh...I was planning to give that speech against Hitler, but...well, circumstances changed.|"],
+                ["doraemon", "Great speech!"],
+                ["doraemon", "Wels has made a speech to inspire the combatants!"],
+            ],
+            2: [
+                ["wels", "It is your duty to prevent civil war at all costs!"],
+                ["wels", "I call upon you; three cheers for the free peoples' state!|"],
+                ["random_other_combatant", "Hurrah!"],
+                ["wels", "I was talking to the triangle..."],
+                ["doraemon", "Wels has made a speech to inspire the combatants!"],
+            ],
+            3: [
+                ["wels", "Together, we German Social Democrats form a circle, and as conformists we are squares, and this circle of squares will, uh...||"],
+                ["doraemon", "I| feel like that speech could use a little more work."],
+                ["wels", "Hm...|"],
+                ["wels", "Okay, let me try again."],
+                ["wels", "Down with the rule of the two-dimensional and rigidly angled, long live the supremacy of the unangularly free and three-dimensional proletarian spirit!"],
+                ["random_other_combatant", "Yeah!!!"],
+                ["doraemon", "Wels has made a speech to inspire the combatants!"],
+            ],
+        };
+
+        var dialogues = reinvigoratesDialogues[Q.wels_reinvigorates] || [
+            ["wels", "We are Friedrich Ebert, we carry the flame, we honor the programme, in Marx's name...!"],
+            ["random_other_combatant", "Okay...!"],
+            ["doraemon", "Wels has made a speech to inspire the combatants!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
 } else {
     Q[Q.selected_combatant+"_plan"] = "reinvigorate";
-}
-if (Q.selected_combatant == "wels") {
-    Q.wels_reinvigorates = (Q.wels_reinvigorates || 0) + 1;
-
-    var reinvigoratesDialogues = {
-        1: [
-            ["wels", "In this historic hour, we German Social Democrats solemnly pledge ourselves to the principles of humanity and justice, of freedom and socialism."],
-            ["wels", "No psychocosmological geometric trifecta gives you the power to destroy ideas that are eternal and indestructible!|||"],
-            ["random_other_combatant", "Inspirational...|"],
-            ["random_other_combatant", "Hear, hear!|"],
-            ["wels", "Heh...I was planning to give that speech against Hitler, but...well, circumstances changed.|"],
-            ["doraemon", "Great speech!"],
-            ["doraemon", "Wels has made a speech to inspire the combatants!"],
-        ],
-        2: [
-            ["wels", "It is your duty to prevent civil war at all costs!"],
-            ["wels", "I call upon you; three cheers for the free peoples' state!|"],
-            ["random_other_combatant", "Hurrah!"],
-            ["wels", "I was talking to the triangle..."],
-            ["doraemon", "Wels has made a speech to inspire the combatants!"],
-        ],
-        3: [
-            ["wels", "Together, we German Social Democrats form a circle, and as conformists we are squares, and this circle of squares will, uh...||"],
-            ["doraemon", "I| feel like that speech could use a little more work."],
-            ["wels", "Hm...|"],
-            ["wels", "Okay, let me try again."],
-            ["wels", "Down with the rule of the two-dimensional and rigidly angled, long live the supremacy of the unangularly free and three-dimensional proletarian spirit!"],
-            ["random_other_combatant", "Yeah!!!"],
-            ["doraemon", "Wels has made a speech to inspire the combatants!"],
-        ],
-    };
-
-    var dialogues = reinvigoratesDialogues[Q.wels_reinvigorates] || [
-        ["wels", "We are Friedrich Ebert, we carry the flame, we honor the programme, in Marx's name...!"],
-        ["random_other_combatant", "Okay...!"],
-        ["doraemon", "Wels has made a speech to inspire the combatants!"],
-    ];
-
-    if (!Q.doraemon_narrated) {
-        dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-        Q.doraemon_narrated = 1;
-    }
-
-    var id = window.queueCombatCutscene(dialogues);
-    Q.combat_cutscene_queue.push(id);
 }
 !}
 go-to: menu if planning_combat
@@ -499,72 +498,72 @@ subtitle: Spend turn calling up German industry to fundraise for the struggle. G
 on-arrival: {!
 if (!Q.planning_combat) {
     Q[Q.selected_combatant + "_action"] = "finance";
+    if (Q.selected_combatant == "wels") {
+        Q.wels_finances = (Q.wels_finances || 0) + 1;
+
+        var financesDialogues = {
+            1: [
+                ["wels", "Alright, time to make a phone call...| Ahem.|||.|||.|||"],
+                ["wels", "Yo, my man.||"],
+                ["krupp", "Sup.|"],
+                ["random_other_combatant", "Wh-? Wels, you kn-"],
+                ["wels", "I need a favor, my man.|"],
+                ["doraemon", "(Who's this?)|"],
+                ["random_other_combatant", "(Basically Hitler)|"],
+                ["doraemon", "(Damn)"],
+                ["wels", "Financial favor.|"],
+                ["krupp", "You and your financial favors.|"],
+                ["wels", "Look, it's not my fault we |socialists| can't do responsible accounting. That's a bourgeois skill,|| not a proletarian one.|"],
+                ["krupp", "So you call the bourgeoisie to do your homework. Tsk...|"],
+                ["wels", "Look at the news, man. It doesn't matter what channel.|"],
+                ["doraemon", "Televisions aren't even a widespread way of checking the news yet..."],
+                ["wels", "Shut it, Doraemon. I'm doing business.||"],
+                ["krupp", "Oh, jeez. I'm just looking at the news now, I-"],
+                ["krupp", "Wow, that's..."],
+                ["krupp", "Okay. So where are you?||"],
+                ["wels", "Oh, you know. Just| fighting the| thing. With my| bare hands.|"],
+                ["krupp", "Oh, alright. Yeah I'll wire you some cash in a second.|"],
+                ["wels", "Can you do it in the psychic plane? There's a sworcerous aura encasing the Reichstag so it should work.|"],
+                ["krupp", "Yeah, yeah.| No problem.|"],
+                ["doraemon", "Wels has called up German industry to finance the struggle!"],
+            ],
+            2: [
+                ["wels", "Need more money.|"],
+                ["krupp", "You owe me after this is all said and done.||"],
+                ["wels", "No problem-o.|"],
+                ["random_other_combatant", "Um, actually-"],
+                ["wels", "We'll pay you back handsomely! Gotta go, bye!"],
+                ["wels", "Look, it's this or we get obliterated, like Hitler did."],
+                ["random_other_combatant", ".||.||."],
+                ["doraemon", "Wels has called up German industry to finance the struggle!"],
+            ],
+            3: [
+                ["wels", "Moshi moshi?"],
+                ["wels", "(For context, I'm a weeb)"],
+                ["krupp", "Yes|?"],
+                ["wels", "Can I get a ka-ching, amirite or amirite? Right?|"],
+                ["krupp", "Sure can, bro."],
+                ["wels", "Fistbump."],
+                ["doraemon", "Wels has called up German industry to finance the struggle!"],
+            ],
+        };
+
+        var dialogues = financesDialogues[Q.wels_finances] || [
+            ["wels", "Moshi moshi, money money."],
+            ["krupp", "Right on, kid."],
+            ["doraemon", "Wels has called up German industry to finance the struggle!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
 } else {
     Q[Q.selected_combatant+"_plan"] = "finance";
-}
-if (Q.selected_combatant == "wels") {
-    Q.wels_finances = (Q.wels_finances || 0) + 1;
-
-    var financesDialogues = {
-        1: [
-            ["wels", "Alright, time to make a phone call...| Ahem.|||.|||.|||"],
-            ["wels", "Yo, my man.||"],
-            ["krupp", "Sup.|"],
-            ["random_other_combatant", "Wh-? Wels, you kn-"],
-            ["wels", "I need a favor, my man.|"],
-            ["doraemon", "(Who's this?)"],
-            ["random_other_combatant", "(Basically Hitler)"],
-            ["doraemon", "(Damn)"],
-            ["wels", "Financial favor.|"],
-            ["krupp", "You and your financial favors.|"],
-            ["wels", "Look, it's not my fault we |socialists| can't do responsible accounting. That's a bourgeois skill,|| not a proletarian one.|"],
-            ["krupp", "So you call the bourgeoisie to do your homework. Tsk...|"],
-            ["wels", "Look at the news, man. It doesn't matter what channel.|"],
-            ["doraemon", "Televisions aren't even a widespread way of checking the news yet..."],
-            ["wels", "Shut it, Doraemon. I'm doing business.||"],
-            ["krupp", "Oh, jeez. I'm just looking at the news now, I-"],
-            ["krupp", "Wow, that's..."],
-            ["krupp", "Okay. So where are you?||"],
-            ["wels", "Oh, you know. Just| fighting the| thing. With my| bare hands.|"],
-            ["krupp", "Oh, alright. Yeah I'll wire you some cash in a second.|"],
-            ["wels", "Can you do it in the psychic plane? There's a sworcerous aura encasing the Reichstag so it should work.|"],
-            ["krupp", "Yeah, yeah.| No problem.|"],
-            ["doraemon", "Wels has called up German industry to finance the struggle!"],
-        ],
-        2: [
-            ["wels", "Need more money.|"],
-            ["krupp", "You owe me after this is all said and done.||"],
-            ["wels", "No problem-o.|"],
-            ["random_other_combatant", "Um, actually-"],
-            ["wels", "We'll pay you back handsomely! Gotta go, bye!"],
-            ["wels", "Look, it's this or we get obliterated, like Hitler did."],
-            ["random_other_combatant", ".||.||."],
-            ["doraemon", "Wels has called up German industry to finance the struggle!"],
-        ],
-        3: [
-            ["wels", "Moshi moshi?"],
-            ["wels", "(For context, I'm a weeb)"],
-            ["krupp", "Yes|?"],
-            ["wels", "Can I get a ka-ching, amirite or amirite? Right?|"],
-            ["krupp", "Sure can, bro."],
-            ["wels", "Fistbump."],
-            ["doraemon", "Wels has called up German industry to finance the struggle!"],
-        ],
-    };
-
-    var dialogues = financesDialogues[Q.wels_finances] || [
-        ["wels", "Moshi moshi, money money."],
-        ["krupp", "Right on, kid."],
-        ["doraemon", "Wels has called up German industry to finance the struggle!"],
-    ];
-
-    if (!Q.doraemon_narrated) {
-        dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
-        Q.doraemon_narrated = 1;
-    }
-
-    var id = window.queueCombatCutscene(dialogues);
-    Q.combat_cutscene_queue.push(id);
 }
 !}
 go-to: menu if planning_combat
@@ -629,8 +628,8 @@ Q.selected_combatant = 0;
 Q.selected_target = 0;
 Q.choosing_target = 0;
 
-if (Q.medicine_cutscene_tbd) {
-    Q.medicine_cutscene_tbd = 0;
+if (Q.socialize_cutscene_tbd) {
+    Q.socialize_cutscene_tbd = 0;
     if (Q.selected_combatant == "hilferding") {
         if (Q.selected_target == "wels") {
             var dialogues = [
