@@ -264,6 +264,10 @@ window.setCombatHand = function(active) {
 };
 };
 
+window.combatDialoguePortraits = {
+    krupp: "img/portraits/KruppGustav.jpg"
+};
+
 window.showCombatDialogue = function(advisorId, text) {
   const engine = window.dendryUI.dendryEngine;
   const scene = engine.game.scenes[advisorId];
@@ -275,8 +279,13 @@ window.showCombatDialogue = function(advisorId, text) {
     return;
   }
 
-  if (scene && scene.cardImage) {
-    image.src = scene.cardImage;
+  const scene = engine.game.scenes[advisorId];
+  const portrait = scene && scene.cardImage
+    ? scene.cardImage
+    : window.combatDialoguePortraits[advisorId];
+
+  if (portrait) {
+    image.src = portrait;
     image.style.display = '';
   } else {
     image.src = '';
