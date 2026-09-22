@@ -481,6 +481,7 @@ for (var c of Q.combatants) {
 
 - @next_turn: Who's next?
 - @return_to_menu: Proceed to the next turn
+- @dummy
 
 @return_to_menu
 view-if: not everyone_is_done
