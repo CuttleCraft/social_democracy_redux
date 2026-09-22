@@ -507,7 +507,7 @@ if (Q.selected_combatant == "wels") {
 
     var financesDialogues = {
         1: [
-            ["wels", "Alright, time to make a phone call...| Ahem.|||.|||.|||],
+            ["wels", "Alright, time to make a phone call...| Ahem.|||.|||.|||"],
             ["wels", "Yo, my man.||"],
             ["krupp", "Sup.|"],
             ["random_other_combatant", "Wh-? Wels, you kn-"],
