@@ -377,7 +377,8 @@ window.playNextCombatDialogue = function() {
     window.combatDialogueQueue = null;
     window.combatDialogueIndex = 0;
     window.combatDialogueFinished = true;
-    dendryUI.dendryEngine.state.qualities.cutscene_unfinished = 0;
+    window.dendryUI.dendryEngine.state.qualities.cutscene_unfinished = 0;
+    window.dendryUI.dendryEngine.displayChoices();
     return;
   }
 
