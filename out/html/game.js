@@ -289,7 +289,7 @@ window.showCombatDialogue = function(advisorId, text) {
   let index = 0;
 
   const PAUSE_CHAR = '|'; 
-  const PAUSE_DELAY = 500;
+  const PAUSE_DELAY = 350;
 
   function typeNextCharacter() {
     if (index >= characters.length) {
