@@ -68,6 +68,24 @@ Q.selected_combatant = 0;
 Q.selected_target = 0;
 
 const engine = window.dendryUI.dendryEngine;
+if (!engine._normalGetCurrentChoices) {
+    engine._normalGetCurrentChoices = engine.getCurrentChoices;
+
+    engine.getCurrentChoices = function() {
+        const Q = this.state.qualities;
+
+        if (Q.combat_allow_softlock) {
+            if (!this.choiceCache) {
+                return undefined;
+            }
+
+            return this.choiceCache.choices;
+        }
+
+        return this._normalGetCurrentChoices();
+    };
+}
+Q.combat_allow_softlock = 1;
 
 Q.combatants = [];
 
