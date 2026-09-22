@@ -312,9 +312,9 @@ if (Q.selected_combatant == "hilferding") {
     var medicineDialogues = {
         1: [
             ["hilferding", "Now, now. I've done this before. It's really simple. You ready to be treated?|"],
-            [Q.hilferding_target, "Uhh...| I guess so. It's gotta be done."],
+            ["combatant_target", "Uhh...| I guess so. It's gotta be done."],
             ["hilferding", "It's for your own wellbeing and health. Don't worry, I've recently made massive strides in the field of medical treatment using knowledge gained through the Megatome, so all I need to do is inject you with the elixir of eternal life."],
-            [Q.hilferding_target, "Wait, wh-?"],
+            ["combatant_target", "Wait, wh-?"],
             ["doraemon", "Hilferding has treated his patient!"],
         ],
         2: [
@@ -323,14 +323,14 @@ if (Q.selected_combatant == "hilferding") {
             ["hilferding", "Pretty much. I studied medicine in university.|"],
             ["doraemon", "Cool.|||"],
             ["doraemon", "Hilferding has treated his patient!"],
-            [Q.hilferding_target, "I didn't even get a line of dialogue for that one..."],
+            ["combatant_target", "I didn't even get a line of dialogue for that one..."],
             ["doraemon", "Too bad! You've been treated!"],
         ],
         3: [
             ["hilferding", "For today's treatment, I baked the elixir of eternal life into your cookies."],
             ["hilferding", "I just wanted to incorporate my passion for baking into this somehow.|"],
             ["doraemon", "What's the historical basis for that?|"],
-            [Q.hilferding_target, "Hilferding's cookies are world famous. Don't tell me you haven't tried one.|"],
+            ["combatant_target", "Hilferding's cookies are world famous. Don't tell me you haven't tried one.|"],
             ["doraemon", "Huh, okay. I didn't realize."],
             ["doraemon", "So can I have one?|"],
             ["hilferding", "Nope, sorry. Ran out of dough."],
@@ -342,7 +342,7 @@ if (Q.selected_combatant == "hilferding") {
     var dialogues = medicineDialogues[Q.hilferding_medicines] || [
         ["hilferding", "By the way, the elixir of eternal life?"],
         ["hilferding", "It actually doesn't give you eternal life."],
-        [Q.hilferding_target, "I figured."],
+        ["combatant_target", "I figured."],
         ["doraemon", "Hilferding has treated his patient!"],
     ];
 

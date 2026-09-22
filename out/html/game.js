@@ -380,6 +380,8 @@ window.startCombatCutscene = function(dialoguesOrId) {
             } else {
                 speaker = "doraemon";
             }
+        } else if (speaker === "combatant_target") {
+            speaker = Q[actor + "_target"];
         }
 
         return [speaker, dialogue[1]];
