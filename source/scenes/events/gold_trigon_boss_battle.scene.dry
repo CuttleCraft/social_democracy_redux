@@ -256,7 +256,7 @@ if (Q.selected_combatant == "hilferding") {
             ["hilferding", "Doraemon, any ideas?"],
             ["doraemon", "No???"],
             ["hilferding", "Come on. Are you even a Marxist?"],
-            ["doraemon", "I'm not!"|],
+            ["doraemon", "I'm not!|"],
             ["hilferding", "Wait, really? Damn."],
             ["hilferding", "Well, that's okay. I figured it out myself."],
             ["hilferding", "We just need to beat its ass, basically."],
