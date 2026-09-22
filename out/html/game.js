@@ -147,7 +147,11 @@ window.setCombatHand = function(active) {
   }
 
   engine.displayChoices = function() {
-    const choices = this.getCurrentChoices();
+    const Q = this.state.qualities;
+
+    const choices = Q.combat_allow_softlock && this.choiceCache
+    ? this.choiceCache.choices
+    : this.getCurrentChoices();
 
     if (!choices) {
       return this;
