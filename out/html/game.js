@@ -279,6 +279,7 @@ window.showCombatDialogue = function(advisorId, text) {
     if (index >= characters.length) {
       window.combatDialogueTyping = false;
       window.combatDialogueTimer = null;
+      window.advanceCombatDialogue();
       return;
     }
 
