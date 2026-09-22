@@ -216,6 +216,7 @@ title: Strategize
 subtitle: Spend turn planning the battle ahead. The next turn, stamina cost for all abilities will be halved, but have to be decided now (3 stamina) [? if sc_plan == "strategize" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "strategize";
     Q.planning_combat = 1;
 } else {
@@ -236,8 +237,9 @@ if (Q.selected_combatant == "hilferding") {
             ["hilferding", "Be quiet. The socialist movement must correctly diagnose the historical sociomaterial conditions which led to the emergence of this triangular manifestation, in order to address its response."],
             ["hilferding", "Hm..."],
             ["hilferding", "Yes. I see it. This apparition of cosmic geometry represents an aspect of the bourgeois superstructure yet also simultaneously a means of production in itself, and must therefore be dismantled and proletarianized pursuant to its expropriation."],
-            ["hilferding", "We will accomplish this by rocking its shit violence-style."],
-            ["random_other_combatant", "Ohhh. Okay. Sure, I can agree with that."],
+            ["hilferding", "We will accomplish this by rocking its shit violence-style.|"],
+            ["random_other_combatant", "Ohhh. Okay. Sure, I can agree with that.|"],
+            ["doraemon", "Hilferding has made a battle plan for the next turn!"],
         ]);
         Q.combat_cutscene_queue.push(id);
     }

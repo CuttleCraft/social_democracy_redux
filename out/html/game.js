@@ -288,6 +288,9 @@ window.showCombatDialogue = function(advisorId, text) {
   const characters = Array.from(text);
   let index = 0;
 
+  const PAUSE_CHAR = '|'; 
+  const PAUSE_DELAY = 500;
+
   function typeNextCharacter() {
     if (index >= characters.length) {
       window.combatDialogueTyping = false;
@@ -297,8 +300,13 @@ window.showCombatDialogue = function(advisorId, text) {
     }
 
     const character = characters[index];
-    textBox.textContent += character;
     index++;
+
+    if (character === PAUSE_CHAR) {
+      window.combatDialogueTimer = setTimeout(typeNextCharacter, PAUSE_DELAY);
+      return;
+    }
+    textBox.textContent += character;
 
     let delay = 15;
 
