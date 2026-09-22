@@ -168,6 +168,7 @@ Q.was_already_planning_combat = 0;
 @dummy
 title: Dummy
 subtitle: I'm a dummy!
+tags: dummy
 go-to: menu
 
 @hilferding_c

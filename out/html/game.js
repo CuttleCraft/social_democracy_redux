@@ -165,6 +165,7 @@ window.setCombatHand = function(active) {
     }
 
     const combatChoices = [];
+    const dummyChoices = [];
     const normalChoices = [];
 
     for (let i = 0; i < choices.length; i++) {
@@ -181,6 +182,11 @@ window.setCombatHand = function(active) {
         combatChoices.push({
           choice: choice,
           index: i
+        });
+      } else if (choiceScene.tags && choiceScene.tags.includes('dummy')) {
+        dummyChoices.push({
+            choice: choice,
+            index: i
         });
       } else {
         normalChoices.push(choice);
@@ -245,16 +251,12 @@ window.setCombatHand = function(active) {
         li.style.display = 'none';
       }
     }
-    const dummyIndex = choices.findIndex(function(choice) {
-        return choice.id === "dummy";
-    });
+  }
+  for (const entry of dummyChoices) {
+    const li = choiceList.children[entry.index];
 
-    if (dummyIndex !== -1) {
-        const li = choiceList.children[dummyIndex];
-
-        if (li) {
-            li.style.display = 'none';
-        }
+    if (li) {
+      li.style.display = 'none';
     }
   }
 
