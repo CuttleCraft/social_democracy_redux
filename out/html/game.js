@@ -279,13 +279,8 @@ window.showCombatDialogue = function(advisorId, text) {
     return;
   }
 
-  const scene = engine.game.scenes[advisorId];
-  const portrait = scene && scene.cardImage
-    ? scene.cardImage
-    : window.combatDialoguePortraits[advisorId];
-
-  if (portrait) {
-    image.src = portrait;
+  if (scene && scene.cardImage) {
+    image.src = scene.cardImage;
     image.style.display = '';
   } else {
     image.src = '';
