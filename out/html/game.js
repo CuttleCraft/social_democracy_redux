@@ -279,8 +279,12 @@ window.showCombatDialogue = function(advisorId, text) {
     return;
   }
 
-  if (scene && scene.cardImage) {
-    image.src = scene.cardImage;
+  const portrait = scene && scene.cardImage
+    ? scene.cardImage
+    : window.combatDialoguePortraits[advisorId];
+
+  if (portrait) {
+    image.src = portrait;
     image.style.display = '';
   } else {
     image.src = '';
