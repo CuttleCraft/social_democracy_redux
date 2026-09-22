@@ -163,6 +163,12 @@ Q.was_already_planning_combat = 0;
 - #combatant
 - @next_turn: Submit the selected actions
 - @finalize_plan: Finalize the battle plan
+- @dummy
+
+@dummy
+title: Dummy
+subtitle: I'm a dummy!
+go-to: menu
 
 @hilferding_c
 title: Rudolf Hilferding

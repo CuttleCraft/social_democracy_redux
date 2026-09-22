@@ -147,11 +147,7 @@ window.setCombatHand = function(active) {
   }
 
   engine.displayChoices = function() {
-    const Q = this.state.qualities;
-
-    const choices = Q.combat_allow_softlock && this.choiceCache
-    ? this.choiceCache.choices
-    : this.getCurrentChoices();
+    const choices = this.getCurrentChoices();
 
     if (!choices) {
       return this;
@@ -248,6 +244,17 @@ window.setCombatHand = function(active) {
       if (li) {
         li.style.display = 'none';
       }
+    }
+    const dummyIndex = choices.findIndex(function(choice) {
+        return choice.id === "dummy";
+    });
+
+    if (dummyIndex !== -1) {
+        const li = choiceList.children[dummyIndex];
+
+        if (li) {
+            li.style.display = 'none';
+        }
     }
   }
 
