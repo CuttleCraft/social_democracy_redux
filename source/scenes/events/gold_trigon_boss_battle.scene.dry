@@ -3,6 +3,8 @@ new-page: true
 on-arrival: {!
 Q.gold_trigon_turn = 1;
 
+Q.combat_cutscene_queue = [];
+
 window.setCombatHand(true);
 
 window.clearCombatStatsIfNeeded = function() {
@@ -211,6 +213,27 @@ if (!Q.planning_combat) {
     Q[Q.selected_combatant+"_plan"] = "strategize";
     Q.was_already_planning_combat = 1;
 }
+
+if (Q.selected_combatant == "hilferding") {
+    if (!Q.hilferding_strategies) {
+        Q.hilferding_strategies = 1;
+    } else {
+        Q.hilferding_strategies += 1;
+    }
+    if (Q.hilferding_strategies == 1) {
+        var id = window.queueCombatCutscene([
+            ["hilferding", "This strange apparition of seemingly cosmic geometry represents an unprecedented progression in the development of global finance-capitalism. In this thesis, we will aim to-"],
+            ["random_other_combatant", "Hilfy, I don't think-"],
+            ["hilferding", "Be quiet. The socialist movement must correctly diagnose the historical sociomaterial conditions which led to the emergence of this triangular manifestation, in order to address its response."],
+            ["hilferding", "Hm..."],
+            ["hilferding", "Yes. I see it. This apparition of cosmic geometry represents an aspect of the bourgeois superstructure yet also simultaneously a means of production in itself, and must therefore be dismantled and proletarianized pursuant to its expropriation."],
+            ["hilferding", "We will accomplish this by rocking its shit violence-style."],
+            ["random_other_combatant", "Ohhh. Okay. Sure, I can agree with that."],
+        ]);
+        Q.combat_cutscene_queue.push(id);
+    }
+}
+
 !}
 go-to: menu if was_already_planning_combat
 
@@ -426,13 +449,14 @@ on-arrival: everyone_is_done = 0; {!
 
 Q.gold_trigon_turn += 1;
 
+if (Q.combat_cutscene_queue.length > 0) {
+    window.startCombatCutscene(Q.combat_cutscene_queue.shift());
+    return;
+}
+
 for (var c of Q.combatants) {
     Q[c+"_action"] = "";
     // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
-}
-
-if (Q.gold_trigon_turn == 2) {
-    window.showCombatDialogue("doraemon", "Okay, wow. You're all still alive. That's good to see.");
 }
 
 for (var c of Q.combatants) {

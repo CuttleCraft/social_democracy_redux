@@ -303,34 +303,68 @@ window.showCombatDialogue = function(advisorId, text) {
   typeNextCharacter();
 };
 
-window.startCombatCutscene = function(dialogues) {
-  const engine = window.dendryUI.dendryEngine;
-  const qualities = engine.state.qualities;
+window.combatCutscenes = {};
+window.nextCombatCutsceneId = 1;
 
-  const actor = qualities.selected_combatant;
+window.queueCombatCutscene = function(dialogues) {
+    const engine = window.dendryUI.dendryEngine;
+    const Q = engine.state.qualities;
 
-  window.combatDialogueQueue = dialogues.map(function(dialogue) {
-    let speaker = dialogue[0];
+    const cutsceneId = window.nextCombatCutsceneId++;
 
-    if (speaker === "random_other_combatant") {
-      const others = (qualities.combatants || []).filter(function(combatant) {
-        return combatant !== actor;
-      });
+    window.combatCutscenes[cutsceneId] = {
+        actor: Q.selected_combatant,
+        dialogues: dialogues
+    };
 
-      if (others.length > 0) {
-        speaker = others[Math.floor(Math.random() * others.length)];
-      } else {
-        speaker = actor;
-      }
+    console.log("[Combat cutscene queued]", cutsceneId);
+
+    return cutsceneId;
+};
+
+window.startCombatCutscene = function(dialoguesOrId) {
+    const engine = window.dendryUI.dendryEngine;
+    const Q = engine.state.qualities;
+
+    let dialogues;
+    let actor = Q.selected_combatant;
+
+    if (typeof dialoguesOrId === "number") {
+        const cutscene = window.combatCutscenes[dialoguesOrId];
+
+        if (!cutscene) {
+            console.warn("[Combat] No cutscene found for ID", dialoguesOrId);
+            return;
+        }
+
+        dialogues = cutscene.dialogues;
+        actor = cutscene.actor;
+    } else {
+        dialogues = dialoguesOrId;
     }
 
-    return [speaker, dialogue[1]];
-  });
+    const others = (Q.combatants || []).filter(function(combatant) {
+        return combatant !== actor;
+    });
 
-  window.combatDialogueIndex = 0;
-  window.combatDialogueFinished = false;
+    window.combatDialogueQueue = dialogues.map(function(dialogue) {
+        let speaker = dialogue[0];
 
-  window.playNextCombatDialogue();
+        if (speaker === "random_other_combatant") {
+            if (others.length > 0) {
+                speaker = others[Math.floor(Math.random() * others.length)];
+            } else {
+                speaker = actor;
+            }
+        }
+
+        return [speaker, dialogue[1]];
+    });
+
+    window.combatDialogueIndex = 0;
+    window.combatDialogueFinished = false;
+
+    window.playNextCombatDialogue();
 };
 
 window.playNextCombatDialogue = function() {
