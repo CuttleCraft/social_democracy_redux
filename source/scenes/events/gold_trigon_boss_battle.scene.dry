@@ -886,10 +886,10 @@ for (var c of Q.combatants) {
         Q[recipient+"_"+c+"_buds"] = 1;
     } else if (Q[c+"_action"] == "reinvigorate") {
         var stamina_cost = Q[c+"_sta"];
-        for (var c of Q.combatants) {
-            Q[c+"_sta"] += stamina_cost;
-            if (Q[c+"_sta"] >= Q[c+"_sta_m"]) {
-                Q[c+"_sta"] = Q[c+"_sta_m"];
+        for (var k of Q.combatants) {
+            Q[k+"_sta"] += stamina_cost;
+            if (Q[k+"_sta"] >= Q[k+"_sta_m"]) {
+                Q[k+"_sta"] = Q[k+"_sta_m"];
             }
         }
         Q[c+"_sta"] = 0;
