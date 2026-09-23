@@ -866,7 +866,7 @@ if (Q.combat_cutscene_queue.length > 0) {
 } else {
     window.startCombatCutscene([
         ["doraemon", "Everyone is done!"],
-        ["doraemon", `Everyone except the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**, that is.`],
+        ["doraemon", "Everyone except the Gold Trigon, that is."],
     ]);
 }
 
@@ -1241,6 +1241,11 @@ if (gold_trigon_move.type == "orb") {
 
 var id = window.queueCombatCutscene(trigonDialogues);
 Q.combat_cutscene_queue.push(id);
+
+if (Q.combat_cutscene_queue.length > 0) {
+    window.startCombatCutscene(Q.combat_cutscene_queue.shift());
+    return;
+}
 
 !}
 
