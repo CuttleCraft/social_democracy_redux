@@ -865,8 +865,7 @@ if (Q.combat_cutscene_queue.length > 0) {
     return;
 } else {
     window.startCombatCutscene([
-        ["doraemon", "Everyone is done!"],
-        ["doraemon", "Everyone except the Gold Trigon, that is."],
+        ["doraemon", "It's the triangle's turn!"],
     ]);
 }
 
