@@ -972,6 +972,47 @@ if (!Q.gold_trigon_moves || Q.gold_trigon_moves.length == 0) {
     }
 }
 
+window.deathDialogueIfNeeded = function() { 
+    if (Q[target+"_dead"]) {
+       if (target == "hilferding") {
+            trigonDialogues.push(
+                ["doraemon", "Oh shoot! Hilferding just got incinerated, vaporized! Oh God!"],
+                ["doraemon", "He's dead!"],
+                ["doraemon", "Oh God!"],
+                ["random_other_combatant", "He baked his last sale..."],
+                ["lassalle", "He baked his |what|?"],
+                ["random_other_combatant", "LASSALLE?!|"],
+                ["doraemon", "It's just an apparition from the sworcerous plasma precipitated by the fact that it's currently a time of miracles, don't pay it any mind.|"],
+                ["random_other_combatant", "Man, I must be seeing things..."],
+            );
+        } else if (target == "wels") {
+            trigonDialogues.push(
+                ["doraemon", "Wels!!! No!!!|"],
+                ["doraemon", "(For context, Wels died)|"],
+                ["krupp", "||Ring ring|.|.|.|"],
+                ["doraemon", "(Oh man.|)"],
+                ["krupp", "Ring ring|.|.|.|"],
+                ["krupp", "Hello? Anyone there?|||.||.|."],
+                ["krupp", "Well, I'll just| leave a message.|.|."],
+                ["krupp", "This is| kind of hard to say, but| I|||.||.|.||| love you.|],
+                ["krupp", "Wels, in all our conversations, I just"],
+                ["krupp", "Wels, your voice"],
+                ["krupp", "Your hair"],
+                ["krupp", "Your eyes"],
+                ["krupp", "The way you ask me for money"],
+                ["krupp", "Even the way you use that money to campaign against my class interests"],
+                ["krupp", "And always forget to pay me back"],
+                ["krupp", "Every moment, Wels"],
+                ["krupp", "I've been thinking how good it could b"],
+                ["krupp", "Hold the phone"],
+                ["krupp", "Is that Y|O|U|R pile of ash on the TV screen?|||"],
+                ["krupp", "I...I gotta go."],
+                ["doraemon", "That's crazy.|||"],
+                ["random_other_combatant", "Moving on..."],
+            )
+        }
+    }
+}
 
 var trigonDialogues = [];
 
@@ -986,9 +1027,10 @@ if (gold_trigon_move.type == "orb") {
     }
     damage = Math.floor(damage);
     Q[target+"_hp"] -= damage;
-    if Q([target+"_hp"]) <= 0 {
+    if Q([target+"_hp"] <= 0) {
         Q[target+"_dead"] = 1;
         Q[target+"_advisor"] = 0;
+        window.deathDialogueIfNeeded();
     } else {
         if (target == "hilferding") {
             Q.hilferding_orbs = (Q.hilferding_orbs || 0) + 1;
@@ -1018,65 +1060,178 @@ if (gold_trigon_move.type == "orb") {
 
             trigonDialogues.push(...dialogues);
         } else if (target == "wels") {
-            // cutscene
-            Hey, Github. Fail this commit for me. Thanks.
+            Q.wels_orbs = (Q.wels_orbs || 0) + 1;
+            var orbDialogues = {
+                1: [
+                    ["doraemon", "Wels! Look out! There's a massive orb!|"],
+                    ["wels", "Wh-"],
+                    ["wels", "OW!|"],
+                    ["wels", ".|.."],
+                    ["wels", "Is that the same thing which hit Hitler? Wow, he's like, weak or something. That barely tickled."],
+                    ["doraemon", "Wels took " + damage + " damage from an orb!"],
+                ],
+                2: [
+                    ["wels", "Hehehehehehehehehehehehe"],
+                    ["random_other_combatant", "What's so funny?|"],
+                    ["wels", "The orb tickles.|"],
+                    ["doraemon", "Wels took " + damage + " damage from an orb!"],
+                ],
+            };
+
+            var dialogues = orbDialogues[Q.wels_orbs] || [
+                ["wels", "Hehehehehehehehehehehehe"],
+                ["doraemon", "Wels took " + damage + " damage from an orb!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
         }
     }
-}
-
-else if (gold_trigon_move.type == "laser") {
+} else if (gold_trigon_move.type == "laser") {
     var target = gold_trigon_move.target;
 
-    var damage = raw_damage * (10 / (10 + Q[target+"_def"]));
-
-    // do laser damage to target
-}
-
-if (Q[target+"_dead"]) {
-    if (target == "hilferding") {
-        trigonDialogues.push(
-            ["doraemon", "Oh shoot! Hilferding just got incinerated, vaporized! Oh God!"],
-            ["doraemon", "He's dead!"],
-            ["doraemon", "Oh God!"],
-            ["random_other_combatant", "He baked his last sale..."],
-            ["lassalle", "He baked his |what|?"],
-            ["random_other_combatant", "LASSALLE?!|"],
-            ["doraemon", "It's just an apparition from the sworcerous plasma precipitated by the fact that it's currently a time of miracles, don't pay it any mind.|"],
-            ["random_other_combatant", "Man, I must be seeing things..."],
-        );
-    } else if (target == "wels") {
-        trigonDialogues.push(
-            ["doraemon", "Wels!!! No!!!|"],
-            ["doraemon", "(For context, Wels died)|"],
-            ["krupp", "||Ring ring|.|.|.|"],
-            ["doraemon", "(Oh man.|)"],
-            ["krupp", "Ring ring|.|.|.|"],
-            ["krupp", "Hello? Anyone there?|||.||.|."],
-            ["krupp", "Well, I'll just| leave a message.|.|."],
-            ["krupp", "This is| kind of hard to say, but| I|||.||.|.||| love you.|],
-            ["krupp", "Wels, in all our conversations, I just"],
-            ["krupp", "Wels, your voice"],
-            ["krupp", "Your hair"],
-            ["krupp", "Your eyes"],
-            ["krupp", "The way you ask me for money"],
-            ["krupp", "Even the way you use that money to campaign against my class interests"],
-            ["krupp", "And always forget to pay me back"],
-            ["krupp", "Every moment, Wels"],
-            ["krupp", "I've been thinking how good it could b"],
-            ["krupp", "Hold the phone"],
-            ["krupp", "Is that Y|O|U|R pile of ash on the TV screen?|||"],
-            ["krupp", "I...I gotta go."],
-            ["doraemon", "That's crazy.|||"],
-            ["random_other_combatant", "Moving on..."],
-        )
+    var raw_damage = 16;
+    var damage = raw_damage * (25 / (25 + Q[target+"_def"]));
+    if (Q[target+"_insulated"]) {
+        damage *= 0.95;
     }
-}
+    damage = Math.floor(damage);
+    Q[target+"_hp"] -= damage;
+    if Q([target+"_hp"] <= 0) {
+        Q[target+"_dead"] = 1;
+        Q[target+"_advisor"] = 0;
+        window.deathDialogueIfNeeded();
+    } else {
+        if (target == "hilferding") {
+            Q.hilferding_lasers = (Q.hilferding_lasers || 0) + 1;
+            var laserDialogues = {
+                1: [
+                    ["hilferding", "Is that a rainbow?|"],
+                    ["hilferding", "I-"],
+                    ["hilferding", "EEK!!!!!!!!!!!!!"],
+                    ["doraemon", "Hilferding took " + damage + " damage from a laser!"],
+                ],
+                2: [
+                    ["hilferding", "Eeek..."],
+                    ["hilferding", "That thing hurts."],
+                    ["hilferding", "Really zaps the hippocracy out of me."],
+                    ["doraemon", "Hilferding took " + damage + " damage from a laser!"],
+                ],
+            };
 
-else if (gold_trigon_move.type == "triangles") {
-    for (var c of Q.combatants) {
-        var amount = gold_trigon_move.targets[c];
+            var dialogues = laserDialogues[Q.hilferding_lasers] || [
+                ["hilferding", "Eek!|"],
+                ["doraemon", "Hilferding took " + damage + " damage from a laser!"],
+            ];
 
-        // throw `amount` triangles at c
+            trigonDialogues.push(...dialogues);
+        } else if (target == "wels") {
+            Q.wels_lasers = (Q.wels_lasers || 0) + 1;
+            var laserDialogues = {
+                1: [
+                    ["wels", "Ouch.|"],
+                    ["doraemon", "Wels took " + damage + " damage from a laser!"],
+                ],
+                2: [
+                    ["wels", "You know, I've been thinking about this laser thing.|"],
+                    ["wels", "The massive rainbow which falls from the sky and zaps us.|"],
+                    ["wels", "I think it represents the pent-up mythopoetic aura which is permeating through reality in panpsychic fields that are accessed only through the challening of latent psionic potential into active psionic phenomenom by songs of sworcery, channeled through this prism of burdensome magic spilling out through the cracks that line the wall between material reality and the Kingdom of Heaven."],
+                    ["wels", "Anyway, one just hit me."],
+                    ["doraemon", "Wels took " + damage + " damage from a laser!"],
+                ],
+            };
+
+            var dialogues = laserDialogues[Q.wels_lasers] || [
+                ["wels", "Ouch."],
+                ["doraemon", "Wels took " + damage + " damage from a laser!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
+        }
+    }
+} else if (gold_trigon_move.type == "triangles") {
+    for (var target in gold_trigon_move.targets) {
+        var amount = gold_trigon_move.targets[target];
+
+        if (amount == 0) {
+            continue;
+        }
+
+        var raw_damage = 3;
+        var damage_per_triangle = raw_damage * (10 / (10 + Q[target+"_def"]));
+
+        if (Q[target+"_insulated"]) {
+            damage_per_triangle *= 0.9;
+        }
+
+        damage_per_triangle = Math.floor(damage_per_triangle);
+
+        var damage = damage_per_triangle * amount;
+
+        Q[target+"_hp"] -= damage;
+
+        if (Q[target+"_hp"] <= 0) {
+            Q[target+"_dead"] = 1;
+            Q[target+"_advisor"] = 0;
+            window.deathDialogueIfNeeded();
+        } else {
+            if (target == "hilferding") {
+                Q.hilferding_triangles = (Q.hilferding_triangles || 0) + 1;
+                var triangleDialogues = {
+                    1: [
+                        ["hilferding", "Huh? What are these-"],
+                        ["hilferding", "These little-"],
+                        ["hilferding", "Little flying triangles, I-"],
+                        ["hilferding", "Get them off me!!! What if they carry malaria???"],
+                        ["doraemon", "Hilferding took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    2: [
+                        ["hilferding", "Even if they don't carry malaria, they could carry like..."],
+                        ["hilferding", "Japanese encephalitis!|"],
+                        ["hilferding", "I'm not vaccinated for that.|"],
+                        ["doraemon", "Hilferding took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    3: [
+                        ["hilferding", "I'm gonna have to invent a vaccine against these little critters..."],
+                        ["hilferding", "I think this should work. I'll inject myself now."],
+                        ["doraemon", "Hilferding took " + damage + " damage from " + amount + " triangles!"],
+                    ]
+                };
+
+                var dialogues = triangleDialogues[Q.hilferding_triangles] || [
+                    ["hilferding", "It's okay, I'm vaccinated now.|"],
+                    ["doraemon", "Hilferding took " + damage + " damage from " + amount + " triangles!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
+            } else if (target == "wels") {
+                 Q.wels_triangles = (Q.wels_triangles || 0) + 1;
+                 var triangleDialogues = {
+                    1: [
+                        ["wels", "Uh, what are these-"],
+                        ["wels", "HEY! They're-"],
+                        ["wels", "Jesus, I-"],
+                        ["wels", "I'm-"],
+                        ["wels", "They zap hard!"],
+                        ["wels", "Some voltage..."],
+                        ["doraemon", "Wels took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    2: [
+                        ["wels", "Not more...||"],
+                        ["doraemon", "Ough, gritty scene. Wels just got swarmed and absolutely scalded by a bunch of the triangles.|"],
+                        ["wels", "You don't have to narrate my suffering, man.|"],
+                        ["doraemon", "If I don't, how will the viewers follow?|"],
+                        ["krupp", "Yeah Wels, that robot cat makes a great TV presenter.|"],
+                        ["wels", "If you say so, Kruppy..."],
+                        ["doraemon", "Wels took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                };
+
+                var dialogues = triangleDialogues[Q.wels_triangles] || [
+                    ["wels", ".|.|.|Sigh."],
+                    ["doraemon", "Wels took " + damage + " damage from " + amount + " triangles!"],
+                ];
+            }
+        }
     }
 }
 
