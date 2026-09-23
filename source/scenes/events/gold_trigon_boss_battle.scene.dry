@@ -864,7 +864,7 @@ if (Q.combat_cutscene_queue.length > 0) {
 } else {
     window.startCombatCutscene([
         ["doraemon", "Everyone is done!"],
-        ["doraemon", "Everyone except the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**, that is."],
+        ["doraemon", `Everyone except the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**, that is.`],
     ]);
 }
 
