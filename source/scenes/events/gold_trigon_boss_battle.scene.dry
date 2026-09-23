@@ -994,7 +994,7 @@ window.deathDialogueIfNeeded = function() {
                 ["krupp", "Ring ring|.|.|.|"],
                 ["krupp", "Hello? Anyone there?|||.||.|."],
                 ["krupp", "Well, I'll just| leave a message.|.|."],
-                ["krupp", "This is| kind of hard to say, but| I|||.||.|.||| love you.|],
+                ["krupp", "This is| kind of hard to say, but| I|||.||.|.||| love you.|"],
                 ["krupp", "Wels, in all our conversations, I just"],
                 ["krupp", "Wels, your voice"],
                 ["krupp", "Your hair"],
@@ -1058,7 +1058,7 @@ if (gold_trigon_move.type == "orb") {
                 ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
             ];
 
-            trigonDialogues.push.apply(trigonDialogues, dialogues);
+            trigonDialogues.push(...dialogues);
         } else if (target == "wels") {
             Q.wels_orbs = (Q.wels_orbs || 0) + 1;
             var orbDialogues = {
@@ -1083,7 +1083,7 @@ if (gold_trigon_move.type == "orb") {
                 ["doraemon", "Wels took " + damage + " damage from an orb!"],
             ];
 
-            trigonDialogues.push.apply(trigonDialogues, dialogues);
+            trigonDialogues.push(...dialogues);
         }
     }
 } else if (gold_trigon_move.type == "laser") {
@@ -1123,7 +1123,7 @@ if (gold_trigon_move.type == "orb") {
                 ["doraemon", "Hilferding took " + damage + " damage from a laser!"],
             ];
 
-            trigonDialogues.push.apply(trigonDialogues, dialogues);
+            trigonDialogues.push(...dialogues);
         } else if (target == "wels") {
             Q.wels_lasers = (Q.wels_lasers || 0) + 1;
             var laserDialogues = {
@@ -1145,7 +1145,7 @@ if (gold_trigon_move.type == "orb") {
                 ["doraemon", "Wels took " + damage + " damage from a laser!"],
             ];
 
-            trigonDialogues.push.apply(trigonDialogues, dialogues);
+            trigonDialogues.push(...dialogues);
         }
     }
 } else if (gold_trigon_move.type == "triangles") {
@@ -1202,7 +1202,7 @@ if (gold_trigon_move.type == "orb") {
                     ["doraemon", "Hilferding took " + damage + " damage from " + amount + " triangles!"],
                 ];
 
-                trigonDialogues.push.apply(trigonDialogues, dialogues);
+                trigonDialogues.push(...dialogues);
             } else if (target == "wels") {
                  Q.wels_triangles = (Q.wels_triangles || 0) + 1;
                  var triangleDialogues = {
@@ -1231,7 +1231,7 @@ if (gold_trigon_move.type == "orb") {
                     ["doraemon", "Wels took " + damage + " damage from " + amount + " triangles!"],
                 ];
 
-                trigonDialogues.push.apply(trigonDialogues, dialogues);
+                trigonDialogues.push(...dialogues);
             }
         }
     }
