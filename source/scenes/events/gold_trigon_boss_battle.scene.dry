@@ -1027,7 +1027,7 @@ if (gold_trigon_move.type == "orb") {
     }
     damage = Math.floor(damage);
     Q[target+"_hp"] -= damage;
-    if Q([target+"_hp"] <= 0) {
+    if (Q[target+"_hp"] <= 0) {
         Q[target+"_dead"] = 1;
         Q[target+"_advisor"] = 0;
         window.deathDialogueIfNeeded();
@@ -1096,7 +1096,7 @@ if (gold_trigon_move.type == "orb") {
     }
     damage = Math.floor(damage);
     Q[target+"_hp"] -= damage;
-    if Q([target+"_hp"] <= 0) {
+    if (Q[target+"_hp"] <= 0) {
         Q[target+"_dead"] = 1;
         Q[target+"_advisor"] = 0;
         window.deathDialogueIfNeeded();
