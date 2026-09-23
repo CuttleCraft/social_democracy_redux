@@ -1230,6 +1230,8 @@ if (gold_trigon_move.type == "orb") {
                     ["wels", ".|.|.|Sigh."],
                     ["doraemon", "Wels took " + damage + " damage from " + amount + " triangles!"],
                 ];
+
+                trigonDialogues.push(...dialogues);
             }
         }
     }
