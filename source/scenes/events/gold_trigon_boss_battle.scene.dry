@@ -89,6 +89,8 @@ go-to: menu
 
 @menu
 on-arrival: {!
+const engine = window.dendryUI.dendryEngine;
+
 Q.combatants = [];
 
 const combatantIds = engine.game.tagLookup["combatant"] || {};
