@@ -71,6 +71,24 @@ const engine = window.dendryUI.dendryEngine;
 
 Q.combat_allow_softlock = 1;
 
+Q.everyone_is_done = 0;
+
+!}
+go-to: menu
+
+= ...vs Gold Trigon
+
+<div class="gold-trigon"></div>
+
+<div class="combat-dialogue">
+  <div class="combat-dialogue-portrait">
+    <img id="combat-dialogue-image" src="" alt="">
+  </div>
+  <div id="combat-dialogue-text" class="combat-dialogue-text"></div>
+</div>
+
+@menu
+on-arrival: {!
 Q.combatants = [];
 
 const combatantIds = engine.game.tagLookup["combatant"] || {};
@@ -90,24 +108,6 @@ Q.combatants.push(id.split(".").pop().replace(/_c$/, ""));
 
 }
 
-Q.everyone_is_done = 0;
-
-!}
-go-to: menu
-
-= ...vs Gold Trigon
-
-<div class="gold-trigon"></div>
-
-<div class="combat-dialogue">
-  <div class="combat-dialogue-portrait">
-    <img id="combat-dialogue-image" src="" alt="">
-  </div>
-  <div id="combat-dialogue-text" class="combat-dialogue-text"></div>
-</div>
-
-@menu
-on-arrival: {!
 document.querySelectorAll('.combat-advisor-screen').forEach(el => el.remove());
 
 window.setCombatHand(true);
@@ -506,7 +506,7 @@ if (!Q.planning_combat) {
                 ["wels", "Alright, time to make a phone call...| Ahem.|||.|||.|||"],
                 ["wels", "Yo, my man.||"],
                 ["krupp", "Sup.|||"],
-                ["random_other_combatant", "Wh-? Wels, you kn-"],
+                ["random_other_combatant", "Wh-?| Wels, you kn-"],
                 ["wels", "I need a favor, my man.|"],
                 ["doraemon", "(Who's this?)|"],
                 ["random_other_combatant", "(Basically Hitler)|"],
@@ -538,19 +538,19 @@ if (!Q.planning_combat) {
                 ["doraemon", "Wels has called up German industry to finance the struggle!"],
             ],
             3: [
-                ["wels", "Moshi moshi?"],
+                ["wels", "Moshi moshi?|"],
                 ["wels", "(For context, I'm a weeb)"],
                 ["krupp", "Yes|?"],
                 ["wels", "Can I get a ka-ching, amirite or amirite? Right?|"],
-                ["krupp", "Sure can, bro."],
-                ["wels", "Fistbump."],
+                ["krupp", "Sure can, bro.|"],
+                ["wels", "Fistbump.|"],
                 ["doraemon", "Wels has called up German industry to finance the struggle!"],
             ],
         };
 
         var dialogues = financesDialogues[Q.wels_finances] || [
-            ["wels", "Moshi moshi, money money."],
-            ["krupp", "Right on, kid."],
+            ["wels", "Moshi moshi, money money.|"],
+            ["krupp", "Right on, kid.|"],
             ["doraemon", "Wels has called up German industry to finance the struggle!"],
         ];
 
@@ -653,7 +653,7 @@ if (!Q.planning_combat) {
         };
 
         var dialogues = attacksDialogues[Q.hilferding_attacks] || [
-            ["hilferding", "The world is but a marble in the palm of my hand!"],
+            ["hilferding", "The world is but a marble in the palm of my hand!|"],
             ["doraemon", "Hilferding has attacked!!!"],
         ];
 
@@ -863,7 +863,8 @@ if (Q.combat_cutscene_queue.length > 0) {
     return;
 } else {
     window.startCombatCutscene([
-        ["doraemon", "Everyone is done!"]
+        ["doraemon", "Everyone is done!"],
+        ["doraemon", "Everyone except the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**, that is."],
     ]);
 }
 
@@ -872,6 +873,45 @@ Q.everyone_is_done = 0;
 Q.gold_trigon_turn += 1;
 
 for (var c of Q.combatants) {
+    if (Q[c+"_action"] == "strategize") {
+        var stamina_cost = 3;
+    } else if (Q[c+"_action"] == "medicine") {
+        var stamina_cost = 5;
+        var recipient = Q[c+"_target"];
+        Q[recipient+"_hp"] = Q[recipient+"_hp_m"];
+    } else if (Q[c+"_action"] == "socialize") {
+        var stamina_cost = 4;
+        var recipient = Q[c+"_target"];
+        Q[c+"_"+recipient+"_buds"] = 1;
+        Q[recipient+"_"+c+"_buds"] = 1;
+    } else if (Q[c+"_action"] == "reinvigorate") {
+        var stamina_cost = Q[c+"_sta"];
+        for (var c of Q.combatants) {
+            Q[c+"_sta"] += stamina_cost;
+            if (Q[c+"_sta"] >= Q[c+"_sta_m"]) {
+                Q[c+"_sta"] = Q[c+"_sta_m"];
+            }
+        }
+        Q[c+"_sta"] = 0;
+        stamina_cost = 0;
+    } else if (Q[c+"_action"] == "finance") {
+        var stamina_cost = 3;
+        Q.resources += 1; 
+    } else if (Q[c+"_action"] == "attack") {
+        var stamina_cost = 1;
+        Q.gold_trigon_hp -= Q[c+"_att"];
+    } else if (Q[c+"_action"] == "defend") {
+        var stamina_cost = 1;
+        if (Q[c+"_hp"] < Q[c+"_hp_m"]) {
+            Q[c+"_hp"] += 1;
+        }
+        Q[c+"_insulated"] = 1;
+    }
+    Q[c+"_sta"] -= stamina_cost;
+    if (Q[c+"_action"] == Q[c+"_plan"]) {
+        Q[c+"_sta"] += Math.floor((stamina_cost)/2);
+        stamina_cost -= Math.floor((stamina_cost)/2);
+    }
     Q[c+"_action"] = "";
     // later obv do stuff with the actions before clearing them to resolve turn, for now want to get down the stuff that would have to be cleared
 }
@@ -884,9 +924,172 @@ for (var c of Q.combatants) {
 !} 
 
 - @next_turn: Who's next?
-- @return_to_menu: Proceed to the next turn
+- @gold_trigon_turn: Proceed to the next turn
+- @dummy
+
+@gold_trigon_turn
+view-if: not everyone_is_done
+on-arrival: {! 
+
+if (!Q.gold_trigon_moves || Q.gold_trigon_moves.length == 0) {
+    Q.gold_trigon_moves = [];
+
+    for (var i = 0; i < 5; i++) {
+        var move_type = Math.floor(Math.random() * 3);
+        var move;
+
+        if (move_type == 0) {
+            move = {
+                type: "orb",
+                target: Q.combatants[Math.floor(Math.random() * Q.combatants.length)]
+            };
+
+        } else if (move_type == 1) {
+            move = {
+                type: "laser",
+                target: Q.combatants[Math.floor(Math.random() * Q.combatants.length)]
+            };
+
+        } else {
+            var targets = {};
+
+            for (var c of Q.combatants) {
+                targets[c] = 0;
+            }
+
+            for (var j = 0; j < 8; j++) {
+                var target = Q.combatants[Math.floor(Math.random() * Q.combatants.length)];
+                targets[target] += 1;
+            }
+
+            move = {
+                type: "triangles",
+                targets: targets
+            };
+        }
+
+        Q.gold_trigon_moves.push(move);
+    }
+}
+
+
+var trigonDialogues = [];
+
+var gold_trigon_move = Q.gold_trigon_moves.shift();
+
+if (gold_trigon_move.type == "orb") {
+    var target = gold_trigon_move.target;
+    var raw_damage = 20;
+    var damage = raw_damage * (10 / (10 + Q[target+"_def"]));
+    if (Q[target+"_insulated"]) {
+        damage *= 0.9;
+    }
+    damage = Math.floor(damage);
+    Q[target+"_hp"] -= damage;
+    if Q([target+"_hp"]) <= 0 {
+        Q[target+"_dead"] = 1;
+        Q[target+"_advisor"] = 0;
+    } else {
+        if (target == "hilferding") {
+            Q.hilferding_orbs = (Q.hilferding_orbs || 0) + 1;
+            var orbDialogues = {
+                1: [
+                    ["hilferding", "OUFGH!"],
+                    ["hilferding", "Wow! I just got hit by the same orb that incinerated Hitler!"],
+                    ["hilferding", "Well, I'm still standing. So..."],
+                    ["hilferding", "Heh. Yeah. Still standing."],
+                    ["hilferding", "Whew..."],
+                    ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
+                ],
+                2: [
+                    ["hilferding", "God, that hits hard!"],
+                    ["hilferding", "How am I even still alive???"],
+                    ["hilferding", "It must be the waffles in my stomach."],
+                    ["hilferding", "Or the cookies I had for breakfast."],
+                    ["hilferding", "Whew..."],
+                    ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
+                ],
+            };
+
+            var dialogues = orbDialogues[Q.hilferding_orbs] || [
+                ["hilferding", "Oof!|"],
+                ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
+        } else if (target == "wels") {
+            // cutscene
+            Hey, Github. Fail this commit for me. Thanks.
+        }
+    }
+}
+
+else if (gold_trigon_move.type == "laser") {
+    var target = gold_trigon_move.target;
+
+    var damage = raw_damage * (10 / (10 + Q[target+"_def"]));
+
+    // do laser damage to target
+}
+
+if (Q[target+"_dead"]) {
+    if (target == "hilferding") {
+        trigonDialogues.push(
+            ["doraemon", "Oh shoot! Hilferding just got incinerated, vaporized! Oh God!"],
+            ["doraemon", "He's dead!"],
+            ["doraemon", "Oh God!"],
+            ["random_other_combatant", "He baked his last sale..."],
+            ["lassalle", "He baked his |what|?"],
+            ["random_other_combatant", "LASSALLE?!|"],
+            ["doraemon", "It's just an apparition from the sworcerous plasma precipitated by the fact that it's currently a time of miracles, don't pay it any mind.|"],
+            ["random_other_combatant", "Man, I must be seeing things..."],
+        );
+    } else if (target == "wels") {
+        trigonDialogues.push(
+            ["doraemon", "Wels!!! No!!!|"],
+            ["doraemon", "(For context, Wels died)|"],
+            ["krupp", "||Ring ring|.|.|.|"],
+            ["doraemon", "(Oh man.|)"],
+            ["krupp", "Ring ring|.|.|.|"],
+            ["krupp", "Hello? Anyone there?|||.||.|."],
+            ["krupp", "Well, I'll just| leave a message.|.|."],
+            ["krupp", "This is| kind of hard to say, but| I|||.||.|.||| love you.|],
+            ["krupp", "Wels, in all our conversations, I just"],
+            ["krupp", "Wels, your voice"],
+            ["krupp", "Your hair"],
+            ["krupp", "Your eyes"],
+            ["krupp", "The way you ask me for money"],
+            ["krupp", "Even the way you use that money to campaign against my class interests"],
+            ["krupp", "And always forget to pay me back"],
+            ["krupp", "Every moment, Wels"],
+            ["krupp", "I've been thinking how good it could b"],
+            ["krupp", "Hold the phone"],
+            ["krupp", "Is that Y|O|U|R pile of ash on the TV screen?|||"],
+            ["krupp", "I...I gotta go."],
+            ["doraemon", "That's crazy.|||"],
+            ["random_other_combatant", "Moving on..."],
+        )
+    }
+}
+
+else if (gold_trigon_move.type == "triangles") {
+    for (var c of Q.combatants) {
+        var amount = gold_trigon_move.targets[c];
+
+        // throw `amount` triangles at c
+    }
+}
+
+var id = window.queueCombatCutscene(trigonDialogues);
+Q.combat_cutscene_queue.push(id);
+
+!}
+
+
+- @return_to_menu: Okay, now that's over.
 - @dummy
 
 @return_to_menu
-view-if: not everyone_is_done
+choose-if: not cutscene_unfinished
+unavailable-subtitle: Don't interrupt.
 go-to: menu

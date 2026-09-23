@@ -265,7 +265,8 @@ window.setCombatHand = function(active) {
 };
 
 window.combatDialoguePortraits = {
-    krupp: "img/portraits/KruppGustav.jpg"
+    krupp: "img/portraits/KruppGustav.jpg",
+    lassalle: "img/portraits/LassalleFerdinand.jpg"
 };
 
 window.showCombatDialogue = function(advisorId, text) {
