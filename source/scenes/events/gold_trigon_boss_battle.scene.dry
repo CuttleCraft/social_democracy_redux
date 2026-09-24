@@ -261,7 +261,7 @@ if (!Q.planning_combat) {
         ["muller", "Okay, quick.|"],
         ["doraemon", "Everyone looks away in disgust!"],
         ["doraemon", "Screams would be heard if not for the far louder songs of sworcery emanating through the room!"],
-        ["doraemon", "...Müller's gallbladder operation has failed!"],
+        ["doraemon", ".|.|.|Müller's gallbladder operation has failed!"],
         ["muller", "Everyone...I'm sorry."],
         ["muller", "|I| h|a|v|e| f|a|i|l|e|d| y|o|u| a|l|l|.|"],
         ["muller", "|||G|||o|||o|||d|||b|||y|||e|||.|||.|||.|||"],
