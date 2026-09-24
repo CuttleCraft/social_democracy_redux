@@ -270,6 +270,13 @@ window.combatDialoguePortraits = {
 };
 
 window.showCombatDialogue = function(advisorId, text) {
+  if (window.combatDialogueTimer) {
+    clearTimeout(window.combatDialogueTimer);
+    window.combatDialogueTimer = null;
+  }
+
+  window.combatDialogueTyping = false;
+
   const engine = window.dendryUI.dendryEngine;
   const scene = engine.game.scenes[advisorId];
 
@@ -354,6 +361,14 @@ window.queueCombatCutscene = function(dialogues) {
 };
 
 window.startCombatCutscene = function(dialoguesOrId) {
+
+  if (window.combatDialogueTimer) {
+        clearTimeout(window.combatDialogueTimer);
+        window.combatDialogueTimer = null;
+    }
+
+    window.combatDialogueTyping = false;
+
     const engine = window.dendryUI.dendryEngine;
     const Q = engine.state.qualities;
 
