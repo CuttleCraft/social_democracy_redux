@@ -356,6 +356,7 @@ window.queueCombatCutscene = function(dialogues) {
         medicine: "medicines",
         attack: "attacks",
         defend: "defends",
+        naptime: "naps",
         reinvigorate: "reinvigorates",
         finance: "finances"
     };
@@ -474,7 +475,7 @@ window.cancelPendingCombatCutscene = function(combatant) {
             }
         }
     }
-    
+
     if (addedNarration) {
         Q.doraemon_narrated = 0;
     }
