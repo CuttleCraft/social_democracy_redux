@@ -8,6 +8,9 @@ Q.combat_cutscene_queue = [];
 window.setCombatHand(true);
 
 window.clearCombatStatsIfNeeded = function() {
+    if (Q.selected_combatant) {
+        window.cancelPendingCombatCutscene(Q.selected_combatant);
+    }
     if (Q[Q.selected_combatant + "_action"] == "strategize") {
         for (var c of Q.combatants) {
             Q[c + "_plan"] = "";
@@ -434,6 +437,7 @@ title: Reinvigorate
 subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. Restore everyone's stamina by your own, while completely depleting your own. (up to 9 stamina) [? if sc_plan == "reinvigorate" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "reinvigorate";
     if (Q.selected_combatant == "wels") {
         Q.wels_reinvigorates = (Q.wels_reinvigorates || 0) + 1;
@@ -499,6 +503,7 @@ title: Finance
 subtitle: Spend turn calling up German industry to fundraise for the struggle. Gain 1 resource. Resources can be spent to upgrade stats. (3 stamina) [? if sc_plan == "finance" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
     Q[Q.selected_combatant + "_action"] = "finance";
     if (Q.selected_combatant == "wels") {
         Q.wels_finances = (Q.wels_finances || 0) + 1;

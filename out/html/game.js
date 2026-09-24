@@ -348,14 +348,31 @@ window.queueCombatCutscene = function(dialogues) {
     const engine = window.dendryUI.dendryEngine;
     const Q = engine.state.qualities;
 
+    const actor = Q.selected_combatant;
     const cutsceneId = window.nextCombatCutsceneId++;
 
-    window.combatCutscenes[cutsceneId] = {
-        actor: Q.selected_combatant,
-        dialogues: dialogues
+    var counterSuffixes = {
+        strategize: "strategies",
+        medicine: "medicines",
+        attack: "attacks",
+        defend: "defends",
+        reinvigorate: "reinvigorates",
+        finance: "finances"
     };
 
-    console.log("[Combat cutscene queued]", cutsceneId);
+    var action = actor ? Q[actor + "_action"] : "";
+    var suffix = counterSuffixes[action];
+    var counterKey = suffix ? actor + "_" + suffix : null;
+
+    window.combatCutscenes[cutsceneId] = {
+        actor: actor,
+        dialogues: dialogues,
+        counterKey: counterKey
+    };
+
+    if (actor) {
+        Q[actor + "_pending_cutscene"] = cutsceneId;
+    }
 
     return cutsceneId;
 };
@@ -387,6 +404,9 @@ window.startCombatCutscene = function(dialoguesOrId) {
 
         dialogues = cutscene.dialogues;
         actor = cutscene.actor;
+        if (actor) {
+          Q[actor + "_pending_cutscene"] = 0;
+        }
     } else {
         dialogues = dialoguesOrId;
     }
@@ -415,6 +435,53 @@ window.startCombatCutscene = function(dialoguesOrId) {
     window.combatDialogueFinished = false;
 
     window.playNextCombatDialogue();
+};
+
+window.cancelPendingCombatCutscene = function(combatant) {
+    const engine = window.dendryUI.dendryEngine;
+    const Q = engine.state.qualities;
+
+    const pendingId = Q[combatant + "_pending_cutscene"];
+
+    if (!pendingId) {
+        return;
+    }
+
+    var cutscene = window.combatCutscenes[pendingId];
+
+    Q.combat_cutscene_queue = Q.combat_cutscene_queue.filter(function(id) {
+        return id !== pendingId;
+    });
+
+    if (cutscene && cutscene.counterKey) {
+        if (Q[cutscene.counterKey] > 0) {
+            Q[cutscene.counterKey] -= 1;
+        }
+    }
+
+    var narratorLine = "Why am I narrating? Uhh, look, man, somebody has to!";
+
+    var addedNarration = false;
+
+    if (cutscene) {
+       for (var i = 0; i < cutscene.dialogues.length; i++) {
+           if (
+                cutscene.dialogues[i][0] == "doraemon" &&
+                cutscene.dialogues[i][1] == narratorLine
+            ) {
+                addedNarration = true;
+               break;
+            }
+        }
+    }
+    
+    if (addedNarration) {
+        Q.doraemon_narrated = 0;
+    }
+
+    delete window.combatCutscenes[pendingId];
+
+    Q[combatant + "_pending_cutscene"] = 0;
 };
 
 window.playNextCombatDialogue = function() {
