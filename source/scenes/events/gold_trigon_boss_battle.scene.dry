@@ -184,7 +184,7 @@ card-image: img/portraits/HilferdingRudolf.jpg
 view-if: (hilferding_advisor = 1) and (not choosing_target or (selected_combatant != "hilferding"))
 choose-if: hilferding_action != "immobile"
 unavailable-subtitle: Hilferding's turn is being consumed by a fellow combatant - change their action to something else
-on-arrival: selected_combatant = "hilferding" if not choosing_target; selected_target = "hilferding" if choosing_target; sc_display = "Hilferding" if not choosing_target; sc_plan = hilferding_present_plan if not choosing_target
+on-arrival: selected_combatant = "hilferding" if not choosing_target; selected_target = "hilferding" if choosing_target; sc_display = "Hilferding" if not choosing_target; sc_plan = hilferding_present_plan if not choosing_target; sc_stamina = hilferding_sta if not choosing_target
 go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
@@ -219,6 +219,7 @@ Rudolf Hilferding has some tricks up his sleeve.
 
 @strategize
 title: Strategize
+choose-if: sc_stamina >= 3
 subtitle: Spend turn planning the battle ahead. The next turn, stamina cost for all abilities will be halved, but have to be decided now (3 stamina) [? if sc_plan == "strategize" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -301,6 +302,7 @@ go-to: menu if was_already_planning_combat
 
 @medicine
 title: Medicine
+choose-if: sc_stamina >= 5
 subtitle: Spend turn treating another combatant. Selected combatant will have full health, but will also have to spend their turn being treated (5 stamina) [? if sc_plan == "medicine" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -373,6 +375,7 @@ go-to: menu if planning_combat
 
 @socialize
 title: Socialize
+choose-if: sc_stamina >= 4
 subtitle: Spend turn using his experience and knowledge on socialization to make friends with one fellow combatant. Once friends, they will get a bonus when taking the same actions as each other. (4 stamina) [? if sc_plan == "socialize" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -402,7 +405,7 @@ card-image: img/portraits/WelsOtto.jpg
 view-if: wels_advisor = 1
 choose-if: wels_action != "immobile"
 unavailable-subtitle: Wels' turn is being consumed by a fellow combatant - change their action to something else
-on-arrival: selected_combatant = "wels" if not choosing_target; selected_target = "wels" if choosing_target; sc_display = "Wels" if not choosing_target; sc_plan = wels_present_plan if not choosing_target
+on-arrival: selected_combatant = "wels" if not choosing_target; selected_target = "wels" if choosing_target; sc_display = "Wels" if not choosing_target; sc_plan = wels_present_plan if not choosing_target; sc_stamina = wels_sta if not choosing_target
 go-to: target_chosen if choosing_target
 
 <div class="combat-advisor-screen">
@@ -436,6 +439,7 @@ Otto Wels has some tricks up his sleeve.
 
 @reinvigorate
 title: Reinvigorate
+choose-if: sc_stamina >= 1
 subtitle: Spend turn reinvigorating everyone's morale with a passionate speech. Restore everyone's stamina by your own, while completely depleting your own. (up to 9 stamina) [? if sc_plan == "reinvigorate" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -502,6 +506,7 @@ go-to: menu if planning_combat
 
 @finance
 title: Finance
+choose-if: sc_stamina >= 3
 subtitle: Spend turn calling up German industry to fundraise for the struggle. Gain 1 resource. Resources can be spent to upgrade stats. (3 stamina) [? if sc_plan == "finance" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -587,6 +592,7 @@ go-to: menu if planning_combat
 
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
+choose-if: sc_stamina >= 1
 subtitle: An ordinary attack, dealing damage. (1 stamina) [? if sc_plan == "attack" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -689,6 +695,7 @@ if (!Q.planning_combat) {
 
 @defend
 title: Take a defensive stance and attempt to heal.
+choose-if: sc_stamina >= 1
 subtitle: An ordinary defense, regaining 1 HP. (1 stamina) [? if sc_plan == "defend" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -891,24 +898,31 @@ on-arrival: {!
 if (Q.socialize_cutscene_tbd) {
     Q.socialize_cutscene_tbd = 0;
     if (Q.selected_combatant == "hilferding") {
-        if (Q.selected_target == "wels") {
+        if (Q.selected_target == "wels" && !Q.hilferding_wels_buds) {
             var dialogues = [
-                ["hilferding", "Hey, Wels."],
-                ["wels", "Sup."],
-                ["hilferding", "Nothing much, you?"],
-                ["wels", "Eh, the usual."],
-                ["hilferding", "Yeah, same."],
+                ["hilferding", "Hey, Wels.|"],
+                ["wels", "Sup.|"],
+                ["hilferding", "Nothing much, you?|"],
+                ["wels", "Eh, the usual.|"],
+                ["hilferding", "Yeah, same.|"],
                 ["hilferding", "Oh, and the cosmic geometry affair.|"],
                 ["wels", "Oh yeah, there's that whole showbizz.|"],
-                ["hilferding", "Wanna be friends?"],
+                ["hilferding", "Wanna be friends?|"],
                 ["wels", "What?"],
                 ["wels", "Man, what are you talking about?"],
                 ["wels", "We've been friends for a while now.|"],
                 ["hilferding", "Is that a yes?|"],
                 ["wels", "I mean,|||||| y-"],
-                ["hilferding", "Great we can synergize our actions now, see you later Wels!"],
+                ["hilferding", "Great we can synergize our actions now, see you later Wels!|"],
                 ["doraemon", "Hilferding has befriended Wels!"],
             ];
+        } else {
+            var dialogues = [
+                ["hilferding", "Hi.|"],
+                [Q.hilferding_target, "You already did this. You just wasted a turn. For both of us.|"],
+                ["hilferding", "Oh yeah.|"]
+                ["doraemon", "Hilferding wasted a turn!|"],
+            ]
         }
     if (!Q.doraemon_narrated) {
         dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
@@ -1010,7 +1024,15 @@ for (var c of Q.combatants) {
             Q[c+"_sta"] = Q[c+"_sta_m"];
         }
     }
+    var stamina_discount = 0;
+    for (var other of Q.combatants) {
+        if (other != c && Q[c+"_"+other+"_buds"] && Q[c+"_action"] == Q[other+"_action"]) {
+            stamina_discount = Math.floor(stamina_cost / 4);
+            break;
+        }
+    }
     Q[c+"_sta"] -= stamina_cost;
+    Q[c+"_sta"] += stamina_discount;
     if (Q[c+"_action"] == Q[c+"_plan"]) {
         Q[c+"_sta"] += Math.floor((stamina_cost)/2);
         stamina_cost -= Math.floor((stamina_cost)/2);
@@ -1071,6 +1093,40 @@ if (!Q.gold_trigon_moves || Q.gold_trigon_moves.length == 0) {
         }
 
         Q.gold_trigon_moves.push(move);
+    }
+}
+
+var alive_combatants = Q.combatants.filter(function(c) {
+    return !Q[c+"_dead"];
+});
+
+for (var move of Q.gold_trigon_moves) {
+    if (move.type == "orb" || move.type == "laser") {
+        if (Q[move.target+"_dead"]) {
+            move.target = alive_combatants[
+                Math.floor(Math.random() * alive_combatants.length)
+            ];
+        }
+    }
+}
+for (var move of Q.gold_trigon_moves) {
+    if (move.type != "triangles") {
+        continue;
+    }
+
+    for (var dead_target in move.targets) {
+        if (Q[dead_target+"_dead"]) {
+            var amount = move.targets[dead_target];
+            move.targets[dead_target] = 0;
+
+            for (var i = 0; i < amount; i++) {
+                var new_target = alive_combatants[
+                    Math.floor(Math.random() * alive_combatants.length)
+                ];
+
+                move.targets[new_target] += 1;
+            }
+        }
     }
 }
 
