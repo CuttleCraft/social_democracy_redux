@@ -420,8 +420,14 @@ window.startCombatCutscene = function(dialoguesOrId) {
         let speaker = dialogue[0];
 
         if (speaker === "random_other_combatant") {
-            if (others.length > 0) {
-                speaker = others[Math.floor(Math.random() * others.length)];
+            const excluded = dialogue[2] || actor;
+
+            const candidates = (Q.combatants || []).filter(function(combatant) {
+                return combatant !== excluded && !Q[combatant + "_dead"];
+            });
+
+            if (candidates.length > 0) {
+                speaker = candidates[Math.floor(Math.random() * candidates.length)];
             } else {
                 speaker = "doraemon";
             }

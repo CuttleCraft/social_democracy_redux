@@ -1137,11 +1137,11 @@ window.deathDialogueIfNeeded = function() {
                 ["doraemon", "Oh shoot! Hilferding just got incinerated, vaporized! Oh God!"],
                 ["doraemon", "He's dead!"],
                 ["doraemon", "Oh God!"],
-                ["random_other_combatant", "He baked his last sale..."],
+                ["random_other_combatant", "He baked his last sale...", target],
                 ["lassalle", "He baked his |what|?"],
-                ["random_other_combatant", "LASSALLE?!|"],
+                ["random_other_combatant", "LASSALLE?!|", target],
                 ["doraemon", "It's just an apparition from the sworcerous plasma precipitated by the fact that it's currently a time of miracles, don't pay it any mind.|"],
-                ["random_other_combatant", "Man, I must be seeing things..."],
+                ["random_other_combatant", "Man, I must be seeing things...", target],
             );
         } else if (target == "wels") {
             trigonDialogues.push(
@@ -1166,7 +1166,7 @@ window.deathDialogueIfNeeded = function() {
                 ["krupp", "Is that Y|O|U|R pile of ash on the TV screen?|||"],
                 ["krupp", "I...I gotta go."],
                 ["doraemon", "That's crazy.|||"],
-                ["random_other_combatant", "Moving on..."],
+                ["random_other_combatant", "Moving on...", target],
             )
         }
     }
@@ -1230,7 +1230,7 @@ if (gold_trigon_move.type == "orb") {
                 ],
                 2: [
                     ["wels", "Hehehehehehehehehehehehe"],
-                    ["random_other_combatant", "What's so funny?|"],
+                    ["random_other_combatant", "What's so funny?|", target],
                     ["wels", "The orb tickles.|"],
                     ["doraemon", "Wels took " + damage + " damage from an orb!"],
                 ],
