@@ -1579,7 +1579,7 @@ if (gold_trigon_move.type == "orb") {
                     ["muller", "I love rainbows. Little whimsical lights in the sky...!"],
                     ["muller", "Is there a pot of gold at the other end-?"],
                     ["muller", "OK no it's a laser"],
-                    ["muller", "AAAAAAAAAAAAA]
+                    ["muller", "AAAAAAAAAAAAA"]
                     ["doraemon", "Müller took " + damage + " damage from a laser!"],
                 ],
                 2: [
@@ -1696,7 +1696,7 @@ if (gold_trigon_move.type == "orb") {
                     2: [
                         ["muller", "These aren't fairies, actually.||"],
                         ["muller", "They're more like the little glowing winged things from Rayman by Ubisoft.|||"],
-                        ["random_other_combatant", "What?", target]
+                        ["random_other_combatant", "What?", target],
                         ["doraemon", "Müller took " + damage + " damage from " + amount + " triangles!"],
                     ],
                 };
