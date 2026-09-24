@@ -45,6 +45,10 @@ Q.hilferding_def = 9;
 Q.hilferding_sta = 5;
 Q.hilferding_sta_m = 5;
 Q.hilferding_hp_m = 21;
+Q.hilferding_action = "";
+Q.hilferding_target = "";
+Q.hilferding_plan = "";
+Q.hilferding_present_plan = "";
 
 Q.wels_hp = 19;
 Q.wels_att = 7;
@@ -52,16 +56,21 @@ Q.wels_def = 4;
 Q.wels_sta = 9;
 Q.wels_sta_m = 9;
 Q.wels_hp_m = 19;
-
-Q.hilferding_action = "";
-Q.hilferding_target = "";
-Q.hilferding_plan = "";
-Q.hilferding_present_plan = "";
-
 Q.wels_action = "";
 Q.wels_target = "";
 Q.wels_plan = "";
 Q.wels_present_plan = "";
+
+Q.muller_hp = 11;
+Q.muller_att = 4;
+Q.muller_def = 4;
+Q.muller_sta = 5;
+Q.muller_sta_m = 5;
+Q.muller_hp_m = 11;
+Q.muller_action = "";
+Q.muller_target = "";
+Q.muller_plan = "";
+Q.muller_present_plan = "";
 
 Q.planning_combat = 0;
 Q.plan_is_done = 0;
@@ -175,6 +184,111 @@ title: Dummy
 subtitle: I'm a dummy!
 tags: dummy
 go-to: menu
+
+@muller_c
+title: Hermann Müller
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/MüllerHermann.jpg
+view-if: (muller_advisor = 1) and (not choosing_target or (selected_combatant != "muller"))
+choose-if: muller_action != "immobile"
+unavailable-subtitle: Muller's turn is being consumed by a fellow combatant - change their action to something else
+on-arrival: selected_combatant = "muller" if not choosing_target; selected_target = "muller" if choosing_target; sc_display = "Müller" if not choosing_target; sc_plan = muller_present_plan if not choosing_target; sc_stamina = muller_sta if not choosing_target
+go-to: target_chosen if choosing_target
+
+<div class="combat-advisor-screen">
+
+**Hermann Müller**
+
+HP: [+ muller_hp +]
+Attack: [+ muller_att +]
+Defense: [+ muller_def +]
+Stamina: [+ muller_sta +]
+
+</div>
+
+- @attack
+- @defend
+- @naptime
+- @muller_abilities: Let's explore Müller's special abilities.
+- @menu: Return
+
+@muller_abilities
+subtitle: Gallbladder Operation
+
+<div class="combat-advisor-screen">
+
+Hermann Müller has some tricks up his sleeve.
+
+</div>
+
+- @gallbladder_operation
+
+@gallbladder_operation
+title: Gallbladder Operation
+subtitle: Spend turn getting a galbladder operation. Die. [? if sc_plan == "gallbladder_operation" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "gallbladder_operation";
+
+    var dialogues = [
+        ["muller", "Hey guys.|"],
+        ["random_other_combatant", "Yeah?|"],
+        ["muller", "I know it's a bad time and all.|"],
+        ["muller", "But, as an atheist, I really gotta get a gallbladder operation.|"],
+        ["muller", "Can we put the fight on hold?|"],
+        ["muller", "Or actually, I can get it here."|],
+        ["muller", "I'll give them a heads-up."],
+        ["muller", "Ring.|.|.|.|ring.|.|.|"],
+        ["muller", "Not sure why I'm saying the rings out loud."],
+        ["muller", ".|.|.|"],
+        ["muller", "Ah, hello? Yes, my appointment. Can you come to the Reichstag for my operation?|"],
+        ["muller", "Yes, the big mystical halo of energy is supposed to be there, ominous orchestra and all."],
+        ["muller", "Yes, go inside it.|"],
+        ["muller", "I'll be waiting."],
+        ["muller", "Click.|.|.|"],
+        ["muller", "Just wait for the doctors to get here."|],
+        ["muller", "|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|.|"],
+        ["muller", "|.|.|.|.|.|.|.|.|.|n|i|ce weather we're having, huh.|.|.|.|.|.|?|"],
+        ["muller", "|||.|||.|||.|||"],
+        ["muller", "Oh, there they are.|"],
+        ["muller", "Yoo-hoo! Over here."],
+        ["muller", "I'd like my operation now, please.|"],
+        ["muller", "Oh, don't mind the big yellow thing.|"],
+        ["muller", "You know how it is.|"],
+        ["random_other_combatant", "Müller, we're running out of time..."],
+        ["muller", "Okay, quick.|"],
+        ["doraemon", "Everyone looks away in disgust!"],
+        ["doraemon", "Screams would be heard if not for the far louder songs of sworcery emanating through the room!"],
+        ["doraemon", "...Müller's gallbladder operation has failed!"],
+        ["muller", "Everyone...I'm sorry."],
+        ["muller", "|I| h|a|v|e| f|a|i|l|e|d| y|o|u| a|l|l|.|"],
+        ["muller", "|||G|||o|||o|||d|||b|||y|||e|||.|||.|||.|||"],
+        ["doraemon", "Müller has passed away."],
+    ];
+
+    if (!Q.doraemon_narrated) {
+        dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+        Q.doraemon_narrated = 1;
+    }
+
+    var id = window.queueCombatCutscene(dialogues);
+    Q.combat_cutscene_queue.push(id);
+} else {
+    Q[Q.selected_combatant+"_plan"] = "gallbladder_operation";
+}
+
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will receive a gallbladder operation.
+
+</div>
+
+- @menu: Return
 
 @hilferding_c
 title: Rudolf Hilferding
@@ -679,6 +793,39 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    }  else if (Q.selected_combatant == "muller") {
+        Q.muller_attacks = (Q.muller_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["muller", "As an atheist, I'm not very skilled in combat, but I'll give it my best shot.|"],
+                ["muller", "Here goes nothing."],
+                ["doraemon", "Müller has attacked!!!"],
+            ],
+            2: [
+                ["muller", "This isn't really my cup of tea, but I'll do it anyway, for the sake of taming cosmic geometry.|"],
+                ["muller", "Personally, I prefer combat with corporeal beings, as an atheist.|"],
+                ["muller", "But all opinions are valid.|||"],
+                ["muller", "Müller has attacked!!!"],
+            ],
+            3: [
+                ["muller", "I wonder if there's a teacup orbiting the sun.||"],
+                ["doraemon", "Müller has attacked!!!"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.muller_attacks] || [
+            ["muller", "All this action's making my gallbladder feel funny."],
+            ["doraemon", "Müller has attacked!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "attack";
@@ -790,6 +937,41 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "muller") {
+        Q.muller_defends = (Q.muller_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["muller", "Self-defense, huh? I'm actually pretty well-versed in that.|"],
+                ["muller", "As an atheist, it's important to be vigilant and attentive to your health.|"],
+                ["muller", "Did you know I was the only chancellor to not belong to any religion?|"]
+                ["muller", "Uh...wait, was I chancellor?|"],
+                ["doraemon", "Müller has defended!!!"],
+            ],
+            2: [
+                ["muller", "My memory is pretty poor, as an atheist.|"],
+                ["muller", "I hear that communing with gods allows you to have them remember things for you. Is that true?|"],
+                ["muller", "Either way, as a white guy, I find that gallbladders fill a similar niche.|"],
+                ["doraemon", "Müller has defended!!!"],
+            ],
+            3: [
+                ["muller", "I got some breadcrumbs from a priest in another life, as a pigeon.|"],
+                ["doraemon", "Müller has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.muller_defends] || [
+            ["muller", "I think I'm going weird...|"],
+            ["doraemon", "Müller has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
@@ -879,6 +1061,38 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "muller") {
+        Q.muller_naps = (Q.muller_naps || 0) + 1;
+
+        var napsDialogues = {
+            1: [
+                ["muller", "Last night, I...yawn...|"],
+                ["muller", "Had||| the strangest dream...|"],
+                ["doraemon", "Müller has fallen asleep!!!"],
+            ],
+            2: [
+                ["muller", "I'd never|| dreamed| before...|"],
+                ["muller", "I dreamed the world,|| had||,|| all agreed...|"],
+                ["doraemon", "Müller has fallen asleep!!!"],
+            ],
+            3: [
+                ["muller", "|.|.|.|to put| an end| to war.|"],
+                ["doraemon", "Müller has fallen asleep!!!"],
+            ],
+        };
+
+        var dialogues = napsDialogues[Q.muller_naps] || [
+            ["muller", "...snore|"],
+            ["doraemon", "Müller has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "naptime";
@@ -915,6 +1129,17 @@ if (Q.socialize_cutscene_tbd) {
                 ["wels", "I mean,|||||| y-"],
                 ["hilferding", "Great we can synergize our actions now, see you later Wels!|"],
                 ["doraemon", "Hilferding has befriended Wels!"],
+            ];
+        } else if (Q.selected_target == "muller" && !Q.hilferding_muller_buds) {
+            var dialogues = [
+                ["hilferding", "Hi, Müller.|"],
+                ["muller", "Hello.|"],
+                ["hilferding", "How's the gallbladder?|"],
+                ["muller", "Good, good. As an atheist, I find it helps to read it a bed time story everynight.||"],
+                ["hilferding", "Yeah, totally.| Hey, so are we friends?"],
+                ["muller", "Sure thing.|"],
+                ["hilferding", "Sweet! Thanks."],
+                ["doraemon", "Hilferding has befriended Müller!"],
             ];
         } else {
             var dialogues = [
@@ -1008,6 +1233,10 @@ for (var c of Q.combatants) {
     } else if (Q[c+"_action"] == "finance") {
         var stamina_cost = 3;
         Q.resources += 1; 
+    } else if (Q[c+"_action"] == "gallbladder_operation") {
+        var stamina_cost = 0;
+        Q[c+"_advisor"] = 0;
+        Q[c+"_dead"] = 1;    
     } else if (Q[c+"_action"] == "attack") {
         var stamina_cost = 1;
         Q.gold_trigon_hp -= Q[c+"_att"];
@@ -1168,6 +1397,20 @@ window.deathDialogueIfNeeded = function() {
                 ["doraemon", "That's crazy.|||"],
                 ["random_other_combatant", "Moving on...", target],
             )
+        } else if (target == "muller") {
+            trigonDialogues.push(
+                ["muller", "Oufgh-!|"],
+                ["muller", ".|.|.|"],
+                ["muller", "I... I think that hit me right in the gallbladder..."],
+                ["muller", "Pretty hard.|.|.|"],
+                ["muller", ".|.|.|I think I'm gonna need an||| operation."],
+                ["muller", "I was||| scared this| day would come."],
+                ["muller", "I-"],
+                ["muller", "Oh, my-"],
+                ["muller", "Oh no"],
+                ["muller", "My gallbladder just fell out.|||"],
+                ["doraemon", "Müller is dead!"],
+            );
         }
     }
 }
@@ -1242,6 +1485,30 @@ if (gold_trigon_move.type == "orb") {
             ];
 
             trigonDialogues.push(...dialogues);
+        } else if (target == "muller") {
+            Q.muller_orbs = (Q.muller_orbs || 0) + 1;
+            var orbDialogues = {
+                1: [
+                    ["muller", "Zoinks!!!"],
+                    ["muller", "I just got hit by a massive spectral orb!"],
+                    ["muller", "Yowch, that's gonna bruise..."],
+                    ["muller", "Well, at least I'm still alive.|"],
+                    ["doraemon", "Müller took " + damage + " damage from an orb!"],
+                ],
+                2: [
+                    ["muller", "Ooof-!|"],
+                    ["muller", "Really knocks the gall out of you. At least it didn't knock my bladder."],
+                    ["muller", "Or my gallbladder.|"],
+                    ["doraemon", "Müller took " + damage + " damage from an orb!"],
+                ],
+            };
+
+            var dialogues = orbDialogues[Q.muller_orbs] || [
+                ["muller", "Oooof...|"],
+                ["doraemon", "Müller took " + damage + " damage from an orb!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
         }
     }
 } else if (gold_trigon_move.type == "laser") {
@@ -1301,6 +1568,30 @@ if (gold_trigon_move.type == "orb") {
             var dialogues = laserDialogues[Q.wels_lasers] || [
                 ["wels", "Ouch."],
                 ["doraemon", "Wels took " + damage + " damage from a laser!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
+        } else if (target == "muller") {
+            Q.muller_lasers = (Q.muller_lasers || 0) + 1;
+            var laserDialogues = {
+                1: [
+                    ["muller", "Oh my, is that a rainbow?|"],
+                    ["muller", "I love rainbows. Little whimsical lights in the sky...!"],
+                    ["muller", "Is there a pot of gold at the other end-?"],
+                    ["muller", "OK no it's a laser"],
+                    ["muller", "AAAAAAAAAAAAA]
+                    ["doraemon", "Müller took " + damage + " damage from a laser!"],
+                ],
+                2: [
+                    ["muller", "I don't like rainbows anymore.|"],
+                    ["muller", "As an atheist, this ruined my childhood.|"],
+                    ["doraemon", "Müller took " + damage + " damage from a laser!"],
+                ],
+            };
+
+            var dialogues = laserDialogues[Q.muller_lasers] || [
+                ["muller", "Rain, rain, go away..."],
+                ["doraemon", "Müller took " + damage + " damage from a laser!"],
             ];
 
             trigonDialogues.push(...dialogues);
@@ -1387,6 +1678,32 @@ if (gold_trigon_move.type == "orb") {
                 var dialogues = triangleDialogues[Q.wels_triangles] || [
                     ["wels", ".|.|.|Sigh."],
                     ["doraemon", "Wels took " + damage + " damage from " + amount + " triangles!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
+            } else if (target == "muller") {
+                 Q.muller_triangles = (Q.muller_triangles || 0) + 1;
+                 var triangleDialogues = {
+                    1: [
+                        ["muller", "Ooh, what's this-?"],
+                        ["muller", "-ach-"],
+                        ["muller", "-little fairies, dazzle-"],
+                        ["muller", "-eek-"],
+                        ["muller", "-like Peter Pan-"],
+                        ["muller", "-yowch-"],
+                        ["doraemon", "Müller took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    2: [
+                        ["muller", "These aren't fairies, actually.||"],
+                        ["muller", "They're more like the little glowing winged things from Rayman by Ubisoft.|||"],
+                        ["random_other_combatant", "What?", target]
+                        ["doraemon", "Müller took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                };
+
+                var dialogues = triangleDialogues[Q.muller_triangles] || [
+                    ["muller", "...they sting.|"],
+                    ["doraemon", "Müller took " + damage + " damage from " + amount + " triangles!"],
                 ];
 
                 trigonDialogues.push(...dialogues);
