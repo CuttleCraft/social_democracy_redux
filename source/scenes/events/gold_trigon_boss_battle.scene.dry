@@ -944,7 +944,7 @@ if (!Q.planning_combat) {
             1: [
                 ["muller", "Self-defense, huh? I'm actually pretty well-versed in that.|"],
                 ["muller", "As an atheist, it's important to be vigilant and attentive to your health.|"],
-                ["muller", "Did you know I was the only chancellor to not belong to any religion?|"]
+                ["muller", "Did you know I was the only chancellor to not belong to any religion?|"],
                 ["muller", "Uh...wait, was I chancellor?|"],
                 ["doraemon", "Müller has defended!!!"],
             ],
@@ -1005,7 +1005,7 @@ if (!Q.planning_combat) {
             ],
             2: [
                 ["wels", "Mmmfgh, it's time for another siesta.|"],
-                ["wels", "Wake me up when the fun stuff happens.|"]
+                ["wels", "Wake me up when the fun stuff happens.|"],
                 ["doraemon", "Wels has fallen asleep!!!"],
             ],
             3: [
@@ -1145,7 +1145,7 @@ if (Q.socialize_cutscene_tbd) {
             var dialogues = [
                 ["hilferding", "Hi.|"],
                 [Q.hilferding_target, "You already did this. You just wasted a turn. For both of us.|"],
-                ["hilferding", "Oh yeah.|"]
+                ["hilferding", "Oh yeah.|"],
                 ["doraemon", "Hilferding wasted a turn!|"],
             ]
         }
