@@ -77,7 +77,7 @@ Q.breitscheid_att = 6;
 Q.breitscheid_def = 6;
 Q.breitscheid_sta = 4;
 Q.breitscheid_sta_m = 4;
-Q.breitscheid_hp_m = 11;
+Q.breitscheid_hp_m = 24;
 Q.breitscheid_action = "";
 Q.breitscheid_target = "";
 Q.breitscheid_plan = "";
@@ -110,7 +110,12 @@ go-to: menu
   <div id="combat-dialogue-text" class="combat-dialogue-text"></div>
 </div>
 
+@gallbladder_achievement
+achievement: gallbladder
+go-to: menu
+
 @menu
+go-to: gallbladder_achievement if gallbladder_achievement and not achievement_gallbladder
 on-arrival: {!
 const engine = window.dendryUI.dendryEngine;
 
@@ -250,7 +255,7 @@ if (!Q.planning_combat) {
                 ["breitscheid", "Desperate times| call for desperate measures.|"],
                 ["doraemon", "Breitscheid brandishes a sword!!!"],
                 ["random_other_combatant", "Where did you even GET that?|"],
-                ["breitscheid", "Well, I had this Scythian friend in the Foreign Ministry.|.|.|"]
+                ["breitscheid", "Well, I had this Scythian friend in the Foreign Ministry.|.|.|"],
                 ["breitscheid", "It's a long story, and I'm not super jazzed about it, but it basically involves the burdensome book of sinister sworcery known as the Megatome & how we got it."],
                 ["random_other_combatant", "Wait, how |DID| we get it...?"],
                 ["breitscheid", "From, like, a doomed timeline,| pretty much.|"],
@@ -295,7 +300,7 @@ go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
-[+ sc_display +] will attempt the parry the next attack.
+[+ sc_display +] will, at the cost of 2 stamina attempt the parry the next attack with his Scythian saber, which will slice through triangles, reflect orbs, but be useless against lasers.
 
 </div>
 
@@ -317,7 +322,7 @@ if (!Q.planning_combat) {
                 ["breitscheid", "Greetings, mister or missus sir or madame of the trifecta of cosmic geometry. We in Germany hold the utmost respect for the underlying mythopoetic psychocosmology and sinister sworcery and burdensome books and haunted deathless darkness and most of all the woeful errand which motivates your current presence within the realm that we here call as Germany, and it is my hope that we can reach a cordial understanding that will render us as cosmic friends forever.|"],
                 ["breitscheid", "For your consideration.|||"],
                 ["trigon", ".|.|.|"],
-                ["breitscheid", "...Not much of a talker, huh?|"]
+                ["breitscheid", "...Not much of a talker, huh?|"],
                 ["breitscheid", "That's okay, I'm familiar with nonverbal negotiations as well. Especially when they're with cosmic deities, because I can really get a sense of what they mean to communicate.|"],
                 ["trigon", ".|.|.|"],
                 ["breitscheid", "Maybe we're anthropomorphizing too much, though. I feel like you probably don't have motivations in the sense of human comprehension. You're more of an object than a being. Not to insult your graciousness, of course. I personally have several friends with it/its pronouns.|"],
@@ -326,26 +331,32 @@ if (!Q.planning_combat) {
                 ["doraemon", "Negotiations have fallen apart!"],
             ],
             2: [
-                ["breitscheid", "I've pretty much stopped trying to make sense of these things.|"],
-                ["random_other_combatant", "What things?|"],
-                ["breitscheid", "This whole woeful errand we're on."],
-                ["random_other_combatant", "Really? It seems to me like you're still trying to make sense of it.|"],
-                ["breitscheid", "Well, only cause, like...|"],
-                ["breitscheid", "Listen, man, I'm a politician...|"],
-                ["breitscheid", "But what's gotta be done's gotta be done.|"],
-                ["doraemon", "Breitscheid is prepared to parry!"],
+                ["breitscheid", "Though our prior negotiations were a failure, it is my aim to nevertheless negotiate a treatise that will put an end to our combat and instead establish a mutual understanding through which our woeful errands can be enacted in the absence of detrimental combat.|"],
+                ["breitscheid", "I have drafted a convention, which I will present to mister or missus sir or madame trigon, through which we may in feature engage in dialogue to resolve disputes. We would also like to take a moment to commemorate your contributions to German Social Democracy, mainly in incinerating Hitler.|"],
+                ["breitscheid", "I believe we may reach an agreement in which these powers may be harnessed, through the Megatome as medium, towards aims in line with those of the German working class, and the people of the world as a whole.|"],
+                ["trigon", "|.|.|.|"],
+                ["breitscheid", "If you will please take this document, in which I have outlined the conventions, that I am tentatively calling the Breitscheid-Trifecta Treaty of Friendship...|"],
+                ["trigon", "|.|.|.|"],
+                ["breitscheid", "There.|"],
+                ["trigon", "|.|.|.|.|.|.|.|.|.|.|"],
+                ["doraemon", "(Is it...reviewing the terms?)|"],
+                ["trigon", "|.|.|.|.|"],
+                ["doraemon", "(O-Oh. It incinerated the paper.)|"],
+                ["breitscheid", "Well then."],
+                ["doraemon", "Negotiations have fallen apart!"],
             ],
             3: [
-                ["breitscheid", "Swordfighting, amirite?|"],
-                ["random_other_combatant", "Yeah, still no clue where you picked that up from.|"],
-                ["breitscheid", "The Scythian steppes.|"],
-                ["doraemon", "Breitscheid is prepared to parry!"],
+                ["breitscheid", "It is my dream that we may manage to cast all our prior misunderstandings aside and see you join our Megatome as a force of good.|"],
+                ["trigon", "|.|.|.|.|"],
+                ["breitscheid", ".|.|.|you know, I might as well not delude myself about my function here."],
+                ["doraemon", "Negotiations have fallen apart!"],
             ],
         };
 
         var dialogues = diplomacyDialogues[Q.breitscheid_diplomacies] || [
-            ["breitscheid", "Here goes."],
-            ["doraemon", "Breitscheid is prepared to parry!"],
+            ["breitscheid", "We come in peace!"],
+            ["trigon", "|.|.|.|.|"],
+            ["doraemon", "Negotiations have fallen apart!"],
         ];
 
         if (!Q.doraemon_narrated) {
@@ -361,7 +372,7 @@ go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
-[+ sc_display +] will receive a gallbladder operation.
+[+ sc_display +] will attempt to negotiate a treaty with the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>** to put an end to the fighting, using his diplomatic skills to do so. The **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>** seems adverse to communication, perhaps due to autism, and will likely withdraw from talks and attack the messenger.
 
 </div>
 
@@ -997,7 +1008,7 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
-    }  else if (Q.selected_combatant == "muller") {
+    } else if (Q.selected_combatant == "muller") {
         Q.muller_attacks = (Q.muller_attacks || 0) + 1;
 
         var attacksDialogues = {
@@ -1021,6 +1032,45 @@ if (!Q.planning_combat) {
         var dialogues = attacksDialogues[Q.muller_attacks] || [
             ["muller", "All this action's making my gallbladder feel funny."],
             ["doraemon", "Müller has attacked!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "breitscheid") {
+        Q.breitscheid_attacks = (Q.breitscheid_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["breitscheid", "I don't really like doing this, but I guess there's not really any choice here."],
+                ["breitscheid", "My sword is kind of useless, since it's a big floating geometrical sign in the sky, which, to hazard a guess, probably like, burns to the touch or something."],
+                ["breitscheid", "So I'll just do a|| psychic attack, I guess. No clue how those work."],
+                ["doraemon", "Breitscheid has attacked!!!"],
+                ["breitscheid", "Have I? Okay.|"],
+                ["doraemon", "Sure have!"],
+            ],
+            2: [
+                ["breitscheid", "Mindblast!!!|"],
+                ["breitscheid", "Okay, this is actually kinda fun."],
+                ["breitscheid", "Would be cooler if I could also shoot lasers from my eyes, though."],
+                ["doraemon", "Breitscheid has attacked!!!"],
+            ],
+            3: [
+                ["breitscheid", "It's a time of miracles, so I should get over my hangups already and just have fun."],
+                ["breitscheid", "This is how I learned to stop worrying and love the sworcery."],
+                ["breitscheid", "By channeling my latent psionic potential into active psionic phenomenom through a concerted mental effort drawing from the unique mystical music which resonates throughout the Reichstag auditorium!!!"],
+                ["doraemon", "Breitscheid has attacked!!!"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.breitscheid_attacks] || [
+            ["breitscheid", "Mindblast!!!!!!!!!!!!!!!!!"],
+            ["breitscheid", "Breitscheid has attacked!!!"],
+            ["doraemon", "(...my line...)"],
         ];
 
         if (!Q.doraemon_narrated) {
@@ -1176,6 +1226,37 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "breitscheid") {
+        Q.breitscheid_defends = (Q.breitscheid_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["breitscheid", "Yeah, that makes sense.|"],
+                ["doraemon", "Breitscheid has defended!!!"],
+            ],
+            2: [
+                ["breitscheid", "The attacks from this geometrical thing are totally a massive bummer, and I'm not super jazzed by incineration, so I think this is definitely the best idea. I don't dig the alternatives.|"],
+                ["breitscheid", "At the same time though, while I don't like it one bit, one of us has to get about to...taming that thing, somehow.|"],
+                ["doraemon", "Breitscheid has defended!!!"],
+            ],
+            3: [
+                ["breitscheid", "If only we had firepower. Like, a rocket launcher, or something. Just a thought.|"],
+                ["doraemon", "Breitscheid has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.breitscheid_defends] || [
+            ["breitscheid", "Roger roger."],
+            ["doraemon", "Breitscheid has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
@@ -1297,6 +1378,43 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "breitscheid") {
+        Q.breitscheid_naps = (Q.breitscheid_naps || 0) + 1;
+
+        var napsDialogues = {
+            1: [
+                ["breitscheid", "Y-|You want me to sleep?|"],
+                ["breitscheid", "Here?|"],
+                ["breitscheid", "Like that's ever gonna happen...how could I sleep in the middle of a pitched cosmic fight?"],
+                ["breitscheid", "I'm telling you, I can't sleep.| No, the song of sworcery encasing the Reichstag does not serve as sufficient lullaby."],
+                ["breitscheid", "It's not...yawn...ever gonna happen. Okay?"],
+                ["breitscheid", "So stop...mmn...looking...at me...l|i|ke th|at..."],
+                ["breitscheid", "Nnghzzzzzzzzzzzzz"],
+                ["doraemon", "Breitscheid has fallen asleep!!!"],
+            ],
+            2: [
+                ["breitscheid", "The luminous lullaby of the Sylvan sprites is surprisingly effective. I guess I shouldn't have doubted the sinister sworcery of that burdensome book from Mingi Taw.|"],
+                ["breitscheid", "Goodnight.|"],
+                ["doraemon", "Breitscheid has fallen asleep!!!"],
+            ],
+            3: [
+                ["breitscheid", "Roger roger."],
+                ["doraemon", "Breitscheid has fallen asleep!!!"],
+            ],
+        };
+
+        var dialogues = napsDialogues[Q.breitscheid_naps] || [
+            ["breitscheid", "How can there be a cherry without a stone?"],
+            ["doraemon", "Breitscheid has fallen asleep!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "naptime";
@@ -1344,6 +1462,33 @@ if (Q.socialize_cutscene_tbd) {
                 ["muller", "Sure thing.|"],
                 ["hilferding", "Sweet! Thanks."],
                 ["doraemon", "Hilferding has befriended Müller!"],
+            ];
+        } else if (Q.selected_target == "breitscheid" && !Q.hilferding_breitscheid_buds) {
+            var dialogues = [
+                ["hilferding", "Yo, Breitscheid.|"],
+                ["breitscheid", "Howdy.|"],
+                ["hilferding", "Can you tell me more about our woeful errand? I don't know what it is with you specifically, but you seem totally in the know with this stuff.|"],
+                ["breitscheid", "It doesn't have me too stoked but yeah basically our woeful errand is, okay, so.|"],
+                ["breitscheid", "I'll start from the beginning.|.|.|"],
+                ["breitscheid", "There is a spectre haunting Mingi Taw.|"],
+                ["hilferding", "The spectre of.|.|.|communism?"],
+                ["breitscheid", "No.| Far more sinister.|"],
+                ["hilferding", "What could be more sinister than communism?"],
+                ["breitscheid", "Wh- okay, so like, first off, fascism.|"],
+                ["hilferding", "Oh yeah."],
+                ["breitscheid", "|But that's not it, either.| It's the deathless spectre haunting the darkness beneath Mingi Taw, that we need to banish the immortality from.|"],
+                ["hilferding", "Riiiiiiiiiight."],
+                ["breitscheid", "Because it's haunting us too, I'm pretty sure.|"],
+                ["hilferding", "And you're sure it's not communism?|"],
+                ["breitscheid", "Of course I'm sure, Hilferding. Stop being a chud."],
+                ["hilferding", "But nothing ever happens..."],
+                ["breitscheid", "Sir there's a massive deity in the room with us right now.|"],
+                ["hilferding", "Right. Okay. Whatever. Just wanted to confirm, we're friends right?"],
+                ["breitscheid", "Uh, yeah? So anyway, about the deathless spectre-"],
+                ["hilferding", "Eh who cares, your story's too long. Get better at prose. Maybe one day you'll be able to write something as good and insightful as Finance Capital. See you!"],
+                ["breitscheid", "...are we really friends...?"],
+                ["doraemon", "Yes! His ability says so!"],
+                ["doraemon", "Hilferding has befriended Breitscheid!"],
             ];
         } else {
             var dialogues = [
@@ -1440,7 +1585,14 @@ for (var c of Q.combatants) {
     } else if (Q[c+"_action"] == "gallbladder_operation") {
         var stamina_cost = 0;
         Q[c+"_advisor"] = 0;
-        Q[c+"_dead"] = 1;    
+        Q[c+"_dead"] = 1; 
+        Q.gallbladder_achievement = 1;   
+    } else if (Q[c+"_action"] == "parry") {
+        var stamina_cost = 2; 
+        Q[c+"_parry_active"] = 1;
+    } else if (Q[c+"_action"] == "diplomacy") {
+        var stamina_cost = 4;
+        Q[c+"_diplomacy_active"] = 1;
     } else if (Q[c+"_action"] == "attack") {
         var stamina_cost = 1;
         Q.gold_trigon_hp -= Q[c+"_att"];
@@ -1615,6 +1767,17 @@ window.deathDialogueIfNeeded = function() {
                 ["muller", "My gallbladder just fell out.|||"],
                 ["doraemon", "Müller is dead!"],
             );
+        } else if (target == "breitscheid") {
+            trigonDialogues.push(
+                ["breitscheid", "Jeeps..."],
+                ["breitscheid", ".|.|.|"],
+                ["breitscheid", "I see a light, brighter than the Trigon."],
+                ["breitscheid", "A little blinking red light..."],
+                ["breitscheid", "What religion is that from again.|.|.|?"],
+                ["breitscheid", "I...I wanted to keep playing...|"],
+                ["breitscheid", "This is a massive bummer. I'm really not jazzed about this.|"],
+                ["doraemon", "Breitscheid is dead!"],
+            );
         }
     }
 }
@@ -1713,6 +1876,30 @@ if (gold_trigon_move.type == "orb") {
             ];
 
             trigonDialogues.push(...dialogues);
+        } else if (target == "breitscheid") {
+            Q.breitscheid_orbs = (Q.breitscheid_orbs || 0) + 1;
+            var orbDialogues = {
+                1: [
+                    ["breitscheid", "Grahhh-"],
+                    ["breitscheid", "Okay, all things considered, given that killed Hitler, this is actually pretty groovy.|"],
+                    ["breitscheid", "I'm officially stronger than Hitler.|"],
+                    ["breitscheid", "Take that, fascism.|"],
+                    ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
+                ],
+                2: [
+                    ["breitscheid", "Mmmh.|"],
+                    ["breitscheid", "I'm at least three times as strong as Hitler,| if my maths is right.|"],
+                    ["breitscheid", "I'm pretty proud of that."],
+                    ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
+                ],
+            };
+
+            var dialogues = orbDialogues[Q.breitscheid_orbs] || [
+                ["breitscheid", "I can only count to three, so I've lost track of how many times stronger than Hitler this makes me.|"],
+                ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
         }
     }
 } else if (gold_trigon_move.type == "laser") {
@@ -1796,6 +1983,28 @@ if (gold_trigon_move.type == "orb") {
             var dialogues = laserDialogues[Q.muller_lasers] || [
                 ["muller", "Rain, rain, go away..."],
                 ["doraemon", "Müller took " + damage + " damage from a laser!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
+        } else if (target == "breitscheid") {
+            Q.breitscheid_lasers = (Q.breitscheid_lasers || 0) + 1;
+            var laserDialogues = {
+                1: [
+                    ["breitscheid", "My Scythian friend loathes rainbows.|"],
+                    ["breitscheid", "Brrrrghzzzzt"],
+                    ["breitscheid", "Owwwwww.|"],
+                    ["breitscheid", "Now I loathe rainbows too.|"],
+                    ["doraemon", "Breitscheid took " + damage + " damage from a laser!"],
+                ],
+                2: [
+                    ["breitscheid", "We Scythians loathe rainbows.|"],
+                    ["doraemon", "Breitscheid took " + damage + " damage from a laser!"],
+                ],
+            };
+
+            var dialogues = laserDialogues[Q.breitscheid_lasers] || [
+                ["breitscheid", "What sucks the most is, I can't parry rainbows."],
+                ["doraemon", "Breitscheid took " + damage + " damage from a laser!"],
             ];
 
             trigonDialogues.push(...dialogues);
@@ -1908,6 +2117,28 @@ if (gold_trigon_move.type == "orb") {
                 var dialogues = triangleDialogues[Q.muller_triangles] || [
                     ["muller", "...they sting.|"],
                     ["doraemon", "Müller took " + damage + " damage from " + amount + " triangles!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
+            } else if (target == "breitscheid") {
+                 Q.breitscheid_triangles = (Q.breitscheid_triangles || 0) + 1;
+                 var triangleDialogues = {
+                    1: [
+                        ["breitscheid", "These remind me of fireflies..."],
+                        ["breitscheid", "...in, really, the worst ways possible."],
+                        ["breitscheid", "I mean, fireflies, aren't that good."],
+                        ["breitscheid", "But at the least they don't scald with the energy of cosmic geometry beyond human comprehension."],
+                        ["doraemon", "Breitscheid took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    2: [
+                        ["breitscheid", "...owch."],
+                        ["doraemon", "Breitscheid took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                };
+
+                var dialogues = triangleDialogues[Q.breitscheid_triangles] || [
+                    ["breitscheid", "...I think I'm allergic.|"],
+                    ["doraemon", "Breitscheid took " + damage + " damage from " + amount + " triangles!"],
                 ];
 
                 trigonDialogues.push(...dialogues);
