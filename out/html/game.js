@@ -266,6 +266,8 @@ window.setCombatHand = function(active) {
 
 window.combatDialoguePortraits = {
     krupp: "img/portraits/KruppGustav.jpg",
+    gallbladder: "img/portraits/Gallbladder.jpg",
+    trigon: "img/portraits/trigonportrait.png",
     lassalle: "img/portraits/LassalleFerdinand.jpg"
 };
 
