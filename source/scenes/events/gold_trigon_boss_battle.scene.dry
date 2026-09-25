@@ -72,6 +72,17 @@ Q.muller_target = "";
 Q.muller_plan = "";
 Q.muller_present_plan = "";
 
+Q.breitscheid_hp = 24;
+Q.breitscheid_att = 6;
+Q.breitscheid_def = 6;
+Q.breitscheid_sta = 4;
+Q.breitscheid_sta_m = 4;
+Q.breitscheid_hp_m = 11;
+Q.breitscheid_action = "";
+Q.breitscheid_target = "";
+Q.breitscheid_plan = "";
+Q.breitscheid_present_plan = "";
+
 Q.planning_combat = 0;
 Q.plan_is_done = 0;
 
@@ -185,6 +196,179 @@ subtitle: I'm a dummy!
 tags: dummy
 go-to: menu
 
+@breitscheid_c
+title: Rudolf Breitscheid
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/BreitscheidRudolf.jpg
+view-if: (breitscheid_advisor = 1) and (not choosing_target or (selected_combatant != "breitscheid"))
+choose-if: breitscheid_action != "immobile"
+unavailable-subtitle: Breitscheid's turn is being consumed by a fellow combatant - change their action to something else
+on-arrival: selected_combatant = "breitscheid" if not choosing_target; selected_target = "breitscheid" if choosing_target; sc_display = "Breitscheid" if not choosing_target; sc_plan = breitscheid_present_plan if not choosing_target; sc_stamina = breitscheid_sta if not choosing_target
+go-to: target_chosen if choosing_target
+
+<div class="combat-advisor-screen">
+
+**Rudolf Breitscheid**
+
+HP: [+ breitscheid_hp +]
+Attack: [+ breitscheid_att +]
+Defense: [+ breitscheid_def +]
+Stamina: [+ breitscheid_sta +]
+
+</div>
+
+- @attack
+- @defend
+- @naptime
+- @breitscheid_abilities: Let's explore Breitscheid's special abilities.
+- @menu: Return
+
+@breitscheid_abilities
+subtitle: Parry - Diplomacy
+
+<div class="combat-advisor-screen">
+
+Rudolf Breitscheid has some tricks up his sleeve.
+
+- @parry
+- @diplomacy 
+
+@parry
+title: Parry
+subtitle: Spend turn using the sword gifted to him by the Scythian to parry the incoming attack. Does not work against all attacks, but against some attacks can even reflect them back. (2 stamina) [? if sc_plan == "parry" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "parry";
+
+    if (Q.selected_combatant == "breitscheid") {
+        Q.breitscheid_parries = (Q.breitscheid_parries || 0) + 1;
+
+        var parryDialogues = {
+            1: [
+                ["breitscheid", "Desperate times| call for desperate measures.|"],
+                ["doraemon", "Breitscheid brandishes a sword!!!"],
+                ["random_other_combatant", "Where did you even GET that?|"],
+                ["breitscheid", "Well, I had this Scythian friend in the Foreign Ministry.|.|.|"]
+                ["breitscheid", "It's a long story, and I'm not super jazzed about it, but it basically involves the burdensome book of sinister sworcery known as the Megatome & how we got it."],
+                ["random_other_combatant", "Wait, how |DID| we get it...?"],
+                ["breitscheid", "From, like, a doomed timeline,| pretty much.|"],
+                ["braun", "Wait, like Homestuck?|"],
+                ["breitscheid", "What? No.| I don't think so, anyway. Let's just try to focus, man."],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+            2: [
+                ["breitscheid", "I've pretty much stopped trying to make sense of these things.|"],
+                ["random_other_combatant", "What things?|"],
+                ["breitscheid", "This whole woeful errand we're on."],
+                ["random_other_combatant", "Really? It seems to me like you're still trying to make sense of it.|"],
+                ["breitscheid", "Well, only cause, like...|"],
+                ["breitscheid", "Listen, man, I'm a politician...|"],
+                ["breitscheid", "But what's gotta be done's gotta be done.|"],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+            3: [
+                ["breitscheid", "Swordfighting, amirite?|"],
+                ["random_other_combatant", "Yeah, still no clue where you picked that up from.|"],
+                ["breitscheid", "The Scythian steppes.|"],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+        };
+
+        var dialogues = parryDialogues[Q.breitscheid_parries] || [
+            ["breitscheid", "Here goes."],
+            ["doraemon", "Breitscheid is prepared to parry!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+    }
+} else {
+    Q[Q.selected_combatant+"_plan"] = "parry";
+}
+
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will attempt the parry the next attack.
+
+</div>
+
+- @menu: Return
+
+@diplomacy
+title: Diplomacy
+subtitle: Spend turn negotiating a treaty with the Gold Trigon. Will buy others a turn, but be guaranteed hit by the Gold Trigon's next attack. [? if sc_plan == "diplomacy" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "diplomacy";
+
+    if (Q.selected_combatant == "breitscheid") {
+        Q.breitscheid_diplomacies = (Q.breitscheid_diplomacies || 0) + 1;
+
+        var diplomacyDialogues = {
+            1: [
+                ["breitscheid", "Hello there, "],
+                ["doraemon", "Breitscheid brandishes a sword!!!"],
+                ["random_other_combatant", "Where did you even GET that?|"],
+                ["breitscheid", "Well, I had this Scythian friend in the Foreign Ministry.|.|.|"]
+                ["breitscheid", "It's a long story, and I'm not super jazzed about it, but it basically involves the burdensome book of sinister sworcery known as the Megatome & how we got it."],
+                ["random_other_combatant", "Wait, how |DID| we get it...?"],
+                ["breitscheid", "From, like, a doomed timeline,| pretty much.|"],
+                ["braun", "Wait, like Homestuck?|"],
+                ["breitscheid", "What? No.| I don't think so, anyway. Let's just try to focus, man."],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+            2: [
+                ["breitscheid", "I've pretty much stopped trying to make sense of these things.|"],
+                ["random_other_combatant", "What things?|"],
+                ["breitscheid", "This whole woeful errand we're on."],
+                ["random_other_combatant", "Really? It seems to me like you're still trying to make sense of it.|"],
+                ["breitscheid", "Well, only cause, like...|"],
+                ["breitscheid", "Listen, man, I'm a politician...|"],
+                ["breitscheid", "But what's gotta be done's gotta be done.|"],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+            3: [
+                ["breitscheid", "Swordfighting, amirite?|"],
+                ["random_other_combatant", "Yeah, still no clue where you picked that up from.|"],
+                ["breitscheid", "The Scythian steppes.|"],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+        };
+
+        var dialogues = diplomacyDialogues[Q.breitscheid_diplomacies] || [
+            ["breitscheid", "Here goes."],
+            ["doraemon", "Breitscheid is prepared to parry!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+    }
+} else {
+    Q[Q.selected_combatant+"_plan"] = "diplomacy";
+}
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will receive a gallbladder operation.
+
+</div>
+
+- @menu: Return
+
+</div>
+
 @muller_c
 title: Hermann Müller
 is-pinned-card: true
@@ -192,7 +376,7 @@ tags: combatant
 card-image: img/portraits/MüllerHermann.jpg
 view-if: (muller_advisor = 1) and (not choosing_target or (selected_combatant != "muller"))
 choose-if: muller_action != "immobile"
-unavailable-subtitle: Muller's turn is being consumed by a fellow combatant - change their action to something else
+unavailable-subtitle: Müller's turn is being consumed by a fellow combatant - change their action to something else
 on-arrival: selected_combatant = "muller" if not choosing_target; selected_target = "muller" if choosing_target; sc_display = "Müller" if not choosing_target; sc_plan = muller_present_plan if not choosing_target; sc_stamina = muller_sta if not choosing_target
 go-to: target_chosen if choosing_target
 
