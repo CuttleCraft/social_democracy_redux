@@ -378,8 +378,6 @@ go-to: menu if planning_combat
 
 - @menu: Return
 
-</div>
-
 @muller_c
 title: Hermann Müller
 is-pinned-card: true
