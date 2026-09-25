@@ -1,17 +1,17 @@
-# Social Democracy: An Alternate History
+# Social Democracy Redux: An Alternate History (Sandbox)
 
-## Included Libraries
+Social Democracy: An Alternate History by Autumn Chen
 
-[jquery v1.11.1](https://releases.jquery.com/)
+Sandbox mod by SylvurrTV
 
-[d3.js v7](https://d3js.org)
+Redux mod by CuddleCraft
 
-[d3-parliament](https://github.com/geoffreybr/d3-parliament)
+Added by Charry Melody (@charry_melody)
 
-## Building the game
+Added so far:
+- The sandbox
 
-1. Install [dendrynexus](https://github.com/aucchen/dendrynexus)
-
-2. Run `dendrynexus make-html` in this folder.
-
-To update dendrynexus in `package-lock.json`, run `npm install --upgrade https://github.com/aucchen/dendrynexus`
+Todo:
+- Add in universal postal affairs
+- Add in ability to modify postal services via sandbox menu
+- Allow for all fun value based events to be forcefully enabled via settings
