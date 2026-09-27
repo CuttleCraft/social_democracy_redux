@@ -238,6 +238,7 @@ Rudolf Breitscheid has some tricks up his sleeve.
 
 - @parry
 - @diplomacy 
+- @menu: Return to menu
 
 @parry
 title: Parry
@@ -424,6 +425,7 @@ Hermann Müller has some tricks up his sleeve.
 </div>
 
 - @gallbladder_operation
+- @menu: Return to menu
 
 @gallbladder_operation
 title: Gallbladder Operation
@@ -551,6 +553,7 @@ Rudolf Hilferding has some tricks up his sleeve.
 - @strategize
 - @medicine
 - @socialize
+- @menu: Return to menu
 
 @strategize
 title: Strategize
@@ -771,6 +774,7 @@ Otto Wels has some tricks up his sleeve.
 
 - @reinvigorate
 - @finance
+- @menu: Return to menu
 
 @reinvigorate
 title: Reinvigorate
