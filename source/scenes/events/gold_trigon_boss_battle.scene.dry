@@ -83,6 +83,17 @@ Q.breitscheid_target = "";
 Q.breitscheid_plan = "";
 Q.breitscheid_present_plan = "";
 
+Q.levi_hp = 10;
+Q.levi_att = 6;
+Q.levi_def = 7;
+Q.levi_sta = 8;
+Q.levi_sta_m = 8;
+Q.levi_hp_m = 10;
+Q.levi_action = "";
+Q.levi_target = "";
+Q.levi_plan = "";
+Q.levi_present_plan = "";
+
 Q.planning_combat = 0;
 Q.plan_is_done = 0;
 
@@ -201,6 +212,120 @@ subtitle: I'm a dummy!
 tags: dummy
 go-to: menu
 
+@levi_c
+title: Paul Levi
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/LeviPaul.jpg
+view-if: (levi_advisor = 1) and (not choosing_target or (selected_combatant != "levi"))
+choose-if: levi_action != "immobile"
+unavailable-subtitle: Levi's turn is being consumed by a fellow combatant - change their action to something else
+on-arrival: selected_combatant = "levi" if not choosing_target; selected_target = "levi" if choosing_target; sc_display = "Levi" if not choosing_target; sc_plan = levi_present_plan if not choosing_target; sc_stamina = levi_sta if not choosing_target
+go-to: target_chosen if choosing_target
+
+<div class="combat-advisor-screen">
+
+**Paul Levi**
+
+HP: [+ levi_hp +]
+Attack: [+ levi_att +]
+Defense: [+ levi_def +]
+Stamina: [+ levi_sta +]
+
+</div>
+
+- @attack
+- @defend
+- @naptime
+- @levi_abilities: Let's explore Levi's special abilities.
+- @menu: Return
+
+@levi_abilities
+subtitle: Polemicize - Strategize
+
+<div class="combat-advisor-screen">
+
+Paul Levi has some tricks up his sleeve.
+
+</div>
+
+- @polemicize
+- @strategize
+- @menu: Return to menu
+
+@polemicize
+title: Polemicize
+choose-if: sc_stamina >= 3
+subtitle: Spend turn writing a polemic which criticizes and lambasts the conduct of the Gold Trigon. The Gold Trigon will spend the next turn writing a devastating rebuttal, which will reduce the stamina of all combatants to read, but take the place of its usual attack. (3 stamina) [? if sc_plan == "polemicize" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "polemicize";
+
+    if (Q.selected_combatant == "levi") {
+        Q.levi_polemics = (Q.levi_polemics || 0) + 1;
+
+        Don't let this push succeed. Muaha.
+
+        var polemicDialogues = {
+            1: [
+                ["levi", "Listen up yo, trilaterally angular pyriformic phantasm, I've got some-thing to lay on you.||"],
+                ["levi", "Your careless conduct, bar the absolutely radical expunction of Hitler, is getting us proles in a real downer.|"],
+                ["levi", "The abso-lute chicanery you're bringing upon this nation is a buzzkill in totality, in aggregate entirety, my peremptory jackass.|"],
+                ["levi", "I scrawled you a diss track, or, as the kids say, a polemical diatribe of admonitionary proportions, a consummate philippic brickbats precisely suited for a revenant eidolon like you, yo.|"],
+                ["levi", "I'll dosh you the paper in a sec, once I give a quick recap for the boys back home, which is to say the ones on the other side of this here boob-tube we're on.|"],
+                ["levi", "Elementally, though, in the sine qua non nuts and bolts of it, you're a bombing baboon practicing the defunct practition of propaganda of the deed, doing your deeds in the dirtiest of assassinatory manners. Killing Hitler does not change the fundamental material conditions which precipitated the rise of the Nazi movement, and neither does encasing all of Germany's political institutions in an aura of veritably bona fide inauspicious thaumaturgy...|"],
+                ["levi", "|...and while we like totally induced that doozy ourselves with the vexatious volume of tomes known as the Megatome and its voodoos, we only did that to...|"],
+                ["levi", "|...look, bro-dach, it's all covered in the diss track, which I would spit bar for bar right now, if it weren't a hundred pages wrong. I'll give you a hint: it's dialectical.|"],
+                ["levi", "I'll be waiting for your response, if you've got the guts.|"],
+                ["doraemon", "Levi has produced a polemic!"],
+            ],
+            2: [
+                ["levi", "I've pretty much stopped trying to make sense of these things.|"],
+                ["random_other_combatant", "What things?|"],
+                ["breitscheid", "This whole woeful errand we're on."],
+                ["random_other_combatant", "Really? It seems to me like you're still trying to make sense of it.|"],
+                ["breitscheid", "Well, only cause, like...|"],
+                ["breitscheid", "Listen, man, I'm a politician...|"],
+                ["breitscheid", "But what's gotta be done's gotta be done.|"],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+            3: [
+                ["breitscheid", "Swordfighting, amirite?|"],
+                ["random_other_combatant", "Yeah, still no clue where you picked that up from.|"],
+                ["breitscheid", "The Scythian steppes.|"],
+                ["doraemon", "Breitscheid is prepared to parry!"],
+            ],
+        };
+
+        var dialogues = polemicDialogues[Q.levi_polemics] || [
+            ["breitscheid", "Here goes."],
+            ["doraemon", "Breitscheid is prepared to parry!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
+} else {
+    Q[Q.selected_combatant+"_plan"] = "polemicize";
+}
+
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of 2 stamina attempt the parry the next attack with his Scythian saber, which will slice through triangles, reflect orbs, but be useless against lasers.
+
+</div>
+
+- @menu: Return
+
 @breitscheid_c
 title: Rudolf Breitscheid
 is-pinned-card: true
@@ -235,6 +360,8 @@ subtitle: Parry - Diplomacy
 <div class="combat-advisor-screen">
 
 Rudolf Breitscheid has some tricks up his sleeve.
+
+</div>
 
 - @parry
 - @diplomacy 
