@@ -241,6 +241,7 @@ Rudolf Breitscheid has some tricks up his sleeve.
 
 @parry
 title: Parry
+choose-if: sc_stamina >= 2
 subtitle: Spend turn using the sword gifted to him by the Scythian to parry the incoming attack. Does not work against all attacks, but against some attacks can even reflect them back. (2 stamina) [? if sc_plan == "parry" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
@@ -311,7 +312,8 @@ go-to: menu if planning_combat
 
 @diplomacy
 title: Diplomacy
-subtitle: Spend turn negotiating a treaty with the Gold Trigon. Will buy others a turn, but be guaranteed hit by the Gold Trigon's next attack. [? if sc_plan == "diplomacy" : - **this is our plan** ?]
+choose-if: sc_stamina >= 4
+subtitle: Spend turn negotiating a treaty with the Gold Trigon. Will buy others a turn, but be guaranteed hit by the Gold Trigon's next attack. (4 stamina) [? if sc_plan == "diplomacy" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
     window.clearCombatStatsIfNeeded();
@@ -1497,7 +1499,7 @@ if (Q.socialize_cutscene_tbd) {
         } else {
             var dialogues = [
                 ["hilferding", "Hi.|"],
-                [Q.hilferding_target, "You already did this. You just wasted a turn. For both of us.|"],
+                [Q.selected_target, "You already did this. You just wasted a turn. For both of us.|"],
                 ["hilferding", "Oh yeah.|"],
                 ["doraemon", "Hilferding wasted a turn!|"],
             ]
@@ -1789,6 +1791,28 @@ window.deathDialogueIfNeeded = function() {
 var trigonDialogues = [];
 
 var gold_trigon_move = Q.gold_trigon_moves.shift();
+var diplomacy_target = "";
+
+for (var c of Q.combatants) {
+    if (Q[c+"_diplomacy_active"] && !Q[c+"_dead"]) {
+        diplomacy_target = c;
+        break;
+    }
+}
+
+if (diplomacy_target != "") {
+    if (gold_trigon_move.type == "orb" || gold_trigon_move.type == "laser") {
+        gold_trigon_move.target = diplomacy_target;
+    } else if (gold_trigon_move.type == "triangles") {
+        for (var c of Q.combatants) {
+            gold_trigon_move.targets[c] = 0;
+        }
+
+        gold_trigon_move.targets[diplomacy_target] = 8;
+    }
+
+    Q[diplomacy_target+"_diplomacy_active"] = 0;
+}
 
 if (gold_trigon_move.type == "orb") {
     var target = gold_trigon_move.target;
@@ -1798,112 +1822,122 @@ if (gold_trigon_move.type == "orb") {
         damage *= 0.9;
     }
     damage = Math.floor(damage);
-    Q[target+"_hp"] -= damage;
-    if (Q[target+"_hp"] <= 0) {
-        Q[target+"_dead"] = 1;
-        Q[target+"_advisor"] = 0;
-        window.deathDialogueIfNeeded();
+    if (Q[target+"_parry_active"]) {
+        Q.gold_trigon_hp -= 20;
+        Q[target+"_parry_active"] = 0;
+
+        trigonDialogues.push(
+            ["breitscheid", "Hai-ya!|"],
+            ["doraemon", "Breitscheid parried an orb, deflecting it back to the Gold Trigon!"]
+        );
     } else {
-        if (target == "hilferding") {
-            Q.hilferding_orbs = (Q.hilferding_orbs || 0) + 1;
-            var orbDialogues = {
-                1: [
-                    ["hilferding", "OUFGH!"],
-                    ["hilferding", "Wow! I just got hit by the same orb that incinerated Hitler!"],
-                    ["hilferding", "Well, I'm still standing. So..."],
-                    ["hilferding", "Heh. Yeah. Still standing."],
-                    ["hilferding", "Whew..."],
-                    ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
-                ],
-                2: [
-                    ["hilferding", "God, that hits hard!"],
-                    ["hilferding", "How am I even still alive???"],
-                    ["hilferding", "It must be the waffles in my stomach."],
-                    ["hilferding", "Or the cookies I had for breakfast."],
-                    ["hilferding", "Whew..."],
-                    ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
-                ],
-            };
+        Q[target+"_hp"] -= damage;
+        if (Q[target+"_hp"] <= 0) {
+            Q[target+"_dead"] = 1;
+            Q[target+"_advisor"] = 0;
+            window.deathDialogueIfNeeded();
+        } else {
+            if (target == "hilferding") {
+                Q.hilferding_orbs = (Q.hilferding_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["hilferding", "OUFGH!"],
+                        ["hilferding", "Wow! I just got hit by the same orb that incinerated Hitler!"],
+                        ["hilferding", "Well, I'm still standing. So..."],
+                        ["hilferding", "Heh. Yeah. Still standing."],
+                        ["hilferding", "Whew..."],
+                        ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["hilferding", "God, that hits hard!"],
+                        ["hilferding", "How am I even still alive???"],
+                        ["hilferding", "It must be the waffles in my stomach."],
+                        ["hilferding", "Or the cookies I had for breakfast."],
+                        ["hilferding", "Whew..."],
+                        ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
+                    ],
+                };
 
-            var dialogues = orbDialogues[Q.hilferding_orbs] || [
-                ["hilferding", "Oof!|"],
-                ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
-            ];
+                var dialogues = orbDialogues[Q.hilferding_orbs] || [
+                    ["hilferding", "Oof!|"],
+                    ["doraemon", "Hilferding took " + damage + " damage from an orb!"],
+                ];
 
             trigonDialogues.push(...dialogues);
-        } else if (target == "wels") {
-            Q.wels_orbs = (Q.wels_orbs || 0) + 1;
-            var orbDialogues = {
-                1: [
-                    ["doraemon", "Wels! Look out! There's a massive orb!|"],
-                    ["wels", "Wh-"],
-                    ["wels", "OW!|"],
-                    ["wels", ".|.."],
-                    ["wels", "Is that the same thing which hit Hitler? Wow, he's like, weak or something. That barely tickled."],
-                    ["doraemon", "Wels took " + damage + " damage from an orb!"],
-                ],
-                2: [
+            } else if (target == "wels") {
+                Q.wels_orbs = (Q.wels_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["doraemon", "Wels! Look out! There's a massive orb!|"],
+                        ["wels", "Wh-"],
+                        ["wels", "OW!|"],
+                        ["wels", ".|.."],
+                        ["wels", "Is that the same thing which hit Hitler? Wow, he's like, weak or something. That barely tickled."],
+                        ["doraemon", "Wels took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["wels", "Hehehehehehehehehehehehe"],
+                        ["random_other_combatant", "What's so funny?|", target],
+                        ["wels", "The orb tickles.|"],
+                        ["doraemon", "Wels took " + damage + " damage from an orb!"],
+                    ],
+                 };
+
+                var dialogues = orbDialogues[Q.wels_orbs] || [
                     ["wels", "Hehehehehehehehehehehehe"],
-                    ["random_other_combatant", "What's so funny?|", target],
-                    ["wels", "The orb tickles.|"],
                     ["doraemon", "Wels took " + damage + " damage from an orb!"],
-                ],
-            };
+                ];
 
-            var dialogues = orbDialogues[Q.wels_orbs] || [
-                ["wels", "Hehehehehehehehehehehehe"],
-                ["doraemon", "Wels took " + damage + " damage from an orb!"],
-            ];
+                trigonDialogues.push(...dialogues);
+            } else if (target == "muller") {
+                Q.muller_orbs = (Q.muller_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["muller", "Zoinks!!!"],
+                        ["muller", "I just got hit by a massive spectral orb!"],
+                        ["muller", "Yowch, that's gonna bruise..."],
+                        ["muller", "Well, at least I'm still alive.|"],
+                        ["doraemon", "Müller took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["muller", "Ooof-!|"],
+                        ["muller", "Really knocks the gall out of you. At least it didn't knock my bladder."],
+                        ["muller", "Or my gallbladder.|"],
+                        ["doraemon", "Müller took " + damage + " damage from an orb!"],
+                    ],
+                };
 
-            trigonDialogues.push(...dialogues);
-        } else if (target == "muller") {
-            Q.muller_orbs = (Q.muller_orbs || 0) + 1;
-            var orbDialogues = {
-                1: [
-                    ["muller", "Zoinks!!!"],
-                    ["muller", "I just got hit by a massive spectral orb!"],
-                    ["muller", "Yowch, that's gonna bruise..."],
-                    ["muller", "Well, at least I'm still alive.|"],
+                var dialogues = orbDialogues[Q.muller_orbs] || [
+                    ["muller", "Oooof...|"],
                     ["doraemon", "Müller took " + damage + " damage from an orb!"],
-                ],
-                2: [
-                    ["muller", "Ooof-!|"],
-                    ["muller", "Really knocks the gall out of you. At least it didn't knock my bladder."],
-                    ["muller", "Or my gallbladder.|"],
-                    ["doraemon", "Müller took " + damage + " damage from an orb!"],
-                ],
-            };
+                ];
 
-            var dialogues = orbDialogues[Q.muller_orbs] || [
-                ["muller", "Oooof...|"],
-                ["doraemon", "Müller took " + damage + " damage from an orb!"],
-            ];
+                trigonDialogues.push(...dialogues);
+            } else if (target == "breitscheid") {
+                Q.breitscheid_orbs = (Q.breitscheid_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["breitscheid", "Grahhh-"],
+                        ["breitscheid", "Okay, all things considered, given that killed Hitler, this is actually pretty groovy.|"],
+                        ["breitscheid", "I'm officially stronger than Hitler.|"],
+                        ["breitscheid", "Take that, fascism.|"],
+                        ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["breitscheid", "Mmmh.|"],
+                        ["breitscheid", "I'm at least three times as strong as Hitler,| if my maths is right.|"],
+                        ["breitscheid", "I'm pretty proud of that."],
+                        ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
+                    ],
+                };
 
-            trigonDialogues.push(...dialogues);
-        } else if (target == "breitscheid") {
-            Q.breitscheid_orbs = (Q.breitscheid_orbs || 0) + 1;
-            var orbDialogues = {
-                1: [
-                    ["breitscheid", "Grahhh-"],
-                    ["breitscheid", "Okay, all things considered, given that killed Hitler, this is actually pretty groovy.|"],
-                    ["breitscheid", "I'm officially stronger than Hitler.|"],
-                    ["breitscheid", "Take that, fascism.|"],
+                var dialogues = orbDialogues[Q.breitscheid_orbs] || [
+                    ["breitscheid", "I can only count to three, so I've lost track of how many times stronger than Hitler this makes me.|"],
                     ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
-                ],
-                2: [
-                    ["breitscheid", "Mmmh.|"],
-                    ["breitscheid", "I'm at least three times as strong as Hitler,| if my maths is right.|"],
-                    ["breitscheid", "I'm pretty proud of that."],
-                    ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
-                ],
-            };
+                ];
 
-            var dialogues = orbDialogues[Q.breitscheid_orbs] || [
-                ["breitscheid", "I can only count to three, so I've lost track of how many times stronger than Hitler this makes me.|"],
-                ["doraemon", "Breitscheid took " + damage + " damage from an orb!"],
-            ];
-
-            trigonDialogues.push(...dialogues);
+                trigonDialogues.push(...dialogues);
+            }
         }
     }
 } else if (gold_trigon_move.type == "laser") {
@@ -1915,6 +1949,9 @@ if (gold_trigon_move.type == "orb") {
         damage *= 0.95;
     }
     damage = Math.floor(damage);
+    if (Q[target+"_parry_active"]) {
+        Q[target+"_parry_active"] = 0;
+    }
     Q[target+"_hp"] -= damage;
     if (Q[target+"_hp"] <= 0) {
         Q[target+"_dead"] = 1;
@@ -2019,6 +2056,17 @@ if (gold_trigon_move.type == "orb") {
         var amount = gold_trigon_move.targets[target];
 
         if (amount == 0) {
+            continue;
+        }
+
+        if (Q[target+"_parry_active"]) {
+            Q[target+"_parry_active"] = 0;
+
+            trigonDialogues.push(
+                ["breitscheid", "Using my sword like these, these little triangles are almost like pizza slices.|"],
+                ["doraemon", "Breitscheid cut down the triangles!"]
+            );
+
             continue;
         }
 
