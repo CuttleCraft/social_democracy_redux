@@ -274,7 +274,7 @@ if (!Q.planning_combat) {
                 ["levi", "I'll dosh you the paper in a sec, once I give a quick recap for the boys back home, which is to say the ones on the other side of this here boob-tube we're on.|"],
                 ["levi", "Elementally, though, in the sine qua non nuts and bolts of it, you're a bombing baboon practicing the defunct practition of propaganda of the deed, doing your deeds in the dirtiest of assassinatory manners. Killing Hitler does not change the fundamental material conditions which precipitated the rise of the Nazi movement, and neither does encasing all of Germany's political institutions in an aura of veritably bona fide inauspicious thaumaturgy...|"],
                 ["levi", "|...and while we like totally induced that doozy ourselves with the vexatious volume of tomes known as the Megatome and its voodoos, we only did that to...|"],
-                ["levi", "|...look, bro-dach, it's all covered in the diss track, which I would spit bar for bar right now, if it weren't a hundred pages wrong. I'll give you a hint: it's dialectical.|"],
+                ["levi", "|...look, bro-dach, it's all covered in the diss track, which I would spit bar for bar right now, if it weren't a hundred pages long. I'll give you a hint: it's dialectical.|"],
                 ["levi", "I'll be waiting for your response, if you've got the guts.|"],
                 ["doraemon", "Levi has produced a polemic!"],
             ],
@@ -1479,6 +1479,42 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "levi") {
+        Q.levi_defends = (Q.levi_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["levi", "I veritably venerate and groove on this whole defensive thing, I think it's truly congenial. I'll just curl up into a ball now!|"],
+                ["doraemon", "Levi has defended!!!"],
+            ],
+            2: [
+                ["levi", "I am a rock, I am island.|"],
+                ["doraemon", "Levi has defended!!!"],
+            ],
+            3: [
+                ["levi", "And a rock feels no pain, and an island never cries.||"],
+                ["levi", "Say, yo, do you conceivably deem that ice cream subsists within desert environs?|"],
+                ["levi", "Without dihydrogen monoxide, you can't have 'ice'..."],
+                ["levi", "...damn, bro, Timbuktu might not have ice cream. What about steam cream?|"],
+                ["levi", "For mise-en-scène, I'm beating my brains out over moving right on over to Timbuktu.|"],
+                ["levi", "I discernably perceived a nice miniscule residential bungalow that Braun likes.|"],
+                ["levi", "There's also Fukuoka, but I'd only move there if the " + Q.ddp_name + " won a majority, for reasons undisclosed."], 
+                ["doraemon", "Levi has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.levi_defends] || [
+            ["levi", "I'm so congenial, phantasmic bro-dach, that you wouldn't believe it.|"],
+            ["doraemon", "Levi has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
@@ -1637,6 +1673,44 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "levi") {
+        Q.levi_naps = (Q.levi_naps || 0) + 1;
+
+        var napsDialogues = {
+            1: [
+                ["levi", "Sleepovers are superlatively gangbusters, my man. I've always wanted to snooze a real one out on the Reichstag benches.|"],
+                ["levi", "What's for snacks?|"],
+                ["levi", "Oh snap, we watching a movie?|"],
+                ["levi", "Is my bro-dach invited too?|"],
+                ["levi", "No?|"],
+                ["levi", "You...you just want me to take a nap?"],
+                ["levi", "What a lemon, dude."],
+                ["levi", "Come to cognitively conceive of it, I could totally go for a lemon ice cream, but all-right."],
+                ["doraemon", "Levi has fallen asleep!!!"],
+            ],
+            2: [
+                ["levi", "Roger that, fourty winks coming right up.|"],
+                ["levi", "Slumber on.|"],
+                ["doraemon", "Levi has fallen asleep!!!"],
+            ],
+            3: [
+                ["levi", "Eighty winks."],
+                ["doraemon", "Levi has fallen asleep!!!"],
+            ],
+        };
+
+        var dialogues = napsDialogues[Q.levi_naps] || [
+            ["levi", "I can only tally the censuses up to eighty before dozing off...|"],
+            ["doraemon", "Levi has fallen asleep!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "naptime";
@@ -1711,6 +1785,23 @@ if (Q.socialize_cutscene_tbd) {
                 ["breitscheid", "...are we really friends...?"],
                 ["doraemon", "Yes! His ability says so!"],
                 ["doraemon", "Hilferding has befriended Breitscheid!"],
+            ];
+        } else if (Q.selected_target == "levi" && !Q.hilferding_levi_buds) {
+            var dialogues = [
+                ["hilferding", "Levi, my man.|"],
+                ["levi", "If it isn't my favorite red-nosed reindeer, what-sup dog?|"],
+                ["hilferding", "The usual, the usual.|"],
+                ["levi", "When are you lining the subterfugative stratagem with my goody-goody rectitudinous planks?|"],
+                ["hilferding", "Levi, now isn't the time for a theoretical debate. But if it is your preferred course of action, then I can consider..."],
+                ["levi", "Shelf it, yo. We've got a triangle to oysterize.|"],
+                ["hilferding", "Right, yeah, about that actually, I have a question.|"],
+                ["hilferding", "No, actually, it's not really about that."],
+                ["hilferding", "Levi, are we friends?"],
+                ["levi", "All men are brothers, sister. But if you want to be my friend specifically, I am gon-na need to see some rectification of our party-line, capiche?"],
+                ["hilferding", "Yeah, sure, when this is done I'll push for us to be a firmly revolutionary Marxist party.|"],
+                ["levi", "Fantabulous, yo."],
+                ["levi", "Concurrently we are jumbo-whopping hobnobbing musketeers forever."],
+                ["doraemon", "Hilferding has befriended Levi!"],
             ];
         } else {
             var dialogues = [
@@ -1815,6 +1906,14 @@ for (var c of Q.combatants) {
     } else if (Q[c+"_action"] == "diplomacy") {
         var stamina_cost = 4;
         Q[c+"_diplomacy_active"] = 1;
+    } else if (Q[c+"_action"] == "polemicize") {
+        var stamina_cost = 3;
+        if (!Q.gold_trigon_moves) {
+            Q.gold_trigon_moves = [];
+        }
+        Q.gold_trigon_moves.unshift({
+            type: "rebuttal"
+        });
     } else if (Q[c+"_action"] == "attack") {
         var stamina_cost = 1;
         Q.gold_trigon_hp -= Q[c+"_att"];
@@ -1998,7 +2097,23 @@ window.deathDialogueIfNeeded = function() {
                 ["breitscheid", "What religion is that from again.|.|.|?"],
                 ["breitscheid", "I...I wanted to keep playing...|"],
                 ["breitscheid", "This is a massive bummer. I'm really not jazzed about this.|"],
-                ["doraemon", "Breitscheid is dead!"],
+                ["doraemon", "I wouldn't be either.|||"],
+                ["doraemon", "I think he's dead now, yeah...I'll do the funeral preparations, the rest of you move on."],
+            );
+        } else if (target == "levi") {
+            trigonDialogues.push(
+                ["doraemon", "Levi! You alright?"],
+                ["levi", "Yo, that...I'm gonna predecease..."],
+                ["levi", "I'm conking out in this bucket that I'm kicking, man. Bro-dach, why would you do this to me?|"],
+                ["levi", "Somebody...please play Homestuck TTRPGs with Otto Braun while I'm gone...so he doesn't get hermetically fractionated...|"],
+                ["levi", "No, I'm not alright...."],
+                ["doraemon", "..."],
+                ["doraemon", "I'll play Homestuck TTRPGs with Braun for you, Levi...|"],
+                ["doraemon", "I'll keep him company for you, so.|.|.|"],
+                ["doraemon", "Are you still there?"],
+                ["doraemon", "L-Levi?"],
+                ["doraemon", "..."],
+                ["doraemon", "|||(Am I doing a good job of making the scene sad)"],
             );
         }
     }
@@ -2153,6 +2268,28 @@ if (gold_trigon_move.type == "orb") {
                 ];
 
                 trigonDialogues.push(...dialogues);
+            } else if (target == "levi") {
+                Q.levi_orbs = (Q.levi_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["levi", "Zowie gee, those orbs afflict a harrowing ache...I feel gummed up!"],
+                        ["levi", "I guess at-least I didn't give up the ghost and croak like Hitler did.|"],
+                        ["doraemon", "Levi took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["levi", "Yo, I'm acclimatizing to those rondure globules.|"],
+                        ["levi", "It's like exposure therapy,|"],
+                        ["levi", "I'd say.|"],
+                        ["doraemon", "Levi took " + damage + " damage from an orb!"],
+                    ],
+                };
+
+                var dialogues = orbDialogues[Q.levi_orbs] || [
+                    ["levi", "Marginally a twinge, yo.|"],
+                    ["doraemon", "Levi took " + damage + " damage from an orb!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
             }
         }
     }
@@ -2262,6 +2399,27 @@ if (gold_trigon_move.type == "orb") {
             var dialogues = laserDialogues[Q.breitscheid_lasers] || [
                 ["breitscheid", "What sucks the most is, I can't parry rainbows."],
                 ["doraemon", "Breitscheid took " + damage + " damage from a laser!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
+        } else if (target == "levi") {
+            Q.levi_lasers = (Q.levi_lasers || 0) + 1;
+            var laserDialogues = {
+                1: [
+                    ["levi", "Billions of blue blistering barnacles, was that a beam of incinerative fluorescence?|"],
+                    ["levi", "Sheesh!"],
+                    ["levi", "I'm blessed it didn't deflagrate me harder."],
+                    ["doraemon", "Levi took " + damage + " damage from a laser!"],
+                ],
+                2: [
+                    ["levi", "I gotta put some sunscreen on, man..."],
+                    ["doraemon", "Levi took " + damage + " damage from a laser!"],
+                ],
+            };
+
+            var dialogues = laserDialogues[Q.levi_lasers] || [
+                ["levi", "Yo, comrades, we should abso-lutely have a shinding blowout by the sea some time.|"],
+                ["doraemon", "Levi took " + damage + " damage from a laser!"],
             ];
 
             trigonDialogues.push(...dialogues);
@@ -2410,9 +2568,59 @@ if (gold_trigon_move.type == "orb") {
                 ];
 
                 trigonDialogues.push(...dialogues);
+            } else if (target == "levi") {
+                 Q.levi_triangles = (Q.levi_triangles || 0) + 1;
+                 var triangleDialogues = {
+                    1: [
+                        ["levi", "These teeny-weeny itty-bitty Lilliputian microminiscule triangles pack a punch, yo..."],
+                        ["levi", "A searing, muggy, canicular punch..."],
+                        ["doraemon", "Levi took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    2: [
+                        ["levi", "Does anybody have an ice pack?"],
+                        ["doraemon", "Levi took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                };
+
+                var dialogues = triangleDialogues[Q.levi_triangles] || [
+                    ["levi", "Hothothothothothot"],
+                    ["doraemon", "Levi took " + damage + " damage from " + amount + " triangles!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
             }
         }
     }
+} else if (Q.gold_trigon_move.type == "rebuttal") {
+    Q.trigon_rebuttals = (Q.trigon_rebuttals || 0) + 1;
+    for (var c of Q.combatants) {
+        Q[c+"_sta"] -= 2;
+        if (Q[c+"_sta"] < 0) {
+            Q[c+"_sta"] = 0;
+        }
+    }
+    if (Q.trigon_rebuttals == 3) {
+        Q.levi_advisor = 0;
+        Q.levi_defection = 1;
+    }
+
+    var rebuttalDialogues = {
+        1: [
+            ["trigon", "Dear Paul Levi; I have read your polemical diatribe, and I am thoroughly unimpressed. You point to the killing of Adolf Hitler as propaganda of the deed; such accusation is folly. I was approached with violent intentions by a would-be fascist dictator and responded accordingly. To call a baseline level of self-preservation as propaganda of the deed is to call all acts of individualized violence propaganda of the deed, when propaganda of the deed represents a specifically anarchic course of action that seeks to change history under an idealistic notion of Great Man Theory, only by removing Great Men from the equation - and thus has nothing to do with individual violence in this case. As Leon Trotsky said it, if we oppose terrorist acts, it is only because we are not satisfied with individual revenge. The socialist movement has no qualms against engaging with violence; it seeks to sharpen the vengeful desires of the proletariat, not blunten them, and direct that energy into the expropriation of the bourgeois class. True, killing Hitler does nothing to break the fundamental capitalist state which reigns over Germany; but Social Democracy as it stands now has precisely been complicit in building this state. One cannot accuse me of not doing enough to dismantle capitalism, of engaging in propaganda of the deed, when the movement with the means of genuine collective revenge through genuine collective organization sits across from me. Where was Social Democracy when the proletariat's revenge could be enacted not through the death of a singular fascist, but through the expropriation of the whole bourgeois class and the dissolution of its terroristic state apparatuses? It was wielding those state apparatuses against the proletariat, in the Ebert-Groener Pact which allowed the state to subsist, reorganize, and continue; and then expel Social Democracy from government once the bourgeoisie too was strong enough. At least I have protected the workers from fascism today; you have on countless occassions surrendered the workers to fascism yourself."],
+            ["levi", "!|||"],
+            ["doraemon", "Everyone reads the Trigon's devastating rebuttal and loses 3 stamina!"],
+        ],
+        2: [
+            // second rebuttal
+        ],
+        3: [
+            // final rebuttal
+        ],
+    };
+
+    var dialogues = rebuttalDialogues[Q.gold_trigon_rebuttals];
+
+    trigonDialogues.push(...dialogues);
 }
 
 var id = window.queueCombatCutscene(trigonDialogues);
