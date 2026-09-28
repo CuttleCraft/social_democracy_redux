@@ -265,8 +265,6 @@ if (!Q.planning_combat) {
     if (Q.selected_combatant == "levi") {
         Q.levi_polemics = (Q.levi_polemics || 0) + 1;
 
-        Don't let this push succeed. Muaha.
-
         var polemicDialogues = {
             1: [
                 ["levi", "Listen up yo, trilaterally angular pyriformic phantasm, I've got some-thing to lay on you.||"],
@@ -281,26 +279,29 @@ if (!Q.planning_combat) {
                 ["doraemon", "Levi has produced a polemic!"],
             ],
             2: [
-                ["levi", "I've pretty much stopped trying to make sense of these things.|"],
-                ["random_other_combatant", "What things?|"],
-                ["breitscheid", "This whole woeful errand we're on."],
-                ["random_other_combatant", "Really? It seems to me like you're still trying to make sense of it.|"],
-                ["breitscheid", "Well, only cause, like...|"],
-                ["breitscheid", "Listen, man, I'm a politician...|"],
-                ["breitscheid", "But what's gotta be done's gotta be done.|"],
-                ["doraemon", "Breitscheid is prepared to parry!"],
+                ["levi", "Zowie gee, I gotta give you more credit than I was rationalistically envisioning, you know how to tango to this Marxism beat I'm laying down. Well, Mx. Trigon, I've composed a lil' mixtape they're calling the 'Critique of the Resplendent Brobdingnagian Conformation's Programme', and let me tell you, you're gonna get dunked on this time.|"],
+                ["levi", "In abridged laconic cursory, your point has a lot of muscle. Us Social Democrats have made many clanging boo-boos before. The Ebert-Groener Pact that did nothing to dismantle the repressive state apparatuses inherited from the German Empire and instead left those state institutions intact has undoubtedly been a major cause in the allowance of reaction to rebound, and as myself a former communist I hated every moment of watching those misapprehensional blunders from the sidelines where I was seated.|"],
+                ["levi", "And you're right that we're the dudes who totally got you off your haunches and summoned you with the whole time of miracles fantasy.|"],
+                ["levi", "But if I ain't zonked out of my gourds on this portentous mojo in the air, then I can see that you are |way| out of line, buddy.|"],
+                ["levi", "So you better get your sorry celestial self right over here this instant and enter the Megatome.|"],
+                ["levi", "I'm honestly not totally clear on what our woeful errand is, but we need you.|"],
+                ["levi", "The world is at stake here.|"],
+                ["levi", "Read all about it.|"],
+                ["doraemon", "Levi has produced a polemic!"],
             ],
             3: [
-                ["breitscheid", "Swordfighting, amirite?|"],
-                ["random_other_combatant", "Yeah, still no clue where you picked that up from.|"],
-                ["breitscheid", "The Scythian steppes.|"],
-                ["doraemon", "Breitscheid is prepared to parry!"],
+                ["levi", "...interesting, interesting.|"],
+                ["levi", "You make a couple banging points, bro-dach.|"],
+                ["levi", "But if we don't put a stop to this occult ritual and complete it right now, we'll have an abso-lute monster of a deity on the loose and I mean that complimentarily.|"],
+                ["levi", "We are all that's standing between you and the microcosmic globular creation we live on being completely booned out of its marbles.|"],
+                ["levi", "So, I've written you one final polemic, pal-pal. It's a deductive scientific dialectical deconstruction of what would happen if you blasted right on out of here and were free to roam. Spoiler alert, a neverending time of miracles...which, doesn't sound so bad, but not all miracles are mirthful."],
+                ["doraemon", "Levi has produced a polemic!"],
             ],
         };
 
         var dialogues = polemicDialogues[Q.levi_polemics] || [
-            ["breitscheid", "Here goes."],
-            ["doraemon", "Breitscheid is prepared to parry!"],
+            ["levi", "No I actually kind of agree with you"],
+            ["doraemon", "Levi has conceded!!!"],
         ];
 
         if (!Q.doraemon_narrated) {
@@ -739,6 +740,52 @@ if (!Q.planning_combat) {
             ["hilferding", "Read my theories now."],
             ["random_other_combatant", "Okay..."],
             ["doraemon", "Hilferding has made a battle plan for the next turn!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "levi") {
+        Q.levi_strategies = (Q.levi_strategies || 0) + 1;
+
+        var strategyDialogues = {
+            1: [
+                ["levi", "So this pyramidal poltergeist right here appeared in a rupture greater than Germany has seen perhaps since the November Revolution. On the brinking cusp and precipice of fascism, with the Enabling Act ratified by the assembled spokespeople of the bourgeoisie, we rapped a bop of banging sworcery to release the Sylvan sprites that embodied all of Germany's special superstructural socialities and hospitably herald a time of miracles.|"],
+                ["levi", "Fundamentally, it exemplically amalgamates the newfangled supermodern freak fluke happenstance in Germany, I'd say.|"],
+                ["levi", "We gotta tame this beast and go about that whopping humdinger the right-on way.|"],
+                ["levi", "I'm gonna eat an ice cream now, but the rest of the plan is right here."],
+                ["random_other_combatant", "Uh, okay...|"],
+                ["levi", "Mmmm...my favorite flavor.|"],
+                ["doraemon", "Levi has made a battle plan for the next turn!"],
+            ],
+            2: [
+                ["levi", "Unification of the broad popular masses with an aim of reaching beyond the whole existing social order, of the daily struggle with the great world transformation - that is the task of the social-democratic movement|,|| yo.|"],
+                ["levi", "And the great world transformation schmazz starts here with the knocking of this supernatural phantasm down a peg or two.|"],
+                ["levi", "And into our onerously austere anthology of sinister sworcery, where it belongs.|"],
+                ["levi", "Capiche, everypony?| Slurp"],
+                ["random_other_combatant", "Stop eating ice cream!|"],
+                ["levi", "I hear you, I hear you...|"],
+                ["doraemon", "Levi has made a battle plan for the next turn!"],
+            ],
+            3: [
+                ["levi", "I should institute a gelateria, man.|"],
+                ["random_other_combatant", "Wouldn't that make you petty-bourgeois?"],
+                ["levi", "Aw, schmuckers.|"],
+                ["levi", "Any-way-yo, we've gotta absolutely wallopingly clobber and pummel this arcane shape before anything else.|"],
+                ["doraemon", "Levi has made a battle plan for the next turn!"],
+            ],
+        };
+
+        var dialogues = strategyDialogues[Q.levi_strategies] || [
+            ["levi", "I am an irreproachably unblemished scholarly sage.|"],
+            ["levi", "Listen up, to my wisdom.|"],
+            ["levi", "Slurp"],
+            ["random_other_combatant", "Okay..."],
+            ["doraemon", "Levi has made a battle plan for the next turn!"],
         ];
 
         if (!Q.doraemon_narrated) {
@@ -1208,6 +1255,44 @@ if (!Q.planning_combat) {
             ["breitscheid", "Mindblast!!!!!!!!!!!!!!!!!"],
             ["breitscheid", "Breitscheid has attacked!!!"],
             ["doraemon", "(...my line...)"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "levi") {
+        Q.levi_attacks = (Q.levi_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["levi", "I am a trained martial artist, actually, so this will be a fragment of pastry.|"],
+                ["random_other_combatant", "...do you mean a piece of cake?|", "braun"],
+                ["levi", "Haha, yeah.|"],
+                ["random_other_combatant", "...why did you start talking like this?|", "braun"],
+                ["levi", "Braun convinced me.|"],
+                ["braun", ":3"],
+                ["levi", "He really wanted me to participate in his Homestuck RP with him, so I adopted the super distinct voice for my character, and got so bangingly used to it I just constantly self-flanderize myself now, yo.|"],
+                ["levi", "But also, I've always been kind-of a supergenius hipster, if you ask me.|"],
+                ["levi", "So any-way I'm gonna rock this triangle's gourds off its haunches now.|"],
+                ["doraemon", "Levi has attacked!!!"],
+            ],
+            2: [
+                ["levi", "Expeditious memorandum on me being a martial artist - the combat I'm engaging in is actually on the metaphysical psychic plane since you can't really punch and kick supernatural geometry. So my expertise is totally inoperative here.|"],
+                ["doraemon", "Levi has attacked!!!"],
+            ],
+            3: [
+                ["levi", "Psimartial arts are a whole 'nother bag of eggs, man. But I'm descrying them, yo. Pam!|"],
+                ["doraemon", "Levi has attacked!!!"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.levi_attacks] || [
+            ["levi", "Pam!!!"],
+            ["doraemon", "Levi has attacked!!!"],
         ];
 
         if (!Q.doraemon_narrated) {
