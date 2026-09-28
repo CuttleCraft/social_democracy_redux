@@ -321,7 +321,7 @@ go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
-[+ sc_display +] will, at the cost of 2 stamina attempt the parry the next attack with his Scythian saber, which will slice through triangles, reflect orbs, but be useless against lasers.
+[+ sc_display +] will, at the cost of 3 stamina write a searing diatribe against the triaform shape, which will enbusy it for a turn with the composition of a response, buying combatants time. The response, however, will be lengthy and devastating, wearing our combatants out to read.
 
 </div>
 
@@ -2591,7 +2591,7 @@ if (gold_trigon_move.type == "orb") {
             }
         }
     }
-} else if (Q.gold_trigon_move.type == "rebuttal") {
+} else if (gold_trigon_move.type == "rebuttal") {
     Q.trigon_rebuttals = (Q.trigon_rebuttals || 0) + 1;
     for (var c of Q.combatants) {
         Q[c+"_sta"] -= 2;
