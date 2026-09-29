@@ -361,6 +361,8 @@ window.queueCombatCutscene = function(dialogues) {
         naptime: "naps",
         parry: "parries",
         diplomacy: "diplomacies",
+        polemicize: "polemics",
+        organize_women: "organizes",
         reinvigorate: "reinvigorates",
         finance: "finances"
     };

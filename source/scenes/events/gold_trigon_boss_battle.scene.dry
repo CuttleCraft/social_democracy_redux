@@ -94,6 +94,18 @@ Q.levi_target = "";
 Q.levi_plan = "";
 Q.levi_present_plan = "";
 
+Q.sender_hp = 44;
+Q.sender_att = 4;
+Q.sender_def = 4;
+Q.sender_sta = 7;
+Q.sender_sta_m = 7;
+Q.sender_hp_m = 44;
+Q.sender_action = "";
+Q.sender_target = "";
+Q.sender_plan = "";
+Q.sender_present_plan = "";
+Q.sender_woman = 1; 
+
 Q.planning_combat = 0;
 Q.plan_is_done = 0;
 
@@ -211,6 +223,121 @@ title: Dummy
 subtitle: I'm a dummy!
 tags: dummy
 go-to: menu
+
+@sender_c
+title: Toni Sender
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/SenderToni.jpg
+view-if: (sender_advisor = 1) and (not choosing_target or (selected_combatant != "sender"))
+choose-if: sender_action != "immobile"
+unavailable-subtitle: Sender's turn is being consumed by a fellow combatant - change their action to something else
+on-arrival: selected_combatant = "sender" if not choosing_target; selected_target = "sender" if choosing_target; sc_display = "Sender" if not choosing_target; sc_plan = sender_present_plan if not choosing_target; sc_stamina = sender_sta if not choosing_target
+go-to: target_chosen if choosing_target
+
+<div class="combat-advisor-screen">
+
+**Toni Sender**
+
+HP: [+ sender_hp +]
+Attack: [+ sender_att +]
+Defense: [+ sender_def +]
+Stamina: [+ sender_sta +]
+
+</div>
+
+- @attack
+- @defend
+- @naptime
+- @sender_abilities: Let's explore Sender's special abilities.
+- @menu: Return
+
+@sender_abilities
+subtitle: Organize Women
+
+<div class="combat-advisor-screen">
+
+Toni Sender has some tricks up her sleeve.
+
+</div>
+
+- @organize_women
+- @menu: Return to menu
+
+@organize_women
+title: Organize
+choose-if: sc_stamina >= 3
+subtitle: Spend turn organizing all other women combatants, halving the stamina costs of their next abilities. (3 stamina) [? if sc_plan == "polemicize" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "organize_women";
+
+    if (Q.selected_combatant == "sender") {
+        Q.sender_organizes = (Q.sender_organizes || 0) + 1;
+
+        var organizeDialogues = {
+            1: [
+                Fail this commit.
+                ["sender", "So|.|"],
+                ["sender", "Your careless conduct, bar the absolutely radical expunction of Hitler, is getting us proles in a real downer.|"],
+                ["sender", "The abso-lute chicanery you're bringing upon this nation is a buzzkill in totality, in aggregate entirety, my peremptory jackass.|"],
+                ["sender", "I scrawled you a diss track, or, as the kids say, a polemical diatribe of admonitionary proportions, a consummate philippic brickbats precisely suited for a revenant eidolon like you, yo.|"],
+                ["sender", "I'll dosh you the paper in a sec, once I give a quick recap for the boys back home, which is to say the ones on the other side of this here boob-tube we're on.|"],
+                ["sender", "Elementally, though, in the sine qua non nuts and bolts of it, you're a bombing baboon practicing the defunct practition of propaganda of the deed, doing your deeds in the dirtiest of assassinatory manners. Killing Hitler does not change the fundamental material conditions which precipitated the rise of the Nazi movement, and neither does encasing all of Germany's political institutions in an aura of veritably bona fide inauspicious thaumaturgy...|"],
+                ["sender", "|...and while we like totally induced that doozy ourselves with the vexatious volume of tomes known as the Megatome and its voodoos, we only did that to...|"],
+                ["sender", "|...look, bro-dach, it's all covered in the diss track, which I would spit bar for bar right now, if it weren't a hundred pages long. I'll give you a hint: it's dialectical.|"],
+                ["sender", "I'll be waiting for your response, if you've got the guts.|"],
+                ["doraemon", "sender has produced a polemic!"],
+            ],
+            2: [
+                ["sender", "Zowie gee, I gotta give you more credit than I was rationalistically envisioning, you know how to tango to this Marxism beat I'm laying down. Well, Mx. Trigon, I've composed a lil' mixtape they're calling the 'Critique of the Resplendent Brobdingnagian Conformation's Programme', and let me tell you, you're gonna get dunked on this time.|"],
+                ["sender", "In abridged laconic cursory, your point has a lot of muscle. Us Social Democrats have made many clanging boo-boos before. The Ebert-Groener Pact that did nothing to dismantle the repressive state apparatuses inherited from the German Empire and instead left those state institutions intact has undoubtedly been a major cause in the allowance of reaction to rebound, and as myself a former communist I hated every moment of watching those misapprehensional blunders from the sidelines where I was seated.|"],
+                ["sender", "And you're right that we're the dudes who totally got you off your haunches and summoned you with the whole time of miracles fantasy.|"],
+                ["sender", "But if I ain't zonked out of my gourds on this portentous mojo in the air, then I can see that you are |way| out of line, buddy.|"],
+                ["sender", "So you better get your sorry celestial self right over here this instant and enter the Megatome.|"],
+                ["sender", "I'm honestly not totally clear on what our woeful errand is, but we need you.|"],
+                ["sender", "The world is at stake here.|"],
+                ["sender", "Read all about it.|"],
+                ["doraemon", "sender has produced a polemic!"],
+            ],
+            3: [
+                ["sender", "...interesting, interesting.|"],
+                ["sender", "You make a couple banging points, bro-dach.|"],
+                ["sender", "But if we don't put a stop to this occult ritual and complete it right now, we'll have an abso-lute monster of a deity on the loose and I mean that complimentarily.|"],
+                ["sender", "We are all that's standing between you and the microcosmic globular creation we live on being completely booned out of its marbles.|"],
+                ["sender", "So, I've written you one final polemic, pal-pal. It's a deductive scientific dialectical deconstruction of what would happen if you blasted right on out of here and were free to roam. Spoiler alert, a neverending time of miracles...which, doesn't sound so bad, but not all miracles are mirthful."],
+                ["doraemon", "sender has produced a polemic!"],
+            ],
+        };
+
+        var dialogues = polemicDialogues[Q.sender_organizes] || [
+            ["sender", "No I actually kind of agree with you"],
+            ["doraemon", "Sender has conceded!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
+} else {
+    Q[Q.selected_combatant+"_plan"] = "organize_women";
+}
+
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of 3 stamina write a searing diatribe against the triaform shape, which will enbusy it for a turn with the composition of a response, buying combatants time. The response, however, will be lengthy and devastating, wearing our combatants out to read.
+
+</div>
+
+- @menu: Return
 
 @levi_c
 title: Paul Levi
