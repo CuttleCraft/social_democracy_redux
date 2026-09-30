@@ -280,40 +280,20 @@ if (!Q.planning_combat) {
             1: [
                 Fail this commit.
                 ["sender", "So|.|"],
-                ["sender", "Your careless conduct, bar the absolutely radical expunction of Hitler, is getting us proles in a real downer.|"],
-                ["sender", "The abso-lute chicanery you're bringing upon this nation is a buzzkill in totality, in aggregate entirety, my peremptory jackass.|"],
-                ["sender", "I scrawled you a diss track, or, as the kids say, a polemical diatribe of admonitionary proportions, a consummate philippic brickbats precisely suited for a revenant eidolon like you, yo.|"],
-                ["sender", "I'll dosh you the paper in a sec, once I give a quick recap for the boys back home, which is to say the ones on the other side of this here boob-tube we're on.|"],
-                ["sender", "Elementally, though, in the sine qua non nuts and bolts of it, you're a bombing baboon practicing the defunct practition of propaganda of the deed, doing your deeds in the dirtiest of assassinatory manners. Killing Hitler does not change the fundamental material conditions which precipitated the rise of the Nazi movement, and neither does encasing all of Germany's political institutions in an aura of veritably bona fide inauspicious thaumaturgy...|"],
-                ["sender", "|...and while we like totally induced that doozy ourselves with the vexatious volume of tomes known as the Megatome and its voodoos, we only did that to...|"],
-                ["sender", "|...look, bro-dach, it's all covered in the diss track, which I would spit bar for bar right now, if it weren't a hundred pages long. I'll give you a hint: it's dialectical.|"],
-                ["sender", "I'll be waiting for your response, if you've got the guts.|"],
-                ["doraemon", "sender has produced a polemic!"],
-            ],
-            2: [
-                ["sender", "Zowie gee, I gotta give you more credit than I was rationalistically envisioning, you know how to tango to this Marxism beat I'm laying down. Well, Mx. Trigon, I've composed a lil' mixtape they're calling the 'Critique of the Resplendent Brobdingnagian Conformation's Programme', and let me tell you, you're gonna get dunked on this time.|"],
-                ["sender", "In abridged laconic cursory, your point has a lot of muscle. Us Social Democrats have made many clanging boo-boos before. The Ebert-Groener Pact that did nothing to dismantle the repressive state apparatuses inherited from the German Empire and instead left those state institutions intact has undoubtedly been a major cause in the allowance of reaction to rebound, and as myself a former communist I hated every moment of watching those misapprehensional blunders from the sidelines where I was seated.|"],
-                ["sender", "And you're right that we're the dudes who totally got you off your haunches and summoned you with the whole time of miracles fantasy.|"],
-                ["sender", "But if I ain't zonked out of my gourds on this portentous mojo in the air, then I can see that you are |way| out of line, buddy.|"],
-                ["sender", "So you better get your sorry celestial self right over here this instant and enter the Megatome.|"],
-                ["sender", "I'm honestly not totally clear on what our woeful errand is, but we need you.|"],
-                ["sender", "The world is at stake here.|"],
-                ["sender", "Read all about it.|"],
-                ["doraemon", "sender has produced a polemic!"],
-            ],
-            3: [
-                ["sender", "...interesting, interesting.|"],
-                ["sender", "You make a couple banging points, bro-dach.|"],
-                ["sender", "But if we don't put a stop to this occult ritual and complete it right now, we'll have an abso-lute monster of a deity on the loose and I mean that complimentarily.|"],
-                ["sender", "We are all that's standing between you and the microcosmic globular creation we live on being completely booned out of its marbles.|"],
-                ["sender", "So, I've written you one final polemic, pal-pal. It's a deductive scientific dialectical deconstruction of what would happen if you blasted right on out of here and were free to roam. Spoiler alert, a neverending time of miracles...which, doesn't sound so bad, but not all miracles are mirthful."],
-                ["doraemon", "sender has produced a polemic!"],
+                ["sender", "The situation here is completely absurd.|"],
+                ["sender", "I don't know how this came about, really, but that's not too relevant.|"],
+                ["sender", "The imperative right now is to put an end to this nonsense.|"],
+                ["sender", "And we can't do that if we're not organized.|"],
+                ["sender", "Ladies...!|"],
+                ["sender", "I have drawn up a chart, please refer to it and enter formation."],
+                ["sender", "That will be all."],
+                ["doraemon", "Sender has organized women!"],
             ],
         };
 
         var dialogues = polemicDialogues[Q.sender_organizes] || [
-            ["sender", "No I actually kind of agree with you"],
-            ["doraemon", "Sender has conceded!!!"],
+            ["sender", "Come on, ladies. In formation!|"],
+            ["doraemon", "Sender has organized women!!!"],
         ];
 
         if (!Q.doraemon_narrated) {
@@ -333,7 +313,7 @@ go-to: menu if planning_combat
 
 <div class="combat-advisor-screen">
 
-[+ sc_display +] will, at the cost of 3 stamina write a searing diatribe against the triaform shape, which will enbusy it for a turn with the composition of a response, buying combatants time. The response, however, will be lengthy and devastating, wearing our combatants out to read.
+[+ sc_display +] will, at the cost of 3 stamina organize the women of the combatant team, reducing the stamina costs of their next actions.
 
 </div>
 
@@ -1232,6 +1212,7 @@ go-to: menu if planning_combat
 
 @attack
 title: Attack the **<span style="color:rgb(255, 208, 0);font-family:'Times New Roman',serif;font-weight:700;letter-spacing:0.5px;">Gold Trigon</span>**.
+view-if: selected_combatant != "sender" or sender_attacks < 3
 choose-if: sc_stamina >= 1
 subtitle: An ordinary attack, dealing damage. (1 stamina) [? if sc_plan == "attack" : - **this is our plan** ?]
 on-arrival: {!
@@ -1420,6 +1401,61 @@ if (!Q.planning_combat) {
         var dialogues = attacksDialogues[Q.levi_attacks] || [
             ["levi", "Pam!!!"],
             ["doraemon", "Levi has attacked!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "sender") {
+        Q.sender_attacks = (Q.sender_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["sender", "Sorry, combat? Has that been authorized?|"],
+                ["random_other_combatant", "Yeah."],
+                ["sender", "Do you have the certificate?|"],
+                ["random_other_combatant", "Yeah, it's...right here...|"],
+                ["sender", ".|.|.|who is the 'finger of God'?"],
+                ["random_other_combatant", "I think it's pretty self explanatory.|"],
+                ["sender", "I really doubt that this 'finger of God' has the status to authorize combat in the Reichstag.|"],
+                ["random_other_combatant", "Aren't you one of the most revolutionary people in the party? Why do you care about authorization, anyway?|"],
+                ["sender", "Yeah, but even good revolutionary efforts have to be authorized, by like the mass party at least. I don't recall the SPD voting on singing a song of sworcery. Who authorized that?|"],
+                ["random_other_combatant", "That was also the finger of God.|"],
+                ["sender", "And I'm supposed to believe this?|"],
+                ["doraemon", "Sender has attacked!!!|"],
+                ["sender", "What? No I haven't. You can't just say that."],
+                ["doraemon", "Sender has attacked!!!"],
+                ["sender", "HEY!"],
+                ["doraemon", "Sender has attacked!!!"],
+            ],
+            2: [
+                ["sender", "For the record, I have never 'attacked' the triangular object. I was misrepresented by our 'narrator', and, were I to attack now, it would be my very first time, not the second.|"],
+                ["sender", "Which I will not do, as"],
+                ["doraemon", "Sender has attacked!!!"],
+                ["sender", "Silence, foul feline fantoccino. I haven't attacked a thing. How do you even do that? It's like your descriptions of reality have actual prescriptive power; as far as I can tell, my attack went through when you said it did, even though I didn't actually do anything? I guess these attacks are all psychic in the end anyway, however that goes..."],
+                ["doraemon", "Yeah, I'm not sure why it works, but it does, and we kinda need to deal some damage, so"],
+                ["doraemon", "Sender has attacked!!!|"],
+                ["sender", "I'm not agreeing to have my name on this attack."],
+                ["doraemon", "It only works if I use that wording..."],
+            ],
+            3: [
+                ["sender", "What interface am I even being dished these commands through? When I get to the bottom of this, I'm disabling it.|"],
+                ["doraemon", "Sender has attacked!!!"],
+                ["sender", "Yeah, for the last time."],
+                ["doraemon", "(...between me and you, we can agree I'm really the one attacking, ok?)"],
+                ["sender", "(...)"],
+                ["sender", "(I'm still disabling the interface)"],
+                ["doraemon", "(I guess that's fair)"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.sender_attacks] || [
+            ["sender", "Hi dataminer!!!"],
+            ["doraemon", "Sender has called you out!!!"],
         ];
 
         if (!Q.doraemon_narrated) {
@@ -1642,6 +1678,48 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "sender") {
+        Q.sender_defends = (Q.sender_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["sender", "I can agree with hunkering down, sure.|"],
+                ["doraemon", "Sender has defended!!!"],
+            ],
+            2: [
+                ["sender", "Though, I do wonder how effective it really is to just 'hunker down'. It would be better if we could actually construct some sort of makeshift defenses.|"],
+                ["doraemon", "Sender has defended!!!"],
+                ["sender", "I'm still thinking.|"],
+                ["doraemon", "Oh, okay.|"],
+                ["sender", ".|.|.|maybe we could build barricades out of the Reichstag seats, for a sort of fort.|"],
+                ["doraemon", "Sorry, I think...you don't have an ability which would allow you to do that?|"],
+                ["sender", "Can't I just...pick the chairs up, and..."],
+                ["doraemon", "Nope, sorry...|"],
+                ["sender", "Screw you. I'm doing it anyway."],
+                ["doraemon", "It probably won't do anything, but go ahead! Just be careful!|"],
+                ["doraemon", "Sender has defended!!!"],
+            ],
+            3: [
+                ["sender", "I made a fortress.|"],
+                ["sender", "Unfortunately, it really does seem to just do nothing.|"],
+                ["sender", "I'm missing the sauce :(|"],
+                ["sender", "I'll just defend normally...|"],
+                ["doraemon", "Sender has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.sender_defends] || [
+            ["sender", "If only somebody could actually construct real and effectual defenses...|"],
+            ["doraemon", "Sender has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "defend";
@@ -1838,6 +1916,40 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "sender") {
+        Q.sender_naps = (Q.sender_naps || 0) + 1;
+
+        var napsDialogues = {
+            1: [
+                ["sender", "This is far too serious of an affair to just sleep through.|"],
+                ["sender", "Far, far, far too serious.|"],
+                ["sender", "However, if it's the decision of my fellows, I'll take a quick siesta.|"],
+                ["random_other_combatant", "It is.|"],
+                ["sender", "Okey-dokey!|"],
+                ["doraemon", "Sender has fallen asleep!!!"],
+            ],
+            2: [
+                ["sender", "Do androids dream of electric sheep?|"],
+                ["doraemon", "Sender has fallen asleep!!!"],
+            ],
+            3: [
+                ["sender", "I dream of organic sheep.|"],
+                ["doraemon", "Sender has fallen asleep!!!"],
+            ],
+        };
+
+        var dialogues = napsDialogues[Q.sender_naps] || [
+            ["sender", "Okey-dokey.|"],
+            ["doraemon", "Sender has fallen asleep!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "naptime";
@@ -1929,6 +2041,28 @@ if (Q.socialize_cutscene_tbd) {
                 ["levi", "Fantabulous, yo."],
                 ["levi", "Concurrently we are jumbo-whopping hobnobbing musketeers forever."],
                 ["doraemon", "Hilferding has befriended Levi!"],
+            ];
+        } else if (Q.selected_target == "sender" && !Q.hilferding_sender_buds) {
+            var dialogues = [
+                ["hilferding", "Sender, heyyyyyy. Toni. Sender. Heyyyyy.|"],
+                ["sender", "Hello, Rudy.|"],
+                ["hilferding", "Do you like apples|?|"],
+                ["sender", "Sorry, how is that relevant to the matter at hand?|"],
+                ["hilferding", "The matter at hand being the extraordinary superstructural phenomenom that manifests itself as a unique means of production?"],
+                ["sender", "Yes, that.|"],
+                ["hilferding", "Of course. We could talk about that, if you'd prefer.|"],
+                ["sender", "What I was wondering is - who actually authorized or initiated this affair? I don't recall the party being consulted.|"],
+                ["hilferding", "Right, very complicated. Essentially - you know our book, the Megatome?|"],
+                ["sender", "Yes, I recall it being discussed. I remember someone compared it to Capital.|"],
+                ["hilferding", "Basically, it is a very burdensome book, and with it comes the burden of our new woeful errand, without which we cannot be cosmic friends forever. Do you want to be cosmic friends forever?|"],
+                ["sender", "Um, sure, but-"],
+                ["hilferding", "Awesome, we're friends, if not cosmic. Anyway catch up with you later gotta go bye!!!"],
+                ["doraemon", "Hilferding has befriended Sender!"],
+                ["sender", ".|.|.|I feel like there's more important discussions to be had still...he didn't explain shit, actually.|"],
+                ["sender", "I guess I can't complain too much, though, since the thing we summoned killed Hitler when he was about to have us killed.|"],
+                ["sender", "I just feel like everyone is putting too much blind trust into this Megatome..."],
+                ["sender", "...where did we even get it? I feel like it just showed up one day."],
+                ["sender", ".|.|.|"],
             ];
         } else {
             var dialogues = [
@@ -2242,6 +2376,18 @@ window.deathDialogueIfNeeded = function() {
                 ["doraemon", "..."],
                 ["doraemon", "|||(Am I doing a good job of making the scene sad)"],
             );
+        } else if (target == "sender") {
+            trigonDialogues.push(
+                ["doraemon", "TONI!!! NO!!!"],
+                ["doraemon", "I'm sorry!!!"],
+                ["doraemon", "I knew I should've stopped you guys from going into combat, see?"],
+                ["doraemon", "At least the rest of you are pretty much all old men, but Toni had a future!!!"],
+                ["doraemon", "Oh well..."],
+                ["doraemon", "(...for context, by the way, Toni Sender just died, in case that wasn't clear.)"],
+                ["random_other_combatant", "Oh, thanks for clarifying. I wasn't sure.|", target],
+                ["doraemon", "You literally saw her die??? You're not even who the clarification was intended for!"],
+                ["doraemon", "Look, whatever, let's just move on..."],
+            );
         }
     }
 }
@@ -2417,6 +2563,25 @@ if (gold_trigon_move.type == "orb") {
                 ];
 
                 trigonDialogues.push(...dialogues);
+            } else if (target == "sender") {
+                Q.sender_orbs = (Q.sender_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["sender", "|||||"],
+                        ["doraemon", "Sender took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["sender", "||||.|.|.|these blows somewhat hurt.|"],
+                        ["doraemon", "Sender took " + damage + " damage from an orb!"],
+                    ],
+                };
+
+                var dialogues = orbDialogues[Q.sender_orbs] || [
+                    ["sender", "||||"],
+                    ["doraemon", "Sender took " + damage + " damage from an orb!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
             }
         }
     }
@@ -2547,6 +2712,27 @@ if (gold_trigon_move.type == "orb") {
             var dialogues = laserDialogues[Q.levi_lasers] || [
                 ["levi", "Yo, comrades, we should abso-lutely have a shinding blowout by the sea some time.|"],
                 ["doraemon", "Levi took " + damage + " damage from a laser!"],
+            ];
+
+            trigonDialogues.push(...dialogues);
+        } else if (target == "sender") {
+            Q.sender_lasers = (Q.sender_lasers || 0) + 1;
+            var laserDialogues = {
+                1: [
+                    ["sender", "Light in the sky, clouds passing by..."],
+                    ["sender", "...top of my window.|"],
+                    ["doraemon", "Sender took " + damage + " damage from a laser!"],
+                ],
+                2: [
+                    ["sender", "Sun isn't shy, gets in my eyes..."],
+                    ["sender", "Must be a rainbow.|"],
+                    ["doraemon", "Sender took " + damage + " damage from a laser!"],
+                ],
+            };
+
+            var dialogues = laserDialogues[Q.sender_lasers] || [
+                ["sender", "These lasers are definitely not hallucinations...|"],
+                ["doraemon", "Sender took " + damage + " damage from a laser!"],
             ];
 
             trigonDialogues.push(...dialogues);
@@ -2712,6 +2898,29 @@ if (gold_trigon_move.type == "orb") {
                 var dialogues = triangleDialogues[Q.levi_triangles] || [
                     ["levi", "Hothothothothothot"],
                     ["doraemon", "Levi took " + damage + " damage from " + amount + " triangles!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
+            }  else if (target == "sender") {
+                 Q.sender_triangles = (Q.sender_triangles || 0) + 1;
+                 var triangleDialogues = {
+                    1: [
+                        ["sender", "...you know, why are we not questioning..."],
+                        ["sender", "...the fact that all the things we took for granted..."],
+                        ["sender", "Are like..."],
+                        ["sender", "I mean, I never really believed in magic..."],
+                        ["sender", "I used to believe in like, science and stuff..."],
+                        ["doraemon", "Sender took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                    2: [
+                        ["sender", "I guess my point just is, why aren't we questioning the existence of all-powerful cosmic geometry, and sworcery, and so on?"],
+                        ["doraemon", "Sender took " + damage + " damage from " + amount + " triangles!"],
+                    ],
+                };
+
+                var dialogues = triangleDialogues[Q.sender_triangles] || [
+                    ["sender", "I need to learn to stop worrying and love the bomb.|"],
+                    ["doraemon", "Sender took " + damage + " damage from " + amount + " triangles!"],
                 ];
 
                 trigonDialogues.push(...dialogues);
