@@ -267,7 +267,7 @@ Toni Sender has some tricks up her sleeve.
 @organize_women
 title: Organize
 choose-if: sc_stamina >= 3
-subtitle: Spend turn organizing all other women combatants, halving the stamina costs of their next abilities. (3 stamina) [? if sc_plan == "polemicize" : - **this is our plan** ?]
+subtitle: Spend turn organizing all other women combatants, halving the stamina costs of their next abilities. (3 stamina) [? if sc_plan == "organize_women" : - **this is our plan** ?]
 on-arrival: {!
 if (!Q.planning_combat) {
     window.clearCombatStatsIfNeeded();
@@ -278,7 +278,6 @@ if (!Q.planning_combat) {
 
         var organizeDialogues = {
             1: [
-                Fail this commit.
                 ["sender", "So|.|"],
                 ["sender", "The situation here is completely absurd.|"],
                 ["sender", "I don't know how this came about, really, but that's not too relevant.|"],
@@ -291,7 +290,7 @@ if (!Q.planning_combat) {
             ],
         };
 
-        var dialogues = polemicDialogues[Q.sender_organizes] || [
+        var dialogues = organizeDialogues[Q.sender_organizes] || [
             ["sender", "Come on, ladies. In formation!|"],
             ["doraemon", "Sender has organized women!!!"],
         ];
@@ -2175,6 +2174,13 @@ for (var c of Q.combatants) {
         Q.gold_trigon_moves.unshift({
             type: "rebuttal"
         });
+    } else if (Q[c+"_action"] == "organize_women") {
+        var stamina_cost = 3;
+        for (var w of Q.combatants) {
+            if (w != c && Q[w+"_woman"]) {
+                Q[w+"_organized"] = 1;
+            }   
+        }
     } else if (Q[c+"_action"] == "attack") {
         var stamina_cost = 1;
         Q.gold_trigon_hp -= Q[c+"_att"];
@@ -2203,6 +2209,10 @@ for (var c of Q.combatants) {
     if (Q[c+"_action"] == Q[c+"_plan"]) {
         Q[c+"_sta"] += Math.floor((stamina_cost)/2);
         stamina_cost -= Math.floor((stamina_cost)/2);
+    }
+    if (Q[c+"_organized"]) {
+        Q[c+"_sta"] += Math.floor(stamina_cost / 2);
+        Q[c+"_organized"] = 0;
     }
     Q[c+"_action"] = "";
 }
