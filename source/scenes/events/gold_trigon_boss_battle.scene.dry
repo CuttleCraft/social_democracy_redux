@@ -104,7 +104,18 @@ Q.sender_action = "";
 Q.sender_target = "";
 Q.sender_plan = "";
 Q.sender_present_plan = "";
-Q.sender_woman = 1; 
+Q.sender_woman = 1;
+
+Q.rosenfeld_hp = 23;
+Q.rosenfeld_att = 4;
+Q.rosenfeld_def = 7;
+Q.rosenfeld_sta = 7;
+Q.rosenfeld_sta_m = 7;
+Q.rosenfeld_hp_m = 23;
+Q.rosenfeld_action = "";
+Q.rosenfeld_target = "";
+Q.rosenfeld_plan = "";
+Q.rosenfeld_present_plan = "";
 
 Q.planning_combat = 0;
 Q.plan_is_done = 0;
@@ -317,6 +328,122 @@ go-to: menu if planning_combat
 </div>
 
 - @menu: Return
+
+@rosenfeld_c
+title: Kurt Rosenfeld
+is-pinned-card: true
+tags: combatant
+card-image: img/portraits/RosenfeldKurt.jpg
+view-if: (rosenfeld_advisor = 1) and (not choosing_target or (selected_combatant != "rosenfeld"))
+choose-if: rosenfeld_action != "immobile"
+unavailable-subtitle: Rosenfeld's turn is being consumed by a fellow combatant - change their action to something else
+on-arrival: selected_combatant = "rosenfeld" if not choosing_target; selected_target = "rosenfeld" if choosing_target; sc_display = "Rosenfeld" if not choosing_target; sc_plan = rosenfeld_present_plan if not choosing_target; sc_stamina = rosenfeld_sta if not choosing_target
+go-to: target_chosen if choosing_target
+
+<div class="combat-advisor-screen">
+
+**Kurt Rosenfeld**
+
+HP: [+ rosenfeld_hp +]
+Attack: [+ rosenfeld_att +]
+Defense: [+ rosenfeld_def +]
+Stamina: [+ rosenfeld_sta +]
+
+</div>
+
+- @attack
+- @defend
+- @naptime
+- @rosenfeld_abilities: Let's explore Rosenfeld's special abilities.
+- @menu: Return
+
+@rosenfeld_abilities
+subtitle: Appeal - Defense
+
+<div class="combat-advisor-screen">
+
+Kurt Rosenfeld has some tricks up his sleeve.
+
+</div>
+
+- @appeal
+- @defense
+- @menu: Return to menu
+
+@appeal
+title: Appeal
+choose-if: sc_stamina >= 3
+subtitle: Spend turn submitting an appeal to the courts alleging the Gold Trigon's actions to be unconstitutional. The Gold Trigon will await the court's verdict so as to avoid breaking the law, skipping its next turn after this one. (3 stamina) [? if sc_plan == "appeal" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "appeal";
+
+    if (Q.selected_combatant == "rosenfeld") {
+        Q.rosenfeld_appeals = (Q.rosenfeld_appeals || 0) + 1;
+
+        var appealDialogues = {
+            1: [
+                ["trigon", "..."],
+                ["rosenfeld", "Objection!|"],
+                ["rosenfeld", "Your honor, this |triangle| is paying no heed to legal norms whatsoever.|"],
+                ["rosenfeld", "It has entered the Reichstag despite not being an elected deputy for any party.|"],
+                ["rosenfeld", "Furthermore, its annihilation of Hitler is| well I can't complain but| it is illegal.|"],
+                ["rosenfeld", "There is no basis on which it should have any right to attack us, either.|"],
+                ["rosenfeld", "Under, let's see..."],
+                ["rosenfeld", "|...bah, humbug this| penal code is too long, I'll just|"],
+                ["rosenfeld", "Please cease your actions at once while the court reviews their legality.|"],
+                ["doraemon", "Rosenfeld has submitted an appeal!"],
+            ],
+            2: [
+                ["rosenfeld", "Listen, your honor, I'm not quite sure if you're understanding the level of what is going on here.|"],
+                ["rosenfeld", "This 'trigon' isn't a lone actor..."],
+                ["rosenfeld", "It is part of a criminal organization of so-called cosmic geometry!"],
+                ["rosenfeld", "Who knows what accomplices it has?|"],
+                ["rosenfeld", "We need to bring it into this Megatome, where it will remain securely in the hands of those that do not threaten the constitutional order or security.|"],
+                ["rosenfeld", "So I'm submitting another appeal.|"],
+                ["doraemon", "Rosenfeld has submitted an appeal!"],
+            ],
+            3: [
+                ["rosenfeld", "Your honor, please reconsider.|"],
+                ["rosenfeld", "I'm not sure you understand the gravity of this situation.|"],
+                ["rosenfeld", "I mean, the Trigon is not even following the law of gravity, let alone the laws that we set as men.|"],
+                ["rosenfeld", "That's like, disrespectful to God.|"],
+                ["rosenfeld", "Heck, this guy might even be the antichrist. Maybe this is like, the end days? I forgot how the apocalypse works in Christianity. But I'm telling you, things are pretty apocalyptic right now. I wouldn't be surprised if this lines up with basically every Biblical prediction out there. Wasn't there something about the antichrist liking gold? This guy literally IS gold. I'm telling you, your honor, put an end to this satanic sensation before it...actually, doesn't the Biblical apocalypse end with the unification of heaven and Earth? I guess that's not so bad. But like, maybe we, Social Democrats, are the one bringing that about. Am I the Second Coming of Christ? For your consideration, your honor, ah, that's probably...disrespectful to God, too, okay, well. Forget this whole religion angle and just focus on the law, please."],
+                ["doraemon", "Rosenfeld has submitted an appeal!"],
+            ],
+        };
+
+        var dialogues = appealDialogues[Q.rosenfeld_appeals] || [
+            ["rosenfeld", "Your honor. The trigon has not even shown up for any one of the appeals I've submitted. It is clearly in contempt of court.|"],
+            ["doraemon", "Rosenfeld has submitted an appeal!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
+} else {
+    Q[Q.selected_combatant+"_plan"] = "appeal";
+    fail this commit
+}
+
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of 3 stamina submit an appeal to the highest courts in the land, submitted via the psychic plane that has been accessed through the mystical aura of sworcery which extends throughout not only the Reichstag but indeed courthouses across Germany as well, expediting the process significantly.
+
+</div>
+
+- @menu: Return
+
+@defense
 
 @levi_c
 title: Paul Levi
@@ -2174,6 +2301,14 @@ for (var c of Q.combatants) {
         Q.gold_trigon_moves.unshift({
             type: "rebuttal"
         });
+    } else if (Q[c+"_action"] == "appeal") {
+        var stamina_cost = 3;
+        if (!Q.gold_trigon_moves) {
+            Q.gold_trigon_moves = [];
+        }
+        Q.gold_trigon_moves.unshift({
+            type: "wait"
+        });
     } else if (Q[c+"_action"] == "organize_women") {
         var stamina_cost = 3;
         for (var w of Q.combatants) {
@@ -2976,6 +3111,27 @@ if (gold_trigon_move.type == "orb") {
     };
 
     var dialogues = rebuttalDialogues[Q.trigon_rebuttals];
+
+    trigonDialogues.push(...dialogues);
+} else if (gold_trigon_move.type == "wait") {
+
+    var dialogues = [
+        ["bumke", "..."],
+        ["trigon", "..."],
+        ["rosenfeld", "..."],
+        ["trigon", "..."],
+        ["rosenfeld", "..."],
+        ["bumke", "..."],
+        ["bumke", "..."],
+        ["trigon", "..."],
+        ["rosenfeld", "..."],
+        ["bumke", "..."],
+        ["bumke", "..."],
+        ["bumke", "..."],
+        ["bumke", "...the Trigon is entitled to kill all of you."],
+        ["trigon", "Thank you, your honor.|"],
+        ["rosenfeld", "Dang it!"],
+    ],
 
     trigonDialogues.push(...dialogues);
 }

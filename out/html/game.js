@@ -268,7 +268,8 @@ window.combatDialoguePortraits = {
     krupp: "img/portraits/KruppGustav.jpg",
     gallbladder: "img/portraits/Gallbladder.jpg",
     trigon: "img/portraits/trigonportrait.png",
-    lassalle: "img/portraits/LassalleFerdinand.jpg"
+    lassalle: "img/portraits/LassalleFerdinand.jpg",
+    bumke: "img/portraits/BumkeErwin.jpg"
 };
 
 window.showCombatDialogue = function(advisorId, text) {
@@ -363,6 +364,8 @@ window.queueCombatCutscene = function(dialogues) {
         diplomacy: "diplomacies",
         polemicize: "polemics",
         organize_women: "organizes",
+        appeal: "appeals",
+        defense: "defenses",
         reinvigorate: "reinvigorates",
         finance: "finances"
     };
