@@ -429,7 +429,6 @@ if (!Q.planning_combat) {
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "appeal";
-    fail this commit
 }
 
 !}
@@ -444,6 +443,69 @@ go-to: menu if planning_combat
 - @menu: Return
 
 @defense
+title: Defense
+choose-if: sc_stamina >= 2
+subtitle: Defend a fellow combatant, taking all damage dealt by the Gold Trigon to them this turn on their behalf. (2 stamina) [? if sc_plan == "defense" : - **this is our plan** ?]
+on-arrival: {!
+if (!Q.planning_combat) {
+    window.clearCombatStatsIfNeeded();
+    Q[Q.selected_combatant + "_action"] = "defense";
+    Q.choosing_target = 1;
+
+    if (Q.selected_combatant == "rosenfeld") {
+        Q.rosenfeld_defenses = (Q.rosenfeld_defenses || 0) + 1;
+
+        var defenseDialogues = {
+            1: [
+                ["rosenfeld", "I will always be the defender of the downtrodden! Usually in the courtroom, but I'll take absolutely crippling blows from cosmic forces, too.|"],
+                ["rosenfeld", "Whatever is necessary to uphold| justice!"],
+                ["doraemon", "Rosenfeld takes to the defense of his comrade!"],
+            ],
+            2: [
+                ["rosenfeld", "Your honor, the defendant is entitled to better treatment than this.|"],
+                ["rosenfeld", "And until this treatment is forthcoming, I shall prevent the rendering of these injustices.|"],
+                ["rosenfeld", "By incurring them upon myself!|"],
+                ["rosenfeld", "|Martyrdom has something to do with our woeful errand,| right?|"],
+                ["doraemon", "Rosenfeld takes to the defense of his comrade!"],
+            ],
+            3: [
+                [Q.selected_target, "Hey, Rosenfeld. Thanks for doing this for me.|"],
+                ["rosenfeld", "No problem.|"],
+                [Q.selected_target, "Can we get married after this is over?|"],
+                ["rosenfeld", "I hate to be Kurt with you, but no.|"],
+                [Q.selected_target, "Oh, I get it. It's because your first name is Kurt. So you're literally being Kurt with me. To be Frank, that's fair."],
+                ["rosenfeld", "Your name isn't Frank."],
+                ["doraemon", "Rosenfeld takes to the defense of his comrade!"],
+            ],
+        };
+
+        var dialogues = defenseDialogues[Q.rosenfeld_defenses] || [
+            ["rosenfeld", "I will incur any and all losses."],
+            ["doraemon", "Rosenfeld takes to the defense of his comrade!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    }
+} else {
+    Q[Q.selected_combatant+"_plan"] = "defense";
+}
+
+!}
+go-to: menu if planning_combat
+
+<div class="combat-advisor-screen">
+
+[+ sc_display +] will, at the cost of 2 stamina take to the defense of the selected combatant, defending them from the Gold Trigon's next attack. If the selected combatant does not incur an attack, [+ sc_display +] will look like a big stinky dork who wasted a turn. Use wisely.
+
+</div>
+
+- #combatants
 
 @levi_c
 title: Paul Levi
@@ -1591,6 +1653,47 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "rosenfeld") {
+        Q.rosenfeld_attacks = (Q.rosenfeld_attacks || 0) + 1;
+
+        var attacksDialogues = {
+            1: [
+                ["rosenfeld", "The best offense is a good...wait, no.|"],
+                ["rosenfeld", "Cut! Cut. I get a redo. Cut."],
+                ["rosenfeld", "We agreed that I get a redo."],
+                ["rosenfeld", "Start over."],
+                ["doraemon", "Rosenfeld has attacked!!!"],
+            ],
+            2: [
+                ["rosenfeld", "Ahem."],
+                ["rosenfeld", "The best defense is a good offense!"],
+                ["rosenfeld", "Your honor,| watch this drive!"],
+                ["rosenfeld", "Kurt Rosenfeld leaps from his Reichstag seat and soars gracefully through the air, leg extended perpendicular to himself, foot pointed outwards as it hurls at neckbreaking speed towards the triangular slit in the sky, like a keyhole into the swirling infinite of the cosmos, ready to shatter this window and send the shards spiralling outward to each and every corner of the world!"],
+                ["random_other_combatant", "Nice fanfic man"],
+                ["doraemon", "Yeah you kinda didn't even move from your seat plus I'm the narrator you could've just asked me. And as the narrator I have to void your action as bogus sorry"],
+                ["rosenfeld", "I hate GMs..."],
+                ["doraemon", "Please reword your action to be realistic.|"],
+                ["rosenfeld", "Kurt Rosenfeld frowns|||"],
+                ["doraemon", "Rosenfeld has attacked!!!|"],
+            ],
+            3: [
+                ["rosenfeld", "Kurt Rosenfeld kills Doraemon"],
+                ["doraemon", "Rosenfeld has done no such thing and instead vents his angers out on the Gold Trigon by attacking!!!"],
+            ],
+        };
+
+        var dialogues = attacksDialogues[Q.sender_attacks] || [
+            ["rosenfeld", "Kurt Rosenfeld"],
+            ["doraemon", "Rosenfeld has attacked!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "attack";
@@ -1837,6 +1940,44 @@ if (!Q.planning_combat) {
         var dialogues = defendsDialogues[Q.sender_defends] || [
             ["sender", "If only somebody could actually construct real and effectual defenses...|"],
             ["doraemon", "Sender has defended!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "rosenfeld") {
+        Q.rosenfeld_defends = (Q.rosenfeld_defends || 0) + 1;
+
+        var defendsDialogues = {
+            1: [
+                ["rosenfeld", "Defend? Yeah, sure, that's what I do for a living. Never had to do it for myself though.|"],
+                ["rosenfeld", "I mean, if you think about it, the courtroom is essentially psychic combat, like this is.|"],
+                ["rosenfeld", "Though, I guess this isn't entirely psychic?"],
+                ["rosenfeld", "Your honor, is the current engagement legally psychic?"],
+                ["doraemon", "Rosenfeld has defended!!!"],
+            ],
+            2: [
+                ["rosenfeld", "Wow. Your honor is ghosting me on all my socials."],
+                ["rosenfeld", "Instagram, LINE, Reddit, Facebook Messenger, WhatsApp..."],
+                ["rosenfeld", "I can't believe Erwin Bumke would do this."],
+                ["rosenfeld", "Really putting the Bum in Bumke."],
+            ],
+            3: [
+                ["rosenfeld", "Erwin on the side of caution.|"],
+                ["rosenfeld", "(It's a pun on Erwin Bumke again, and 'erring on the side of caution')"],
+                ["rosenfeld", "(I'm funny)"],
+                ["doraemon", "Rosenfeld has defended!!!"],
+            ],
+        };
+
+        var dialogues = defendsDialogues[Q.rosenfeld_defends] || [
+            ["rosenfeld", "I like cows.|"],
+            ["doraemon", "Rosenfeld has defended!!!"],
+            Commit, I need you to fail. Roger?
         ];
 
         if (!Q.doraemon_narrated) {
