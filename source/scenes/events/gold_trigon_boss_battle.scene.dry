@@ -1977,7 +1977,6 @@ if (!Q.planning_combat) {
         var dialogues = defendsDialogues[Q.rosenfeld_defends] || [
             ["rosenfeld", "I like cows.|"],
             ["doraemon", "Rosenfeld has defended!!!"],
-            Commit, I need you to fail. Roger?
         ];
 
         if (!Q.doraemon_narrated) {
@@ -2217,6 +2216,39 @@ if (!Q.planning_combat) {
 
         var id = window.queueCombatCutscene(dialogues);
         Q.combat_cutscene_queue.push(id);
+    } else if (Q.selected_combatant == "rosenfeld") {
+        Q.rosenfeld_naps = (Q.rosenfeld_naps || 0) + 1;
+
+        var napsDialogues = {
+            1: [
+                ["rosenfeld", "Wood is a porous and fibrous structural tissue found in the stems and roots of trees, and other woody plants. It is an organic material, a natural composite of cellulose fibers which are strong in tension embedded in a matrix of lignin which resists compression. Wood is sometimes defined as only the secondary xylem in the stems of trees, or it is defined more broadly to include the same type of tissue elsewhere such as in the roots of trees or shrubs. In a living tree it performs a support function, enabling woody plants to grow large or to stand up by themselves. It also conveys water and nutrients between the leaves, other growing tissues, and the roots. Wood may also refer to other plant materials with comparable properties, and to material engineered from wood, or wood chips or fiber."],
+                ["doraemon", "Rosenfeld has fallen asleep!!!"],
+            ],
+            2: [
+                ["rosenfeld", "Wood has been used for thousands of years for fuel, as a construction material, for making tools and weapons, furniture and paper, and as a feedstock for the production of purified cellulose and its derivatives, such as cellophane and cellulose acetate."],
+                ["doraemon", "Rosenfeld has fallen asleep!!!"],
+            ],
+            3: [
+                ["rosenfeld", "n 2005, the growing stock of forests worldwide was about 434 billion cubic meters, 47% of which was commercial. As an abundant, carbon-neutral renewable resource, woody materials have been of intense interest as a source of renewable energy. In 1991 approximately 3.5 billion cubic meters of wood were harvested. Dominant uses were for furniture and building construction."],
+                ["random_other_combatant", "Rosenfeld, it's " + Q.year + " ."],
+                ["rosenfeld", "Yeah, I asked the time travellers before, when they broke in here.|"],
+                ["rosenfeld", "A 2011 discovery in the Canadian province of New Brunswick discovered the earliest known plants to have grown wood, approximately 395 to 400 million years ago. Wood can be dated by carbon dating and in some species by dendrochronology to make inferences about when a wooden object was created. People have used wood for millennia for many purposes, primarily as a fuel or as a construction material for making houses, tools, weapons, furniture, packaging, artworks, and paper. The year-to-year variation in tree-ring widths and isotopic abundances gives clues to the prevailing climate at that time."],
+                ["doraemon", "Rosenfeld has fallen asleep!!!"],
+            ],
+        };
+
+        var dialogues = napsDialogues[Q.rosenfeld_naps] || [
+            ["rosenfeld", "I forgot the rest of the article...|"],
+            ["doraemon", "Rosenfeld has fallen asleep!!!"],
+        ];
+
+        if (!Q.doraemon_narrated) {
+            dialogues.push(["doraemon", "Why am I narrating? Uhh, look, man, somebody has to!"]);
+            Q.doraemon_narrated = 1;
+        }
+
+        var id = window.queueCombatCutscene(dialogues);
+        Q.combat_cutscene_queue.push(id);
     }
 } else {
     Q[Q.selected_combatant+"_plan"] = "naptime";
@@ -2330,6 +2362,26 @@ if (Q.socialize_cutscene_tbd) {
                 ["sender", "I just feel like everyone is putting too much blind trust into this Megatome..."],
                 ["sender", "...where did we even get it? I feel like it just showed up one day."],
                 ["sender", ".|.|.|"],
+            ];
+        } else if (Q.selected_target == "rosenfeld" && !Q.hilferding_rosenfeld_buds) {
+            var dialogues = [
+                ["hilferding", "Wazzup, Kurt.|"],
+                ["rosenfeld", "Hello Hilferding...|"],
+                ["hilferding", "Oh are we not on first name terms"],
+                ["hilferding", "Oh my gosh I'm so sorry"],
+                ["hilferding", "I'm so sorry please forgive me"],
+                ["hilferding", "I'm a moron I'm sorry it won't happen again"],
+                ["hilferding", "I'm so stupid I'm so sorry Rosenfeld"],
+                ["rosenfeld", "?|?|?|"],
+                ["hilferding", "I should never have"],
+                ["rosenfeld", "Man, you can call me what you want, I don't care.|"],
+                ["hilferding", "You don't hate me?|"],
+                ["rosenfeld", "Objection, I kind of do, but not because you called me 'Kurt'."],
+                ["hilferding", "We're besties!!! I love you, I love you, I love you!"],
+                ["doraemon", "Hilferding has"],
+                ["hilferding", "Woah dude that's kind of gay.|||"],
+                ["hilferding", "I'm out of here, I have cookies to bake"],
+                ["doraemon", "...Hilferding has befriended Rosenfeld?"],
             ];
         } else {
             var dialogues = [
@@ -2674,6 +2726,23 @@ window.deathDialogueIfNeeded = function() {
                 ["doraemon", "You literally saw her die??? You're not even who the clarification was intended for!"],
                 ["doraemon", "Look, whatever, let's just move on..."],
             );
+        }  else if (target == "rosenfeld") {
+            trigonDialogues.push(
+                ["doraemon", "Kurt Rosenfeld, you okay in there?|"],
+                ["rosenfeld", "Yep, I'm fine.|"],
+                ["doraemon", "...uh, no you're definitely not, it was a rhetorical question. Your left leg just got blown out the window and your right one doesn't even exist anymore. Don't even get me started on your fingers.|"],
+                ["rosenfeld", "Objection relevance, I'm fine. Your honor, please censure Doraemon.|"],
+                ["doraemon", "Your teeth are falling out."],
+                ["rosenfeld", "Can you stop narrating it? You're making it happen, when like, if you weren't mentioning it, I could persist in a Looney Tunes state, like running off a cliff and not looking down.|"],
+                ["rosenfeld", "You're forcing the camera to pan down right now. Which is extremely cruel and unfair."],
+                ["doraemon", "Your eyes are melting from your"],
+                ["rosenfeld", "Alright now that's just gross, what is this? Body horror? Spare the detail.|"],
+                ["doraemon", "Your bones are turning to jello, and your tongue has shrivelled up."],
+                ["rosenfeld", "Egh aauh gouegh"],
+                ["doraemon", "Your heart has imploded, and the pressure released has ruptured all your other organs."],
+                ["random_other_combatant", "This is cruel..."],
+                ["doraemon", "Rosenfeld's body turns to dust and scatters in the wind. Moving on!!!"],
+            );
         }
     }
 }
@@ -2865,6 +2934,28 @@ if (gold_trigon_move.type == "orb") {
                 var dialogues = orbDialogues[Q.sender_orbs] || [
                     ["sender", "||||"],
                     ["doraemon", "Sender took " + damage + " damage from an orb!"],
+                ];
+
+                trigonDialogues.push(...dialogues);
+            }  else if (target == "rosenfeld") {
+                Q.rosenfeld_orbs = (Q.rosenfeld_orbs || 0) + 1;
+                var orbDialogues = {
+                    1: [
+                        ["rosenfeld", "Yeeeeeeeeeeeeeeeks, this CANNOT be legal.|"],
+                        Fail commit.
+                        ["doraemon", "rosenfeld took " + damage + " damage from an orb!"],
+                        ["rosenfeld", "Capitalize my name properly, kid."],
+                        ["doraemon", "Sorry, Rosenfeld took " + damage + " damage from an orb!"],
+                    ],
+                    2: [
+                        ["rosenfeld", "||||.|.|.|these blows somewhat hurt.|"],
+                        ["doraemon", "rosenfeld took " + damage + " damage from an orb!"],
+                    ],
+                };
+
+                var dialogues = orbDialogues[Q.rosenfeld_orbs] || [
+                    ["rosenfeld", "||||"],
+                    ["doraemon", "rosenfeld took " + damage + " damage from an orb!"],
                 ];
 
                 trigonDialogues.push(...dialogues);
